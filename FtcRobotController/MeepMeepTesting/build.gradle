@@ -1,0 +1,23 @@
+plugins {
+   id 'java-library'
+    id 'application' // Add the application plugin for running the main class
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    maven { url = 'https://jitpack.io' }
+    maven { url = 'https://maven.brott.dev/' }
+}
+
+dependencies {
+    implementation 'com.github.rh-robotics:MeepMeep:v1.0.0'
+}
+
+application {
+    // Define the main class to run
+    mainClassName = 'com.example.meepmeeptesting.MeepMeepTesting'
+}
