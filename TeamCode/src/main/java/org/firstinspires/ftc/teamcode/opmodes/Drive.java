@@ -69,11 +69,11 @@ public class Drive extends LinearOpMode {
             }
 
             if(gamepad1.right_bumper){
-                slide1.setPower(0.6);
+                slide1.setPower(0.7);
                 slide2.setPower(1);
             }
             else if(gamepad1.left_bumper){
-                slide1.setPower(-0.6);
+                slide1.setPower(-0.7);
                 slide2.setPower(-1);
             }
             else{
@@ -82,8 +82,10 @@ public class Drive extends LinearOpMode {
             }
 
             if(gamepad1.right_trigger > 0.2){
+                arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.right_trigger);
             } else if (gamepad1.left_trigger > 0.2){
+                arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(-gamepad1.left_trigger);
             }
             else{
@@ -101,7 +103,7 @@ public class Drive extends LinearOpMode {
         slide2.setTargetPosition(targetPosition);
         slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide2.setPower(1);
-        slide1.setPower(direction * 0.6);
+        slide1.setPower(direction * 0.7);
 
         while (opModeIsActive() && slide2.isBusy()) {
             telemetry.addData("Target", targetPosition);
