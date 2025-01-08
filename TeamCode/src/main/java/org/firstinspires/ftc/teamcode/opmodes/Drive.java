@@ -84,10 +84,13 @@ public class Drive extends LinearOpMode {
             if(gamepad1.right_trigger > 0.2){
                 arm.setPower(gamepad1.right_trigger);
             } else if (gamepad1.left_trigger > 0.2){
-                arm.setPower(gamepad1.left_trigger);
+                arm.setPower(-gamepad1.left_trigger);
             }
             else{
-                arm.setPower(0);
+                int p = arm.getCurrentPosition();
+                arm.setTargetPosition(p);
+                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                arm.setPower(0.2);
             }
         }
     }
