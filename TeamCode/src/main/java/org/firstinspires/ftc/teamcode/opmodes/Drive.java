@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
-    private  static  final int STAGE_0 = 5
+    private  static  final int STAGE_0 = 5;
     private static final int STAGE_1 = 900;
     private static final int STAGE_2 = 1800;
     private static final int STAGE_3 = 2700;
@@ -67,7 +67,7 @@ public class Drive extends LinearOpMode {
             } else if (gamepad1.x){
                 moveToPosition(slide1,slide2,STAGE_0);
             }
-        }
+
             if(gamepad1.right_bumper){
                 slide1.setPower(0.7);
                 slide2.setPower(1);
@@ -90,6 +90,7 @@ public class Drive extends LinearOpMode {
                 arm.setPower(0);
             }
         }
+    }
     private void moveToPosition(DcMotor slide1, DcMotor slide2, int targetPosition) {
         int currentPosition = slide2.getCurrentPosition();
         int direction = (targetPosition > currentPosition) ? 1 : -1;
