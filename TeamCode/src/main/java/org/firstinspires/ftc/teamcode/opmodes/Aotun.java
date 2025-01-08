@@ -34,9 +34,7 @@ public class Aotun extends LinearOpMode {
         if (isStopRequested()) return;
 
         Actions.runBlocking(
-                new SequentialAction(
                         tab1.build()
-                )
         );
     }
 }
