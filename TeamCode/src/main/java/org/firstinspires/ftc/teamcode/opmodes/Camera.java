@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous(name = "Camera", group = "AutonT")
-public class AutoOpMode extends LinearOpMode {
+public class Camera extends LinearOpMode {
     OpenCvCamera camera;
     SampleDetectionPipeline pipeline;
     private OpenCvWebcam webcam;
