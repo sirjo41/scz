@@ -24,7 +24,7 @@ public class Aotun extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
+                .lineToYSplineHeading(10, Math.toRadians(0))
                 .waitSeconds(2);
 
         telemetry.addData("Status","DONE");
