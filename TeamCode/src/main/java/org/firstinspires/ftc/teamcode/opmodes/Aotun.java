@@ -20,13 +20,12 @@ public class Aotun extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                        .turn(10)
-                        .waitSeconds(1)
-                        .turn(10);
+                .lineToYSplineHeading(33, Math.toRadians(0))
+                .waitSeconds(2);
 
         telemetry.addData("Status","DONE");
         telemetry.update();
@@ -34,6 +33,10 @@ public class Aotun extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        tab1.build();
+        Actions.runBlocking(
+                new SequentialAction(
+                        tab1.build()
+                )
+        );
     }
 }
