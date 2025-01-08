@@ -9,7 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class Drive extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-
+        DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
+        DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
+        DcMotor arm = hardwareMap.dcMotor.get("arm");
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("fl");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("bl");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("fr");
@@ -17,6 +19,9 @@ public class Drive extends LinearOpMode {
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         waitForStart();
 
@@ -40,6 +45,28 @@ public class Drive extends LinearOpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+
+            if(gamepad1.right_bumper){
+                slide1.setPower(0.7);
+                slide2.setPower(1);
+            }
+            else if(gamepad1.left_bumper){
+                slide1.setPower(-0.7);
+                slide2.setPower(-1);
+            }
+            else{
+                slide1.setPower(0);
+                slide2.setPower(0);
+            }
+
+            if(gamepad1.right_trigger > 0.2){
+                arm.setPower(gamepad1.right_trigger);
+            } else if (gamepad1.left_trigger > 0.2){
+                arm.setPower(gamepad1.left_trigger);
+            }
+            else{
+                arm.setPower(0);
+            }
         }
     }
 }
