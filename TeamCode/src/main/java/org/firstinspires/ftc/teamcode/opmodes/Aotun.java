@@ -24,17 +24,16 @@ public class Aotun extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                        .turn(90)
+                        .turn(10)
                         .waitSeconds(1)
-                        .turn(90);
+                        .turn(10);
 
+        telemetry.addData("Status","DONE");
+        telemetry.update();
         waitForStart();
 
         if (isStopRequested()) return;
-        Actions.runBlocking(
-                new SequentialAction(
-                        tab1.build()
-                )
-        );
+
+        tab1.build();
     }
 }
