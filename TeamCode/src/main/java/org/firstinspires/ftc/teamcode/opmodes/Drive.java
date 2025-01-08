@@ -34,6 +34,8 @@ public class Drive extends LinearOpMode {
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         waitForStart();
@@ -92,7 +94,7 @@ public class Drive extends LinearOpMode {
 
         slide2.setTargetPosition(targetPosition);
         slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setPower(1); // Adjust power based on direction
+        slide2.setPower(1);
         slide1.setPower(direction * 0.7);
 
         while (opModeIsActive() && slide2.isBusy()) {
@@ -103,7 +105,5 @@ public class Drive extends LinearOpMode {
 
         slide1.setPower(0);
         slide2.setPower(0);
-        telemetry.addData("Reached", "Pos " + slide2.getCurrentPosition());
-        telemetry.update();
     }
     }
