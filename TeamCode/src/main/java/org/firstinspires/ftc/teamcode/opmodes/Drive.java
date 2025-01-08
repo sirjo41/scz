@@ -10,7 +10,7 @@ public class Drive extends LinearOpMode {
     private  static  final int STAGE_0 = 5;
     private static final int STAGE_1 = 900;
     private static final int STAGE_2 = 1800;
-    private static final int STAGE_3 = 2700;
+    private static final int STAGE_3 = 2800;
 
     @Override
     public void runOpMode() throws InterruptedException {
