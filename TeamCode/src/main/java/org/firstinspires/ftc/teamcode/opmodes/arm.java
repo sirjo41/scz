@@ -49,8 +49,6 @@ public class arm extends LinearOpMode {
             telemetry.update();
         }
 
-        // Stop the motors after reaching the target;
-        arm.setPower(0);
         telemetry.addData("Reached", "Pos " + arm.getCurrentPosition());
         telemetry.update();
     }
