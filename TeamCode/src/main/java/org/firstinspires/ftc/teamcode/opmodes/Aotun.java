@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
+import org.firstinspires.ftc.teamcode.actions.Arm;
 import  org.firstinspires.ftc.teamcode.actions.Slides;
 
 @Autonomous(name = "AutonT",group = "Test",preselectTeleOp = "Drive")
@@ -24,7 +25,7 @@ public class Aotun extends LinearOpMode {
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
         Slides slides = new Slides(hardwareMap);
-
+        Arm arm = new Arm(hardwareMap);
 
         Pose2d initialPose = new Pose2d(-0.09, -68.09, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
@@ -40,8 +41,8 @@ public class Aotun extends LinearOpMode {
 
         Actions.runBlocking(
                 new ParallelAction(
-                        tab1.build()
-//                        slides.goToStage1()
+                       slides.goToStage2(),
+                        arm.goToStage1()
                 )
         );
     }
