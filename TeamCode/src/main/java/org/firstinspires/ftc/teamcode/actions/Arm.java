@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.actions;
 
 import androidx.annotation.NonNull;
-
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,6 +14,8 @@ public class Arm {
     public static final int STAGE_1 = 550;
     public static final int STAGE_2 = 1600;
 
+    private int currentTarget = STAGE_0; // Track the target position
+
     public Arm(HardwareMap hardwareMap) {
         // Initialize motor
         arm = hardwareMap.get(DcMotor.class, "arm");
@@ -27,7 +28,6 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    // Moves to a specific position
     public Action moveToPositionAction(int targetPosition) {
         return new ArmAction(targetPosition);
     }
@@ -47,6 +47,7 @@ public class Arm {
                 arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 arm.setPower(0.5);
                 initialized = true;
+                currentTarget = targetPosition; // Update the target
             }
 
             // Provide telemetry
@@ -72,5 +73,12 @@ public class Arm {
 
     public Action goToStage2() {
         return moveToPositionAction(STAGE_2);
+    }
+
+    public void holdPosition() {
+        // Keeps the arm at the last target position
+        arm.setTargetPosition(currentTarget);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(0.1); // Hold power
     }
 }
