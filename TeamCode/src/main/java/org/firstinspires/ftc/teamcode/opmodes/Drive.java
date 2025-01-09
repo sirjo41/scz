@@ -7,11 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
-    private  static  final int S_STAGE_0 = 5;
-    private static final int S_STAGE_1 = 900;
-    private static final int S_STAGE_2 = 1800;
-    private static final int S_STAGE_3 = 2800;
-
     private static final int A_STAGE_0 = 0;
     private static final int A_STAGE_1 = 550;
     private static final int A_STAGE_2 = 1600;
@@ -65,16 +60,6 @@ public class Drive extends LinearOpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
-
-            if (gamepad1.a) {
-                SlidemoveToPosition(slide1, slide2, S_STAGE_1);
-            } else if (gamepad1.b) {
-                SlidemoveToPosition(slide1, slide2, S_STAGE_2);
-            } else if (gamepad1.y) {
-                SlidemoveToPosition(slide1, slide2, S_STAGE_3);
-            } else if (gamepad1.x){
-                SlidemoveToPosition(slide1,slide2, S_STAGE_0);
-            }
 
             if(gamepad1.right_bumper){
                 slide1.setPower(0.7);
