@@ -30,7 +30,7 @@ public class Aotun extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                        .splineToConstantHeading(new Vector2d(10, 0), Math.toRadians(90.00));
+                        .splineToConstantHeading(new Vector2d(30, 0), Math.toRadians(90.00));
 
         telemetry.addData("Status","DONE");
         telemetry.update();
