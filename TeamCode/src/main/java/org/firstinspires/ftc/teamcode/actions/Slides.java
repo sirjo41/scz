@@ -1,17 +1,19 @@
 package org.firstinspires.ftc.teamcode.actions;
 
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Slides {
     private DcMotor slide1;
     private DcMotor slide2;
 
     // Constants for stage positions
-    private static final int STAGE_1 = 900;
-    private static final int STAGE_2 = 1800;
-    private static final int STAGE_3 = 2700;
+    public static final int STAGE_0 = 5;
+    public static final int STAGE_1 = 900;
+    public static final int STAGE_2 = 1800;
+    public static final int STAGE_3 = 2700;
 
     public Slides(HardwareMap hardwareMap) {
         // Initialize motors
@@ -27,33 +29,56 @@ public class Slides {
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void goToStage1() {
-        moveToPosition(STAGE_1);
+    // Moves to a specific position
+    public Action moveToPositionAction(int targetPosition) {
+        return new SlideAction(targetPosition);
     }
 
-    public void goToStage2() {
-        moveToPosition(STAGE_2);
-    }
+    private class SlideAction implements Action {
+        private final int targetPosition;
+        private boolean initialized = false;
 
-    public void goToStage3() {
-        moveToPosition(STAGE_3);
-    }
-
-    private void moveToPosition(int targetPosition) {
-        int currentPosition = slide2.getCurrentPosition();
-        int direction = (targetPosition > currentPosition) ? 1 : -1; // Determine direction
-
-        slide2.setTargetPosition(targetPosition);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setPower(1); // Adjust power
-        slide1.setPower(direction * 0.7);
-
-        while (slide2.isBusy()) {
-
+        public SlideAction(int targetPosition) {
+            this.targetPosition = targetPosition;
         }
 
-        // Stop motors after reaching the target
-        slide1.setPower(0);
-        slide2.setPower(0);
+        @Override
+        public boolean run(TelemetryPacket packet) {
+            if (!initialized) {
+                slide2.setTargetPosition(targetPosition);
+                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slide2.setPower(1);
+                slide1.setPower((targetPosition > slide2.getCurrentPosition() ? 1 : -1) * 0.7);
+                initialized = true;
+            }
+
+            // Provide telemetry
+            packet.put("Slide Target", targetPosition);
+            packet.put("Slide Current Position", slide2.getCurrentPosition());
+
+            if (!slide2.isBusy()) {
+                slide1.setPower(0);
+                slide2.setPower(0);
+                return false; // Action is complete
+            }
+            return true; // Action is still running
+        }
+    }
+
+    // Predefined stage actions
+    public Action goToStage0() {
+        return moveToPositionAction(STAGE_0);
+    }
+
+    public Action goToStage1() {
+        return moveToPositionAction(STAGE_1);
+    }
+
+    public Action goToStage2() {
+        return moveToPositionAction(STAGE_2);
+    }
+
+    public Action goToStage3() {
+        return moveToPositionAction(STAGE_3);
     }
 }

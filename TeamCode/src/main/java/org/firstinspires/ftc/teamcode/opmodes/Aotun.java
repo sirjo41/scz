@@ -20,9 +20,11 @@ public class Aotun extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
+        Slides slides = new Slides(hardwareMap);
+
+
         Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
-
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .splineToLinearHeading(new Pose2d(10.53, 14.81, Math.toRadians(132.17)), Math.toRadians(132.17));
 
