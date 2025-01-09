@@ -33,13 +33,13 @@ public class arm extends LinearOpMode {
 
         while (opModeIsActive()) {
             // Check gamepad input for stage control
-            if(gamepad1.a){
+            if(gamepad1.dpad_up){
                 moveToPosition(arm,STAGE_0);
             }
-            else if(gamepad1.b){
+            else if(gamepad1.dpad_right){
                 moveToPosition(arm,STAGE_1);
             }
-            else if(gamepad2.y){
+            else if(gamepad2.dpad_down){
                 moveToPosition(arm,STAGE_2);
             }
             telemetry.addData("arm pos:",arm.getCurrentPosition());
