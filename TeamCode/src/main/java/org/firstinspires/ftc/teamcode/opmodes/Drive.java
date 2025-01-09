@@ -91,8 +91,16 @@ public class Drive extends LinearOpMode {
             else{
                 arm.setPower(0);
             }
+            //TODO: add the intake... :)
+//            if(gamepad1.left_stick_button){
+//
+//            }
+//            else if(gamepad1.right_stick_button){
+//
+//            }
         }
     }
+
     private void moveToPosition(DcMotor slide1, DcMotor slide2, int targetPosition) {
         int currentPosition = slide2.getCurrentPosition();
         int direction = (targetPosition > currentPosition) ? 1 : -1;

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.actions.Arm;
 import  org.firstinspires.ftc.teamcode.actions.Slides;
 
-@Autonomous(name = "AutonT",group = "Test",preselectTeleOp = "Drive")
+@Autonomous(name = "AutonT",group = "Test")
 public class Aotun extends LinearOpMode {
 
     GoBildaPinpointDriverRR odo;
