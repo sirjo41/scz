@@ -18,6 +18,7 @@ import java.util.List;
 public class SampleDetectionPipeline extends OpenCvPipeline {
     private Telemetry telemetry;
     private FtcDashboard dashboard = FtcDashboard.getInstance();
+
     // Define color ranges in HSV with extended saturation and brightness ranges
     private final Scalar yellowLower = new Scalar(20, 100, 100);
     private final Scalar yellowUpper = new Scalar(30, 255, 255);
@@ -58,7 +59,8 @@ public class SampleDetectionPipeline extends OpenCvPipeline {
         direction = "None";
 
         // Check for yellow, red (across both ranges), and blue chunks in that order
-        if ( !detectColor(hsvMat, input, redLower, redUpper, "Red" ) &&!detectColor(hsvMat,input,UredLower,UredUpper,"RED") ) {
+        if (!detectColor(hsvMat, input, redLower, redUpper, "Red") &&
+                !detectColor(hsvMat, input, UredLower, UredUpper, "Red")) {
             if (!detectColor(hsvMat, input, blueLower, blueUpper, "Blue")) {
                 detectColor(hsvMat, input, yellowLower, yellowUpper, "Yellow");
             }
@@ -104,12 +106,11 @@ public class SampleDetectionPipeline extends OpenCvPipeline {
 
     private String getDirection(int x, int y) {
         // Determine the general direction based on the object's position relative to the frame center
-        if (y < frameCenterY ) {
+        if (y < frameCenterY) {
             return "Forward";
-        }else if(y > frameCenterY){
+        } else if (y > frameCenterY) {
             return "Back";
-        }
-        else if (x < frameCenterX) {
+        } else if (x < frameCenterX) {
             return "Left";
         } else if (x > frameCenterX) {
             return "Right";
@@ -131,8 +132,16 @@ public class SampleDetectionPipeline extends OpenCvPipeline {
         packet.put("Direction", direction);
         packet.put("Frame Center X", sampleCenterXn);
         packet.put("Frame Center Y", sampleCenterYn);
-        packet.put("Size:",size);
+        packet.put("Size", size);
         dashboard.sendTelemetryPacket(packet);
+    }
+
+    public String getDetectedColor() {
+        return detectedColor;
+    }
+
+    public String getDirection() {
+        return direction;
     }
 
     @Override
