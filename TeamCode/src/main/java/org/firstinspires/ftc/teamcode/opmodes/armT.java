@@ -3,10 +3,9 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "arm", group = "TeleOp")
-public class arm extends LinearOpMode {
+public class armT extends LinearOpMode {
 
     // Define constants for stage positions
     private static final int STAGE_0 = 0;

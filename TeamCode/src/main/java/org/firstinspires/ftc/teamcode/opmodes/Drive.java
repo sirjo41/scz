@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.actions.Arm;
-
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
     private  static  final int S_STAGE_0 = 5;
@@ -22,7 +20,6 @@ public class Drive extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         boolean arh = false;
 
-        Arm aa = new Arm(hardwareMap);
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
 
@@ -160,5 +157,9 @@ public class Drive extends LinearOpMode {
         arm.setPower(0.1);
         telemetry.addData("Reached", "Pos " + arm.getCurrentPosition());
         telemetry.update();
+    }
+
+    private  void holdp(){
+
     }
     }
