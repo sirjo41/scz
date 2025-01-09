@@ -85,7 +85,9 @@ public class Drive extends LinearOpMode {
             }
             else{
                 if(arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200){
+                    arm.setPower(0);
                     arh=false;
+
                 }
                 if(arh){
                     holdp(arm);
