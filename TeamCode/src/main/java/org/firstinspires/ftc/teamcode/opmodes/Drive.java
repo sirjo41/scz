@@ -111,24 +111,6 @@ public class Drive extends LinearOpMode {
         }
     }
 
-    private void SlidemoveToPosition(DcMotor slide1, DcMotor slide2, int targetPosition) {
-        int currentPosition = slide2.getCurrentPosition();
-        int direction = (targetPosition > currentPosition) ? 1 : -1;
-
-        slide2.setTargetPosition(targetPosition);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setPower(1);
-        slide1.setPower(direction * 0.7);
-
-        while (opModeIsActive() && slide2.isBusy()) {
-            telemetry.addData("Target", targetPosition);
-            telemetry.addData("Current Position", slide2.getCurrentPosition());
-            telemetry.update();
-        }
-
-        slide1.setPower(0);
-        slide2.setPower(0);
-    }
     private void ArmmoveToPosition(DcMotor arm, int targetPosition) {
         int currentPosition = arm.getCurrentPosition();
 
