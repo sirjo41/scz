@@ -40,8 +40,8 @@ public class Aotun extends LinearOpMode {
 
         Actions.runBlocking(
                 new ParallelAction(
-                        tab1.build(),
-                        slides.goToStage1()
+                        tab1.build()
+//                        slides.goToStage1()
                 )
         );
     }
