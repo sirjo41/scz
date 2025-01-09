@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "arm", group = "TeleOp")
 public class arm extends LinearOpMode {
@@ -19,7 +20,7 @@ public class arm extends LinearOpMode {
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
 
         // Set the motor direction
-        arm.setDirection(DcMotor.Direction.REVERSE);
+        arm.setDirection(DcMotor.Direction.FORWARD);
 
         // Initialize encoders
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -58,7 +59,7 @@ public class arm extends LinearOpMode {
             telemetry.addData("Current Position", arm.getCurrentPosition());
             telemetry.update();
         }
-
+        arm.setPower(0.1);
         telemetry.addData("Reached", "Pos " + arm.getCurrentPosition());
         telemetry.update();
     }
