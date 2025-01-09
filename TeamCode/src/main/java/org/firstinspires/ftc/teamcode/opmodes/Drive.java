@@ -84,6 +84,9 @@ public class Drive extends LinearOpMode {
                 arm.setPower(-gamepad1.left_trigger);
             }
             else{
+                if(arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200){
+                    arh=false;
+                }
                 if(arh){
                     holdp(arm);
                     arh = false;
