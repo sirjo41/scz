@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.actions;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.jetbrains.annotations.NonNls;
 
 public class Slides {
     private DcMotor slide1;
@@ -43,7 +47,7 @@ public class Slides {
         }
 
         @Override
-        public boolean run(TelemetryPacket packet) {
+        public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
                 slide2.setTargetPosition(targetPosition);
                 slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
