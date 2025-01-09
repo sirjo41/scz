@@ -20,7 +20,7 @@ public class Drive extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        boolean arh = true;
+        boolean arh = false;
 
         Arm aa = new Arm(hardwareMap);
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
