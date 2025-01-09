@@ -5,15 +5,24 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.actions.Arm;
+
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
-    private  static  final int STAGE_0 = 5;
-    private static final int STAGE_1 = 900;
-    private static final int STAGE_2 = 1800;
-    private static final int STAGE_3 = 2800;
+    private  static  final int S_STAGE_0 = 5;
+    private static final int S_STAGE_1 = 900;
+    private static final int S_STAGE_2 = 1800;
+    private static final int S_STAGE_3 = 2800;
+
+    private static final int A_STAGE_0 = 0;
+    private static final int A_STAGE_1 = 550;
+    private static final int A_STAGE_2 = 1600;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        boolean arh = true;
+
+        Arm aa = new Arm(hardwareMap);
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
 
@@ -24,12 +33,14 @@ public class Drive extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("fr");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("br");
 
+        arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
-
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -59,13 +70,13 @@ public class Drive extends LinearOpMode {
             backRightMotor.setPower(backRightPower);
 
             if (gamepad1.a) {
-                moveToPosition(slide1, slide2, STAGE_1);
+                SlidemoveToPosition(slide1, slide2, S_STAGE_1);
             } else if (gamepad1.b) {
-                moveToPosition(slide1, slide2, STAGE_2);
+                SlidemoveToPosition(slide1, slide2, S_STAGE_2);
             } else if (gamepad1.y) {
-                moveToPosition(slide1, slide2, STAGE_3);
+                SlidemoveToPosition(slide1, slide2, S_STAGE_3);
             } else if (gamepad1.x){
-                moveToPosition(slide1,slide2,STAGE_0);
+                SlidemoveToPosition(slide1,slide2, S_STAGE_0);
             }
 
             if(gamepad1.right_bumper){
@@ -82,14 +93,28 @@ public class Drive extends LinearOpMode {
             }
 
             if(gamepad1.right_trigger > 0.2){
+                arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.right_trigger);
             } else if (gamepad1.left_trigger > 0.2){
+                arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(-gamepad1.left_trigger);
             }
             else{
-                arm.setPower(0);
+                if(arh){
+                    aa.holdPosition();
+                    arh = false;
+                }
+            }
+            if(gamepad1.dpad_up){
+                ArmmoveToPosition(arm, A_STAGE_0);
+            }
+            if(gamepad1.dpad_right){
+                ArmmoveToPosition(arm, A_STAGE_1);
+            }
+            if(gamepad1.dpad_down){
+                ArmmoveToPosition(arm, A_STAGE_2);
             }
             //TODO: add the intake... :)
 //            if(gamepad1.left_stick_button){
@@ -101,7 +126,7 @@ public class Drive extends LinearOpMode {
         }
     }
 
-    private void moveToPosition(DcMotor slide1, DcMotor slide2, int targetPosition) {
+    private void SlidemoveToPosition(DcMotor slide1, DcMotor slide2, int targetPosition) {
         int currentPosition = slide2.getCurrentPosition();
         int direction = (targetPosition > currentPosition) ? 1 : -1;
 
@@ -118,5 +143,22 @@ public class Drive extends LinearOpMode {
 
         slide1.setPower(0);
         slide2.setPower(0);
+    }
+    private void ArmmoveToPosition(DcMotor arm, int targetPosition) {
+        int currentPosition = arm.getCurrentPosition();
+
+        arm.setTargetPosition(targetPosition);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(0.5); // Adjust power based on direction
+
+
+        while (opModeIsActive() && arm.isBusy()) {
+            telemetry.addData("Target", targetPosition);
+            telemetry.addData("Current Position", arm.getCurrentPosition());
+            telemetry.update();
+        }
+        arm.setPower(0.1);
+        telemetry.addData("Reached", "Pos " + arm.getCurrentPosition());
+        telemetry.update();
     }
     }
