@@ -100,7 +100,7 @@ public class Drive extends LinearOpMode {
             }
             else{
                 if(arh){
-                    aa.holdPosition();
+                    holdp(arm);
                     arh = false;
                 }
             }
@@ -159,7 +159,10 @@ public class Drive extends LinearOpMode {
         telemetry.update();
     }
 
-    private  void holdp(){
-
+    private  void holdp(DcMotor arm){
+        int currentTarget = arm.getCurrentPosition();
+        arm.setTargetPosition(currentTarget);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(0.1);
     }
     }
