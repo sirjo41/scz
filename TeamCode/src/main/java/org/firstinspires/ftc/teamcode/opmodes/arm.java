@@ -39,7 +39,7 @@ public class arm extends LinearOpMode {
             if(gamepad1.dpad_right){
                 moveToPosition(arm,STAGE_1);
             }
-            if(gamepad2.dpad_down){
+            if(gamepad1.dpad_down){
                 moveToPosition(arm,STAGE_2);
             }
             telemetry.addData("arm pos:",arm.getCurrentPosition());
