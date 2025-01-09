@@ -47,6 +47,8 @@ public class Aotun extends LinearOpMode {
         );
 
         arm.holdPosition();
+
+        sleep(1000000000);
         telemetry.addData("Status", "Completed");
         telemetry.update();
     }
