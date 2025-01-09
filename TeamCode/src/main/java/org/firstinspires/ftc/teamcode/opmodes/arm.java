@@ -8,9 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class arm extends LinearOpMode {
 
     // Define constants for stage positions
-    private static final int STAGE_1 = 900;
-    private static final int STAGE_2 = 1800;
-    private static final int STAGE_3 = 2700;
+    private static final int STAGE_0 = 0;
+    private static final int STAGE_1 = 550;
+    private static final int STAGE_2 = 1600;
+
 
     @Override
     public void runOpMode() {
@@ -31,6 +32,15 @@ public class arm extends LinearOpMode {
 
         while (opModeIsActive()) {
             // Check gamepad input for stage control
+            if(gamepad1.a){
+                moveToPosition(arm,STAGE_0);
+            }
+            else if(gamepad1.b){
+                moveToPosition(arm,STAGE_1);
+            }
+            else if(gamepad2.y){
+                moveToPosition(arm,STAGE_2);
+            }
             telemetry.addData("arm pos:",arm.getCurrentPosition());
             telemetry.update();
         }
