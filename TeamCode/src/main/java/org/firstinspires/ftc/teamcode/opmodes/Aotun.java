@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Trajectory;
@@ -10,6 +11,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import  org.firstinspires.ftc.teamcode.actions.Slides;
 
@@ -23,9 +26,11 @@ public class Aotun extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
 
 
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(23.66, -69.16, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+                        .splineToConstantHeading(new Vector2d(0.10, -32.45), Math.toRadians(92.04));
 
         telemetry.addData("Status","DONE");
         telemetry.update();
@@ -34,11 +39,9 @@ public class Aotun extends LinearOpMode {
         if (isStopRequested()) return;
 
         Actions.runBlocking(
-                new SequentialAction(
-                        slides.goToStage1(),
-                        slides.goToStage3(),
-                        slides.goToStage0()
-
+                new ParallelAction(
+                        tab1.build(),
+                        slides.goToStage1()
                 )
         );
     }
