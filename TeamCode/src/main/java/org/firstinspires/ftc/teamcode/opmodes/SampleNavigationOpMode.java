@@ -48,12 +48,12 @@ public class SampleNavigationOpMode extends LinearOpMode {
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Initialize the camera and pipeline
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
@@ -127,6 +127,7 @@ public class SampleNavigationOpMode extends LinearOpMode {
         // Adjust the arm and slides based on the sample size
         int armPosition = (int) (size / 10); // Example scaling for arm position
         arm.setTargetPosition(armPosition);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.1);
 
         int slidePosition;
@@ -138,6 +139,8 @@ public class SampleNavigationOpMode extends LinearOpMode {
             slidePosition = STAGE_3;
         }
 
+        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setTargetPosition(slidePosition);
         slide2.setTargetPosition(slidePosition);
         slide1.setPower(0.1);
