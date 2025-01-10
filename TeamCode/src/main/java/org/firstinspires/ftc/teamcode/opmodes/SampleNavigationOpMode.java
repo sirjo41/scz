@@ -103,16 +103,16 @@ public class SampleNavigationOpMode extends LinearOpMode {
         // Move the robot based on the direction to align with the sample
         switch (direction) {
             case "Left":
-                driveMecanum(-0.3, 0, 0); // Strafe left
+                driveMecanum(-0.1, 0, 0); // Strafe left
                 break;
             case "Right":
-                driveMecanum(0.3, 0, 0); // Strafe right
+                driveMecanum(0.1, 0, 0); // Strafe right
                 break;
             case "Forward":
-                driveMecanum(0, 0.3, 0); // Move forward
+                driveMecanum(0, 0.1, 0); // Move forward
                 break;
             case "Back":
-                driveMecanum(0, -0.3, 0); // Move backward
+                driveMecanum(0, -0.1, 0); // Move backward
                 break;
             case "Done":
                 stopMotors();
@@ -126,7 +126,7 @@ public class SampleNavigationOpMode extends LinearOpMode {
         // Adjust the arm and slides based on the sample size
         int armPosition = (int) (size / 10); // Example scaling for arm position
         arm.setTargetPosition(armPosition);
-        arm.setPower(0.5);
+        arm.setPower(0.1);
 
         int slidePosition;
         if (size < 1000) {
@@ -139,8 +139,8 @@ public class SampleNavigationOpMode extends LinearOpMode {
 
         slide1.setTargetPosition(slidePosition);
         slide2.setTargetPosition(slidePosition);
-        slide1.setPower(0.5);
-        slide2.setPower(0.5);
+        slide1.setPower(0.1);
+        slide2.setPower(0.1);
 
         while (arm.isBusy() || slide1.isBusy() || slide2.isBusy()) {
             // Wait until adjustments are complete
