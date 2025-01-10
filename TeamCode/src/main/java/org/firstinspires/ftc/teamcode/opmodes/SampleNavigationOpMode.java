@@ -126,8 +126,8 @@ public class SampleNavigationOpMode extends LinearOpMode {
     private void adjustArmAndSlides(double size) {
         // Adjust the arm and slides based on the sample size
         int armPosition = (int) (size / 10); // Example scaling for arm position
-        arm.setTargetPosition(armPosition);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setTargetPosition(armPosition);
         arm.setPower(0.1);
 
         int slidePosition;
