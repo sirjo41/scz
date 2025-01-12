@@ -26,8 +26,8 @@ public class SampleDetectionPipeline extends OpenCvPipeline {
     private final Scalar redUpper = new Scalar(10, 255, 255);
     private final Scalar UredLower = new Scalar(160, 100, 100);
     private final Scalar UredUpper = new Scalar(179, 255, 255);
-    private final Scalar blueLower = new Scalar(78, 50, 50);
-    private final Scalar blueUpper = new Scalar(140, 255, 255);
+    private final Scalar blueLower = new Scalar(0, 100, 100);//78 50 50
+    private final Scalar blueUpper = new Scalar(10, 255, 255);//140 255 255
 
     // Reusable Mats for processing
     private Mat hsvMat = new Mat();
