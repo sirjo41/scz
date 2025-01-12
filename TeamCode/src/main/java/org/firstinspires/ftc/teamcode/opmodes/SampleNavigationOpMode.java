@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.vision.SampleDetectionPipeline;
@@ -16,7 +18,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 public class SampleNavigationOpMode extends LinearOpMode {
 
     private OpenCvWebcam webcam;
-    private SampleDetectionPipeline pipeline;
+    private FtcDashboard dashboard;
 
     private DcMotor frontLeftMotor;
     private DcMotor backLeftMotor;
@@ -33,6 +35,7 @@ public class SampleNavigationOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Initialize hardware
+        dashboard = FtcDashboard.getInstance();
         frontLeftMotor = hardwareMap.dcMotor.get("fl");
         backLeftMotor = hardwareMap.dcMotor.get("bl");
         frontRightMotor = hardwareMap.dcMotor.get("fr");
@@ -47,6 +50,9 @@ public class SampleNavigationOpMode extends LinearOpMode {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -54,19 +60,19 @@ public class SampleNavigationOpMode extends LinearOpMode {
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         // Initialize the camera and pipeline
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        pipeline = new SampleDetectionPipeline(telemetry);
+        SampleDetectionPipeline pipeline = new SampleDetectionPipeline(telemetry);
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
                 webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+                dashboard.startCameraStream(webcam, 30);
             }
 
             @Override
@@ -126,8 +132,8 @@ public class SampleNavigationOpMode extends LinearOpMode {
     private void adjustArmAndSlides(double size) {
         // Adjust the arm and slides based on the sample size
         int armPosition = (int) (size / 10); // Example scaling for arm position
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setTargetPosition(armPosition);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.1);
 
         int slidePosition;
@@ -139,10 +145,10 @@ public class SampleNavigationOpMode extends LinearOpMode {
             slidePosition = STAGE_3;
         }
 
-        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setTargetPosition(slidePosition);
         slide2.setTargetPosition(slidePosition);
+        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setPower(0.1);
         slide2.setPower(0.1);
 
