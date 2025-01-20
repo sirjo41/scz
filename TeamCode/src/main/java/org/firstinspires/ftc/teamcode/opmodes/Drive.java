@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
@@ -11,10 +12,18 @@ public class Drive extends LinearOpMode {
     private static final int A_STAGE_1 = 550;
     private static final int A_STAGE_2 = 1600;
 
+    private static final double INTAKE_OPEN_POSITION = 1.0;
+    private static final double INTAKE_CLOSED_POSITION = 0.0;
+
+    private static final double RS_DEFAULT = 0.8;
+    private static final double RS_CLOSED = 0.0;
+    private static final double RS_OPEN = 1.0;
+
     @Override
     public void runOpMode() throws InterruptedException {
         boolean arh = false;
 
+        // Motor Initialization
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
 
@@ -25,6 +34,11 @@ public class Drive extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("fr");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("br");
 
+        Servo intakeServo1 = hardwareMap.servo.get("intakeServo1");
+        Servo intakeServo2 = hardwareMap.servo.get("intakeServo2");
+        Servo rsServo = hardwareMap.servo.get("rs");
+
+        // Motor and Servo Configuration
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
@@ -40,6 +54,10 @@ public class Drive extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Set Initial Servo Positions
+        intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
+        intakeServo2.setPosition(INTAKE_OPEN_POSITION);
+        rsServo.setPosition(RS_DEFAULT);
 
         waitForStart();
 
@@ -61,65 +79,65 @@ public class Drive extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-            if(gamepad1.right_bumper){
+            if (gamepad1.right_bumper) {
                 slide1.setPower(0.7);
                 slide2.setPower(1);
-            }
-            else if(gamepad1.left_bumper){
+            } else if (gamepad1.left_bumper) {
                 slide1.setPower(-0.7);
                 slide2.setPower(-1);
-            }
-            else{
+            } else {
                 slide1.setPower(0);
                 slide2.setPower(0);
             }
 
-            if(gamepad1.right_trigger > 0.2){
+            if (gamepad1.right_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.right_trigger);
-            } else if (gamepad1.left_trigger > 0.2){
+            } else if (gamepad1.left_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(-gamepad1.left_trigger);
-            }
-            else{
-                if(arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200){
+            } else {
+                if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                     arm.setPower(0);
-                    arh=false;
-
+                    arh = false;
                 }
-                if(arh){
-                    holdp(arm);
+                if (arh) {
+                    holdPosition(arm);
                     arh = false;
                 }
             }
-            if(gamepad1.dpad_up){
-                ArmmoveToPosition(arm, A_STAGE_0);
+
+            if (gamepad1.dpad_up) {
+                moveArmToPosition(arm, A_STAGE_0);
             }
-            if(gamepad1.dpad_right){
-                ArmmoveToPosition(arm, A_STAGE_1);
+            if (gamepad1.dpad_right) {
+                moveArmToPosition(arm, A_STAGE_1);
             }
-            if(gamepad1.dpad_down){
-                ArmmoveToPosition(arm, A_STAGE_2);
+            if (gamepad1.dpad_down) {
+                moveArmToPosition(arm, A_STAGE_2);
             }
-            //TODO: add the intake... :)
-//            if(gamepad1.left_stick_button){
-//
-//            }
-//            else if(gamepad1.right_stick_button){
-//
-//            }
+
+            // Servo Controls
+            if (gamepad1.a) {
+                moveIntakeServos(intakeServo1, intakeServo2, INTAKE_OPEN_POSITION, INTAKE_CLOSED_POSITION);
+            } else if (gamepad1.b) {
+                moveIntakeServos(intakeServo1, intakeServo2, INTAKE_CLOSED_POSITION, INTAKE_OPEN_POSITION);
+            }
+
+            if (gamepad1.x) {
+                rsServo.setPosition(RS_CLOSED);
+            } else if (gamepad1.y) {
+                rsServo.setPosition(RS_OPEN);
+            }
         }
     }
 
-    private void ArmmoveToPosition(DcMotor arm, int targetPosition) {
-        int currentPosition = arm.getCurrentPosition();
-
+    private void moveArmToPosition(DcMotor arm, int targetPosition) {
         arm.setTargetPosition(targetPosition);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.5); // Adjust power based on direction
-
+        arm.setPower(0.5);
 
         while (opModeIsActive() && arm.isBusy()) {
             telemetry.addData("Target", targetPosition);
@@ -127,14 +145,21 @@ public class Drive extends LinearOpMode {
             telemetry.update();
         }
         arm.setPower(0.1);
-        telemetry.addData("Reached", "Pos " + arm.getCurrentPosition());
-        telemetry.update();
     }
 
-    private  void holdp(DcMotor arm){
+    private void holdPosition(DcMotor arm) {
         int currentTarget = arm.getCurrentPosition();
         arm.setTargetPosition(currentTarget);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.1);
     }
+
+    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
+        intakeServo1.setPosition(position1);
+        intakeServo2.setPosition(position2);
+
+        telemetry.addData("Intake Servo 1", position1);
+        telemetry.addData("Intake Servo 2", position2);
+        telemetry.update();
     }
+}
