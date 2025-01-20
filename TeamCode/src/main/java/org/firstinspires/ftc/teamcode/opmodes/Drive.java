@@ -23,7 +23,6 @@ public class Drive extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         boolean arh = false;
 
-        // Motor Initialization
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
 
@@ -38,7 +37,6 @@ public class Drive extends LinearOpMode {
         Servo intakeServo2 = hardwareMap.servo.get("intakeServo2");
         Servo rsServo = hardwareMap.servo.get("rs");
 
-        // Motor and Servo Configuration
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
