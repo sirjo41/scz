@@ -27,11 +27,20 @@ public class Aotun extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
 
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90.00));
+        Pose2d initialPose = new Pose2d(24.31, -68.09, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                                .lineToY(10);
+        TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
+                                .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00));
+
+        TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(1.0, -40.0, Math.toRadians(90.00)))
+                .splineToConstantHeading(new Vector2d(35.67, -35.49), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(35.67, -14.81), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(40.00, -14.81), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(40.00, -53.18), Math.toRadians(90.00));
+
+
+
         telemetry.addData("Status","DONE");
         telemetry.update();
         waitForStart();
@@ -39,7 +48,7 @@ public class Aotun extends LinearOpMode {
 
         Actions.runBlocking(
                 new ParallelAction(
-                        tab1.build(),
+                        sp.build(),
                        slides.goToStage2(),
                         arm.goToStage1()
                 )
