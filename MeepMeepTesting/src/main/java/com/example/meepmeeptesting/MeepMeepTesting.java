@@ -2,7 +2,6 @@ package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-
 import org.rowlandhall.meepmeep.MeepMeep;
 import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
 import org.rowlandhall.meepmeep.roadrunner.DriveTrainType;
@@ -13,10 +12,12 @@ public class MeepMeepTesting {
         MeepMeep meepMeep = new MeepMeep(700);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setDriveTrainType(DriveTrainType.MECANUM)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
-                .followTrajectorySequence(drive ->  drive.trajectorySequenceBuilder(new Pose2d(1.0, -40.0, Math.toRadians(90.00)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24.31, -68.09, Math.toRadians(90.00)))
+                        .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("put sp"))
                         .splineToConstantHeading(new Vector2d(35.67, -35.49), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(35.67, -10.00), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(45.00, -10.00), Math.toRadians(90.00))
@@ -28,11 +29,29 @@ public class MeepMeepTesting {
                         .splineToConstantHeading(new Vector2d(62.00, -10.00), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(62.00, -49.00), Math.toRadians(90.00))
                         .splineTo(new Vector2d(35.64,-55.75), Math.toRadians(270.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("take sp"))
+
+                        .splineToLinearHeading(new Pose2d(1.0, -40.0, Math.toRadians(90.00)), Math.toRadians(270.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("put sp"))
+                        .splineToLinearHeading(new Pose2d(35.64,-55.75,Math.toRadians(270.00)), Math.toRadians(90.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("take sp"))
+
+                        .splineToLinearHeading(new Pose2d(1.0, -40.0, Math.toRadians(90.00)), Math.toRadians(270.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("put sp"))
+
+                        .splineToLinearHeading(new Pose2d(35.64,-55.75, Math.toRadians(270.00)), Math.toRadians(90.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("take sp"))
+                        .splineToLinearHeading(new Pose2d(1.0, -40.0,Math.toRadians(90.00)), Math.toRadians(270.00))
+                        .waitSeconds(0.5)
+                        .addTemporalMarker(() -> System.out.println("put sp"))
                         .build()
 
-
                 );
-
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTOTHEDEEP_JUICE_DARK)
                 .setDarkMode(true)
