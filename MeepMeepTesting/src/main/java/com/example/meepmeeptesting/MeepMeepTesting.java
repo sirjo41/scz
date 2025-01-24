@@ -10,15 +10,24 @@ import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(700);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setDriveTrainType(DriveTrainType.MECANUM)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->  drive.trajectorySequenceBuilder(new Pose2d(1.0, -40.0, Math.toRadians(90.00)))
-                        .splineToConstantHeading(new Vector2d(35.00, -13.00), Math.toRadians(90.00))
-                        .splineToConstantHeading(new Vector2d(45.00, -12.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(35.67, -35.49), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(35.67, -10.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(45.00, -10.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(45.00, -49.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(45.00, -10.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(55.00, -10.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(55.00, -49.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(55.00, -10.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(62.00, -10.00), Math.toRadians(90.00))
+                        .splineToConstantHeading(new Vector2d(62.00, -49.00), Math.toRadians(90.00))
+                        .splineTo(new Vector2d(35.64,-55.75), Math.toRadians(270.00))
                         .build()
 
 
