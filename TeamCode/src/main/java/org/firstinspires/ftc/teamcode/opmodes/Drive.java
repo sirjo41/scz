@@ -35,7 +35,7 @@ public class Drive extends LinearOpMode {
 
         Servo intakeServo1 = hardwareMap.servo.get("Lin");
         Servo intakeServo2 = hardwareMap.servo.get("Rin");
-        Servo wrist = hardwareMap.servo.get("wrist");
+        Servo wrist = hardwareMap.servo.get("Wrist");
 
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
