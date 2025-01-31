@@ -88,14 +88,14 @@ public class Drive extends LinearOpMode {
                 slide2.setPower(0);
             }
 
-            if (gamepad1.right_trigger > 0.2) {
+            if (gamepad2.right_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.right_trigger);
-            } else if (gamepad1.left_trigger > 0.2) {
+            } else if (gamepad2.left_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                arm.setPower(-gamepad1.left_trigger);
+                arm.setPower(-gamepad2.left_trigger);
             } else {
                 if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                     arm.setPower(0);
@@ -107,26 +107,26 @@ public class Drive extends LinearOpMode {
                 }
             }
 
-            if (gamepad1.dpad_up) {
+            if (gamepad2.dpad_up) {
                 moveArmToPosition(arm, A_STAGE_0);
             }
-            if (gamepad1.dpad_right) {
+            if (gamepad2.dpad_right) {
                 moveArmToPosition(arm, A_STAGE_1);
             }
-            if (gamepad1.dpad_down) {
+            if (gamepad2.dpad_down) {
                 moveArmToPosition(arm, A_STAGE_2);
             }
 
             // Servo Controls
-            if (gamepad1.a) {
+            if (gamepad2.a) {
                 moveIntakeServos(intakeServo1, intakeServo2, INTAKE_OPEN_POSITION, INTAKE_CLOSED_POSITION);
-            } else if (gamepad1.b) {
+            } else if (gamepad2.b) {
                 moveIntakeServos(intakeServo1, intakeServo2, INTAKE_CLOSED_POSITION, INTAKE_OPEN_POSITION);
             }
 
-            if (gamepad1.x) {
+            if (gamepad2.x) {
                 rsServo.setPosition(RS_CLOSED);
-            } else if (gamepad1.y) {
+            } else if (gamepad2.y) {
                 rsServo.setPosition(RS_OPEN);
             }
         }
