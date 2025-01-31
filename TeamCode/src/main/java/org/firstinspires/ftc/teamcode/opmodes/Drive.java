@@ -15,9 +15,9 @@ public class Drive extends LinearOpMode {
     private static final double INTAKE_OPEN_POSITION = 1.0;
     private static final double INTAKE_CLOSED_POSITION = 0.0;
 
-    private static final double RS_DEFAULT = 0.8;
-    private static final double RS_CLOSED = 0.0;
-    private static final double RS_OPEN = 1.0;
+    private static final double WR_DF = 0.8;
+    private static final double WR_CLOSED = 0.0;
+    private static final double WR_OPEN = 1.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,9 +33,9 @@ public class Drive extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("fr");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("br");
 
-        Servo intakeServo1 = hardwareMap.servo.get("intakeServo1");
-        Servo intakeServo2 = hardwareMap.servo.get("intakeServo2");
-        Servo rsServo = hardwareMap.servo.get("rs");
+        Servo intakeServo1 = hardwareMap.servo.get("Lin");
+        Servo intakeServo2 = hardwareMap.servo.get("Rin");
+        Servo wrist = hardwareMap.servo.get("wrist");
 
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
@@ -55,8 +55,9 @@ public class Drive extends LinearOpMode {
         // Set Initial Servo Positions
         intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
         intakeServo2.setPosition(INTAKE_OPEN_POSITION);
-        rsServo.setPosition(RS_DEFAULT);
-
+        wrist.setPosition(WR_DF);
+        gamepad1.rumble(500);
+        gamepad2.rumble(500);
         waitForStart();
 
         if (isStopRequested()) return;
@@ -125,9 +126,9 @@ public class Drive extends LinearOpMode {
             }
 
             if (gamepad2.x) {
-                rsServo.setPosition(RS_CLOSED);
+                wrist.setPosition(WR_CLOSED);
             } else if (gamepad2.y) {
-                rsServo.setPosition(RS_OPEN);
+                wrist.setPosition(WR_OPEN);
             }
         }
     }
