@@ -37,6 +37,7 @@ public class Drive extends LinearOpMode {
         Servo intakeServo2 = hardwareMap.servo.get("Rin");
         Servo wrist = hardwareMap.servo.get("Wrist");
 
+
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
@@ -58,6 +59,9 @@ public class Drive extends LinearOpMode {
         wrist.setPosition(WR_DF);
         gamepad1.rumble(500);
         gamepad2.rumble(500);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
         waitForStart();
 
         if (isStopRequested()) return;
