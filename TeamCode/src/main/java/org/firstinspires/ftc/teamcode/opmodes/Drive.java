@@ -129,7 +129,7 @@ public class Drive extends LinearOpMode {
 
             if (gamepad1.x) {
                 wrist.setPosition(WR_CLOSED);
-            } else if (gamepad2.y) {
+            } else if (gamepad1.y) {
                 wrist.setPosition(WR_OPEN);
             }
         }
