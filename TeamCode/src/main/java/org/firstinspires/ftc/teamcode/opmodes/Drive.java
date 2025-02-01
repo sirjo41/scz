@@ -23,8 +23,9 @@ public class Drive extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        boolean arh = false;
+        boolean arh = false; //used in arm hold position
 
+        //define motors
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
 
@@ -39,7 +40,7 @@ public class Drive extends LinearOpMode {
         CRServo intakeServo2 = hardwareMap.crservo.get("Rin");
         CRServo wrist = hardwareMap.crservo.get("Wrist");
 
-
+        //motors directions
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
@@ -47,11 +48,13 @@ public class Drive extends LinearOpMode {
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeServo2.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //motors modes
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //motors zero power behavior
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -68,6 +71,8 @@ public class Drive extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+
+            //drivetrain
             double y = -gamepad2.left_stick_y;
             double x = gamepad2.left_stick_x * 1.1;
             double rx = gamepad2.right_stick_x;
@@ -83,6 +88,7 @@ public class Drive extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
+            //slides
             if (gamepad1.right_bumper) {
                 slide1.setPower(0.7);
                 slide2.setPower(1);
@@ -94,6 +100,11 @@ public class Drive extends LinearOpMode {
                 slide2.setPower(0);
             }
 
+            if(gamepad1.dpad_left){
+                moveSlideToPos(slide1, slide2);
+            }
+
+            //arm
             if (gamepad1.right_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -123,7 +134,7 @@ public class Drive extends LinearOpMode {
                 moveArmToPosition(arm, A_STAGE_2);
             }
 
-            // Servo Controls
+            //servos
             if (gamepad1.a) {
                 intakeServo1.setPower(1);
                 intakeServo2.setPower(1);
@@ -139,16 +150,14 @@ public class Drive extends LinearOpMode {
 
             if (gamepad1.x) {
                 wrist.setPower(1);
-            } else if (gamepad1.y) {
+            }
+            else if (gamepad1.y) {
                 wrist.setPower(-1);
             }
             else {
                 wrist.setPower(0);
             }
 
-            if(gamepad1.dpad_left){
-                moveSlideToPos(slide1, slide2);
-            }
         }
     }
 
