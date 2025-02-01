@@ -41,7 +41,7 @@ public class Drive extends LinearOpMode {
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -57,8 +57,6 @@ public class Drive extends LinearOpMode {
         intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
         intakeServo2.setPosition(INTAKE_OPEN_POSITION);
         wrist.setPosition(WR_DF);
-        gamepad1.rumble(500);
-        gamepad2.rumble(500);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -67,9 +65,9 @@ public class Drive extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y;
-            double x = gamepad1.left_stick_x * 1.1;
-            double rx = gamepad1.right_stick_x;
+            double y = -gamepad2.left_stick_y;
+            double x = gamepad2.left_stick_x * 1.1;
+            double rx = gamepad2.right_stick_x;
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
             double frontLeftPower = (y + x + rx) / denominator;
@@ -93,11 +91,11 @@ public class Drive extends LinearOpMode {
                 slide2.setPower(0);
             }
 
-            if (gamepad2.right_trigger > 0.2) {
+            if (gamepad1.right_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.right_trigger);
-            } else if (gamepad2.left_trigger > 0.2) {
+            } else if (gamepad1.left_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(-gamepad2.left_trigger);
@@ -112,24 +110,24 @@ public class Drive extends LinearOpMode {
                 }
             }
 
-            if (gamepad2.dpad_up) {
+            if (gamepad1.dpad_up) {
                 moveArmToPosition(arm, A_STAGE_0);
             }
-            if (gamepad2.dpad_right) {
+            if (gamepad1.dpad_right) {
                 moveArmToPosition(arm, A_STAGE_1);
             }
-            if (gamepad2.dpad_down) {
+            if (gamepad1.dpad_down) {
                 moveArmToPosition(arm, A_STAGE_2);
             }
 
             // Servo Controls
-            if (gamepad2.a) {
+            if (gamepad1.a) {
                 moveIntakeServos(intakeServo1, intakeServo2, INTAKE_OPEN_POSITION, INTAKE_CLOSED_POSITION);
             } else if (gamepad2.b) {
                 moveIntakeServos(intakeServo1, intakeServo2, INTAKE_CLOSED_POSITION, INTAKE_OPEN_POSITION);
             }
 
-            if (gamepad2.x) {
+            if (gamepad1.x) {
                 wrist.setPosition(WR_CLOSED);
             } else if (gamepad2.y) {
                 wrist.setPosition(WR_OPEN);
