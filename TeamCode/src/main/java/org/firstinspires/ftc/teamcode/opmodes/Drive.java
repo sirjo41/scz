@@ -98,7 +98,7 @@ public class Drive extends LinearOpMode {
             } else if (gamepad1.left_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                arm.setPower(-gamepad2.left_trigger);
+                arm.setPower(-gamepad1.left_trigger);
             } else {
                 if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                     arm.setPower(0);
