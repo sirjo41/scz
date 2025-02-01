@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
@@ -15,12 +14,12 @@ public class Drive extends LinearOpMode {
 
     private  static  final  int S_INTAKE = 800;
 
-    private static final double INTAKE_OPEN_POSITION = 1.0;
-    private static final double INTAKE_CLOSED_POSITION = 0.0;
-
-    private static final double WR_DF = 0.8;
-    private static final double WR_CLOSED = 0.0;
-    private static final double WR_OPEN = 1.0;
+//    private static final double INTAKE_OPEN_POSITION = 1.0;
+//    private static final double INTAKE_CLOSED_POSITION = 0.0;
+//
+//    private static final double WR_DF = 0.8;
+//    private static final double WR_CLOSED = 0.0;
+//    private static final double WR_OPEN = 1.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -148,7 +147,7 @@ public class Drive extends LinearOpMode {
             }
 
             if(gamepad1.dpad_left){
-                moveSlideToPos(slide1, slide2, S_INTAKE);
+                moveSlideToPos(slide1, slide2);
             }
         }
     }
@@ -173,28 +172,28 @@ public class Drive extends LinearOpMode {
         arm.setPower(0.1);
     }
 
-    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
-        intakeServo1.setPosition(position1);
-        intakeServo2.setPosition(position2);
+//    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
+//        intakeServo1.setPosition(position1);
+//        intakeServo2.setPosition(position2);
+//
+//        telemetry.addData("Intake Servo 1", position1);
+//        telemetry.addData("Intake Servo 2", position2);
+//        telemetry.update();
+//    }
 
-        telemetry.addData("Intake Servo 1", position1);
-        telemetry.addData("Intake Servo 2", position2);
-        telemetry.update();
-    }
-
-    private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2,int targetpos){
-        slide2.setTargetPosition(targetpos);
+    private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
+        slide2.setTargetPosition(Drive.S_INTAKE);
         slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         slide2.setPower(1);
-        if(slide2.getCurrentPosition() > targetpos){
+        if(slide2.getCurrentPosition() > Drive.S_INTAKE){
             slide1.setPower(-0.7);
         }
         else{
             slide1.setPower(0.7);
         }
         while (opModeIsActive() && slide2.isBusy()) {
-            telemetry.addData("Target", targetpos);
+            telemetry.addData("Target", Drive.S_INTAKE);
             telemetry.addData("Current Position", slide2.getCurrentPosition());
             telemetry.update();
         }
