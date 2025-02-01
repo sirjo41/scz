@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.teamcode.actions.Arm;
 import org.firstinspires.ftc.teamcode.actions.IntakeServos;
 import  org.firstinspires.ftc.teamcode.actions.Slides;
 
+@Disabled
 @Autonomous(name = "AutonT",group = "Test")
 public class Aotun extends LinearOpMode {
 
