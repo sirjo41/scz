@@ -46,6 +46,7 @@ public class Drive extends LinearOpMode {
         slide1.setDirection(DcMotor.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeServo2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
