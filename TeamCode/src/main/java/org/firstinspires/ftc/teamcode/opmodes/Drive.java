@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,6 +12,8 @@ public class Drive extends LinearOpMode {
     private static final int A_STAGE_0 = 0;
     private static final int A_STAGE_1 = 550;
     private static final int A_STAGE_2 = 1600;
+
+    private  static  final  int S_INTAKE = 800;
 
     private static final double INTAKE_OPEN_POSITION = 1.0;
     private static final double INTAKE_CLOSED_POSITION = 0.0;
@@ -33,9 +36,9 @@ public class Drive extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("fr");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("br");
 
-        Servo intakeServo1 = hardwareMap.servo.get("Lin");
-        Servo intakeServo2 = hardwareMap.servo.get("Rin");
-        Servo wrist = hardwareMap.servo.get("Wrist");
+        CRServo intakeServo1 = hardwareMap.crservo.get("Lin");
+        CRServo intakeServo2 = hardwareMap.crservo.get("Rin");
+        CRServo wrist = hardwareMap.crservo.get("Wrist");
 
 
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -53,10 +56,10 @@ public class Drive extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // Set Initial Servo Positions
-        intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
-        intakeServo2.setPosition(INTAKE_OPEN_POSITION);
-        wrist.setPosition(WR_DF);
+//        // Set Initial Servo Positions
+//        intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
+//        intakeServo2.setPosition(INTAKE_OPEN_POSITION);
+//        wrist.setPosition(WR_DF);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -122,15 +125,29 @@ public class Drive extends LinearOpMode {
 
             // Servo Controls
             if (gamepad1.a) {
-                moveIntakeServos(intakeServo1, intakeServo2, INTAKE_OPEN_POSITION, INTAKE_CLOSED_POSITION);
-            } else if (gamepad2.b) {
-                moveIntakeServos(intakeServo1, intakeServo2, INTAKE_CLOSED_POSITION, INTAKE_OPEN_POSITION);
+                intakeServo1.setPower(1);
+                intakeServo2.setPower(1);
+            }
+            else if(gamepad1.b){
+                intakeServo1.setPower(-1);
+                intakeServo2.setPower(-1);
+            }
+            else {
+                intakeServo1.setPower(0);
+                intakeServo2.setPower(0);
             }
 
             if (gamepad1.x) {
-                wrist.setPosition(WR_CLOSED);
+                wrist.setPower(1);
             } else if (gamepad1.y) {
-                wrist.setPosition(WR_OPEN);
+                wrist.setPower(-1);
+            }
+            else {
+                wrist.setPower(0);
+            }
+
+            if(gamepad1.dpad_left){
+                moveSlideToPos(slide1, slide2, S_INTAKE);
             }
         }
     }
@@ -162,5 +179,27 @@ public class Drive extends LinearOpMode {
         telemetry.addData("Intake Servo 1", position1);
         telemetry.addData("Intake Servo 2", position2);
         telemetry.update();
+    }
+
+    private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2,int targetpos){
+        slide2.setTargetPosition(targetpos);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        slide2.setPower(1);
+        if(slide2.getCurrentPosition() > targetpos){
+            slide1.setPower(-0.7);
+        }
+        else{
+            slide1.setPower(0.7);
+        }
+        while (opModeIsActive() && slide2.isBusy()) {
+            telemetry.addData("Target", targetpos);
+            telemetry.addData("Current Position", slide2.getCurrentPosition());
+            telemetry.update();
+        }
+
+        slide2.setPower(0);
+        slide1.setPower(0);
+
     }
 }
