@@ -133,11 +133,11 @@ public class Drive extends LinearOpMode {
             }
 
             //servos
-            if (gamepad1.a) {
+            if (gamepad1.square) {
                 intakeServo1.setPower(1);
                 intakeServo2.setPower(1);
             }
-            else if(gamepad1.b){
+            else if(gamepad1.circle){
                 intakeServo1.setPower(-1);
                 intakeServo2.setPower(-1);
             }
