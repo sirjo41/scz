@@ -89,9 +89,12 @@ public class Drive extends LinearOpMode {
             backRightMotor.setPower(backRightPower);
 
             //slides
+            slide2.setPower(gamepad1.right_stick_y);
             if(gamepad1.right_stick_y > 0.3){
                 slide1.setPower(gamepad1.right_stick_y - 3);
-                slide2.setPower(gamepad1.right_stick_y);
+            }
+            else if(gamepad1.right_stick_y < -0.3){
+                slide1.setPower(gamepad1.right_stick_y + 3);
             }
 
             if(gamepad1.dpad_left){
