@@ -25,17 +25,13 @@ public class Encoder extends LinearOpMode {
         slides2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slides1.setPower(1);
         slides2.setPower(1);
-        telemetry.addData("Target", 1000);
-        telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
-        telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
-        telemetry.update();
 
-        while (opModeIsActive() && slides1.isBusy() && slides2.isBusy()) {
+        do {
             telemetry.addData("Target", 1000);
             telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
             telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
             telemetry.update();
-        }
+        } while (opModeIsActive() && slides1.isBusy() && slides2.isBusy());
         slides1.setPower(0);
         slides2.setPower(0);
     }
