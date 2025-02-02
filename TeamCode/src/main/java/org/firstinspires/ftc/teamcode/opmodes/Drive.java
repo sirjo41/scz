@@ -172,7 +172,6 @@ public class Drive extends LinearOpMode {
         slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setPower(0.3);
     }
-
 //    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
 //        intakeServo1.setPosition(position1);
 //        intakeServo2.setPosition(position2);
