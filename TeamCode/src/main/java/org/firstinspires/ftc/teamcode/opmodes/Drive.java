@@ -108,11 +108,11 @@ public class Drive extends LinearOpMode {
             if (gamepad1.right_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                arm.setPower(0.6);
+                arm.setPower(0.8);
             } else if (gamepad1.left_trigger > 0.2) {
                 arh = true;
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                arm.setPower(-0.6);
+                arm.setPower(-0.3);
             } else {
                 if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                     arm.setPower(0);
@@ -179,6 +179,13 @@ public class Drive extends LinearOpMode {
         arm.setTargetPosition(currentTarget);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.1);
+    }
+
+    private void slideholdPosition(DcMotor slide1, DcMotor slide2) {
+        int currentTarget = slide2.getCurrentPosition();
+        slide2.setTargetPosition(currentTarget);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setPower(0.2);
     }
 
 //    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
