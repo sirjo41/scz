@@ -14,7 +14,7 @@ public class Drive extends LinearOpMode {
 //    private static final int A_STAGE_1 = 550;
 //    private static final int A_STAGE_2 = 1600;
 
-    private  static  final  int S_INTAKE = 800;
+    private  static  final  int S_INTAKE = -800;
 
 //    private static final double INTAKE_OPEN_POSITION = 1.0;
 //    private static final double INTAKE_CLOSED_POSITION = 0.0;
@@ -52,8 +52,8 @@ public class Drive extends LinearOpMode {
         //motors modes
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //motors zero power behavior
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -89,8 +89,10 @@ public class Drive extends LinearOpMode {
             backRightMotor.setPower(backRightPower);
 
             //slides
-            slide1.setPower(gamepad1.right_stick_y);
-            slide2.setPower(gamepad1.right_stick_y);
+            if(gamepad1.right_stick_y > 0.3){
+                slide1.setPower(gamepad1.right_stick_y - 3);
+                slide2.setPower(gamepad1.right_stick_y);
+            }
 
             if(gamepad1.dpad_left){
                 moveSlideToPos(slide1,slide2);
@@ -175,22 +177,22 @@ public class Drive extends LinearOpMode {
 //    }
 
     private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
-        slide1.setTargetPosition(S_INTAKE);
-        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setTargetPosition(S_INTAKE);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        slide1.setPower(1);
-        if(slide1.getCurrentPosition() > S_INTAKE){
-            slide2.setPower(-1);
+        slide2.setPower(1);
+        if(slide2.getCurrentPosition() > S_INTAKE){
+            slide1.setPower(-0.7);
         }
         else{
-            slide2.setPower(1);
+            slide1.setPower(0.7);
         }
-        while (opModeIsActive() && slide1.isBusy()) {
+        while (opModeIsActive() && slide2.isBusy()) {
             telemetry.addData("Target", S_INTAKE);
-            telemetry.addData("Current Position", slide1.getCurrentPosition());
+            telemetry.addData("Current Position", slide2.getCurrentPosition());
             telemetry.update();
         }
-        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setPower(0);
         slide1.setPower(0);
     }
