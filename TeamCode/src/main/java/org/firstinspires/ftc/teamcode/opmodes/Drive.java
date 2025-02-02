@@ -5,14 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
-    private static final int A_STAGE_0 = 0;
-    private static final int A_STAGE_1 = 550;
-    private static final int A_STAGE_2 = 1600;
+//    private static final int A_STAGE_0 = 0;
+//    private static final int A_STAGE_1 = 550;
+//    private static final int A_STAGE_2 = 1600;
 
     private  static  final  int S_INTAKE = 800;
 
@@ -169,12 +168,12 @@ public class Drive extends LinearOpMode {
         arm.setPower(0.1);
     }
 
-    private void slideholdPosition(DcMotor slide1, DcMotor slide2) {
-        int currentTarget = slide2.getCurrentPosition();
-        slide2.setTargetPosition(currentTarget);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setPower(0.2);
-    }
+//    private void slideholdPosition(DcMotor slide1, DcMotor slide2) {
+//        int currentTarget = slide2.getCurrentPosition();
+//        slide2.setTargetPosition(currentTarget);
+//        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        slide2.setPower(0.2);
+//    }
 
 //    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
 //        intakeServo1.setPosition(position1);
