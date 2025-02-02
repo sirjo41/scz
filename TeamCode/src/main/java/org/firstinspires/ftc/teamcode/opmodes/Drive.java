@@ -100,15 +100,14 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(0);
                 slide2.setPower(0);
             }
-
             if(gamepad1.dpad_left){
                 moveSlideToPos(slide1, slide2);
             }
 
             //arm
 
-            if(gamepad1.left_stick_x >= 0.2 || gamepad1.left_stick_x <= 0.2){
-                arm.setPower(gamepad1.left_stick_x);
+            if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
+                arm.setPower(gamepad1.left_stick_y);
                 arh = true;
             }
             if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
