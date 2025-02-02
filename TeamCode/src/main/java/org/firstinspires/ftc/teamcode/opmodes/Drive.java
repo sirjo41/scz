@@ -23,6 +23,7 @@ public class Drive extends LinearOpMode {
     private static final double WR_CLOSED = 0.0;
     private static final double WR_OPEN = 1.0;
 
+    int currentTarget = 0;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -99,11 +100,16 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(-1);
                 slide2.setPower(-1);
             } else {
+                slide1.setPower(0);
+                slide2.setPower(0);
                 slideHoldPosition(slide1);
             }
             if(gamepad1.dpad_left){
                 moveSlideToPos(slide1, slide2);
             }
+            telemetry.addData("Target",currentTarget);
+            telemetry.addData("Current Position", arm.getCurrentPosition());
+            telemetry.update();
 
             //arm
 
@@ -163,14 +169,17 @@ public class Drive extends LinearOpMode {
         int currentTarget = arm.getCurrentPosition();
         arm.setTargetPosition(currentTarget);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.3);
+        arm.setPower(0.2);
     }
 
     private void slideHoldPosition(DcMotor slide1) {
-        int currentTarget = slide1.getCurrentPosition();
+        currentTarget = slide1.getCurrentPosition();
         slide1.setTargetPosition(currentTarget);
         slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setPower(0.3);
+        telemetry.addData("Target", currentTarget);
+        telemetry.addData("Current Position", slide1.getCurrentPosition());
+        telemetry.update();
     }
 //    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
 //        intakeServo1.setPosition(position1);
