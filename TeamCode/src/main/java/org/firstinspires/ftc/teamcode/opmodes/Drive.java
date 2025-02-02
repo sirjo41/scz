@@ -53,9 +53,8 @@ public class Drive extends LinearOpMode {
         //motors modes
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        slide1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slide2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //motors zero power behavior
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -92,17 +91,14 @@ public class Drive extends LinearOpMode {
 
             //slides
             if (gamepad1.right_bumper) {
-                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide1.setPower(1);
                 slide2.setPower(1);
             } else if (gamepad1.left_bumper) {
-                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide1.setPower(-1);
                 slide2.setPower(-1);
             } else {
-                slide1.setPower(0);
-                slide2.setPower(0);
-                slideHoldPosition(slide1);
+                slide1.setPower(0.1);
+                slide2.setPower(0.1);
             }
             if(gamepad1.dpad_left){
                 moveSlideToPos(slide1, slide2);
@@ -171,16 +167,16 @@ public class Drive extends LinearOpMode {
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.2);
     }
-
-    private void slideHoldPosition(DcMotor slide1) {
-        currentTarget = slide1.getCurrentPosition();
-        slide1.setTargetPosition(currentTarget);
-        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide1.setPower(0.3);
-        telemetry.addData("Target", currentTarget);
-        telemetry.addData("Current Position", slide1.getCurrentPosition());
-        telemetry.update();
-    }
+//
+//    private void slideHoldPosition(DcMotor slide1) {
+//        currentTarget = slide1.getCurrentPosition();
+//        slide1.setTargetPosition(currentTarget);
+//        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        slide1.setPower(0.3);
+//        telemetry.addData("Target", currentTarget);
+//        telemetry.addData("Current Position", slide1.getCurrentPosition());
+//        telemetry.update();
+//    }
 //    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
 //        intakeServo1.setPosition(position1);
 //        intakeServo2.setPosition(position2);
