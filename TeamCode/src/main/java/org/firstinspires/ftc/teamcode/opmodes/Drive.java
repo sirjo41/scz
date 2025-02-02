@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
@@ -17,9 +19,9 @@ public class Drive extends LinearOpMode {
 //    private static final double INTAKE_OPEN_POSITION = 1.0;
 //    private static final double INTAKE_CLOSED_POSITION = 0.0;
 //
-//    private static final double WR_DF = 0.8;
-//    private static final double WR_CLOSED = 0.0;
-//    private static final double WR_OPEN = 1.0;
+    private static final double WR_DF = 0.5;
+    private static final double WR_CLOSED = 0.0;
+    private static final double WR_OPEN = 1.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -38,7 +40,7 @@ public class Drive extends LinearOpMode {
 
         CRServo intakeServo1 = hardwareMap.crservo.get("Lin");
         CRServo intakeServo2 = hardwareMap.crservo.get("Rin");
-        CRServo wrist = hardwareMap.crservo.get("Wrist");
+        Servo wrist = hardwareMap.servo.get("Wrist");
 
         //motors directions
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -62,7 +64,7 @@ public class Drive extends LinearOpMode {
 //        // Set Initial Servo Positions
 //        intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
 //        intakeServo2.setPosition(INTAKE_OPEN_POSITION);
-//        wrist.setPosition(WR_DF);
+        wrist.setPosition(WR_DF);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -105,33 +107,29 @@ public class Drive extends LinearOpMode {
             }
 
             //arm
-            if (gamepad1.right_trigger > 0.2) {
+
+            if(gamepad1.left_stick_x >= 0.2 || gamepad1.left_stick_x <= 0.2){
+                arm.setPower(gamepad1.left_stick_x);
                 arh = true;
-                arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                arm.setPower(0.8);
-            } else if (gamepad1.left_trigger > 0.2) {
-                arh = true;
-                arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                arm.setPower(-0.3);
-            } else {
-                if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
+            }
+            if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                     arm.setPower(0);
                     arh = false;
                 }
-                if (arh) {
+            if (arh) {
                     holdPosition(arm);
                     arh = false;
                 }
-            }
+
 
             if (gamepad1.dpad_up) {
-                moveArmToPosition(arm, A_STAGE_0);
+                wrist.setPosition(WR_OPEN);
             }
             if (gamepad1.dpad_right) {
-                moveArmToPosition(arm, A_STAGE_1);
+                wrist.setPosition(WR_DF);
             }
             if (gamepad1.dpad_down) {
-                moveArmToPosition(arm, A_STAGE_2);
+                wrist.setPosition(WR_CLOSED);
             }
 
             //servos
@@ -148,31 +146,21 @@ public class Drive extends LinearOpMode {
                 intakeServo2.setPower(0);
             }
 
-            if (gamepad1.x) {
-                wrist.setPower(1);
-            }
-            else if (gamepad1.y) {
-                wrist.setPower(-1);
-            }
-            else {
-                wrist.setPower(0);
-            }
-
         }
     }
-
-    private void moveArmToPosition(DcMotor arm, int targetPosition) {
-        arm.setTargetPosition(targetPosition);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.5);
-
-        while (opModeIsActive() && arm.isBusy()) {
-            telemetry.addData("Target", targetPosition);
-            telemetry.addData("Current Position", arm.getCurrentPosition());
-            telemetry.update();
-        }
-        arm.setPower(0.1);
-    }
+//
+//        private void moveArmToPosition(DcMotor arm, int targetPosition) {
+//            arm.setTargetPosition(targetPosition);
+//            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            arm.setPower(0.5);
+//
+//            while (opModeIsActive() && arm.isBusy()) {
+//                telemetry.addData("Target", targetPosition);
+//                telemetry.addData("Current Position", arm.getCurrentPosition());
+//                telemetry.update();
+//            }
+//            arm.setPower(0.1);
+//        }
 
     private void holdPosition(DcMotor arm) {
         int currentTarget = arm.getCurrentPosition();
