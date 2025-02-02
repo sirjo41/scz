@@ -24,7 +24,6 @@ public class Drive extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        boolean arh = false; //used in arm hold position
 
         //define motors
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
@@ -108,15 +107,12 @@ public class Drive extends LinearOpMode {
 
             if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
                 arm.setPower(gamepad1.left_stick_y);
-                arh = true;
             }
-            if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
+            else if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                     arm.setPower(0);
-                    arh = false;
                 }
-            if (arh) {
+            else {
                     holdPosition(arm);
-                    arh = false;
                 }
 
 
@@ -167,7 +163,7 @@ public class Drive extends LinearOpMode {
         arm.setPower(0.1);
     }
 
-//    private void slideholdPosition(DcMotor slide1, DcMotor slide2) {
+//    private void slideHoldPosition(DcMotor slide1, DcMotor slide2) {
 //        int currentTarget = slide2.getCurrentPosition();
 //        slide2.setTargetPosition(currentTarget);
 //        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
