@@ -29,5 +29,14 @@ public class Encoder extends LinearOpMode {
         telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
         telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
         telemetry.update();
+
+        while (opModeIsActive() && slides1.isBusy() && slides2.isBusy()) {
+            telemetry.addData("Target", 1000);
+            telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
+            telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
+            telemetry.update();
+        }
+        slides1.setPower(0);
+        slides2.setPower(0);
     }
 }
