@@ -10,6 +10,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
+
+private static final int ARM_POSITION_1 = -1559;
+    private static final int ARM_POSITION_2 = 0;  // Placeholder
+    private static final int ARM_POSITION_3 = 0;  // Placeholder
+
 //    private static final int A_STAGE_0 = 0;
 //    private static final int A_STAGE_1 = 550;
 //    private static final int A_STAGE_2 = 1600;
@@ -116,7 +121,16 @@ public class Drive extends LinearOpMode {
             else {
                 holdPosition(arm);
             }
-
+if (gamepad1.dpad_up) {
+                moveArmToPosition(arm, ARM_POSITION_1);
+            } 
+            if (gamepad1.dpad_left) {
+                moveArmToPosition(arm, ARM_POSITION_2);
+            } 
+            if (gamepad1.dpad_down) {
+                moveArmToPosition(arm, ARM_POSITION_3);
+            }
+//wrist 
 
             if (gamepad1.dpad_up) {
                 wrist.setPosition(WR_OPEN);
