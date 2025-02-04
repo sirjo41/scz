@@ -158,19 +158,19 @@ if (gamepad1.dpad_up) {
 
         }
     }
-//
-//        private void moveArmToPosition(DcMotor arm, int targetPosition) {
-//            arm.setTargetPosition(targetPosition);
-//            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            arm.setPower(0.5);
-//
-//            while (opModeIsActive() && arm.isBusy()) {
-//                telemetry.addData("Target", targetPosition);
-//                telemetry.addData("Current Position", arm.getCurrentPosition());
-//                telemetry.update();
-//            }
-//            arm.setPower(0.1);
-//        }
+
+        private void moveArmToPosition(DcMotor arm, int targetPosition) {
+           arm.setTargetPosition(targetPosition);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setPower(0.5);
+
+            while (opModeIsActive() && arm.isBusy()) {
+                telemetry.addData("Target", targetPosition);
+                telemetry.addData("Current Position", arm.getCurrentPosition());
+                telemetry.update();
+            }
+            arm.setPower(0.1);
+        }
 
     private void holdPosition(DcMotor arm) {
         int currentTarget = arm.getCurrentPosition();
