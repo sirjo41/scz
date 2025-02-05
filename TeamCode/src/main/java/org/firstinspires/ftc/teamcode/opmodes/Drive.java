@@ -185,7 +185,7 @@ public class Drive extends LinearOpMode {
         slides2.setPower(1);
 
         do {
-            telemetry.addData("Target", 1000);
+            telemetry.addData("Target", S_INTAKE);
             telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
             telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
             telemetry.update();
