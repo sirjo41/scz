@@ -11,19 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
 
-private static final int ARM_POSITION_1 = -1559;
-    private static final int ARM_POSITION_2 = 0;  // Placeholder
-    private static final int ARM_POSITION_3 = 0;  // Placeholder
-
-//    private static final int A_STAGE_0 = 0;
-//    private static final int A_STAGE_1 = 550;
-//    private static final int A_STAGE_2 = 1600;
-
     private  static  final  int S_INTAKE = 800;
 
-    //    private static final double INTAKE_OPEN_POSITION = 1.0;
-//    private static final double INTAKE_CLOSED_POSITION = 0.0;
-//
     private static final double WR_DF = 0.5;
     private static final double WR_CLOSED = 0.0;
     private static final double WR_OPEN = 1.0;
@@ -107,7 +96,7 @@ private static final int ARM_POSITION_1 = -1559;
                 slide2.setPower(0);
             }
             if(gamepad1.dpad_left){
-                moveSlideToPos(slide1, slide2,S_INTAKE);
+                moveSlideToPos(slide1, slide2);
             }
 
             //arm
@@ -151,18 +140,18 @@ private static final int ARM_POSITION_1 = -1559;
         }
     }
 
-        private void moveArmToPosition(DcMotor arm, int targetPosition) {
-           arm.setTargetPosition(targetPosition);
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(0.5);
-
-            while (opModeIsActive() && arm.isBusy()) {
-                telemetry.addData("Target", targetPosition);
-                telemetry.addData("Current Position", arm.getCurrentPosition());
-                telemetry.update();
-            }
-            arm.setPower(0.1);
-        }
+//        private void moveArmToPosition(DcMotor arm, int targetPosition) {
+//           arm.setTargetPosition(targetPosition);
+//            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            arm.setPower(0.5);
+//
+//            while (opModeIsActive() && arm.isBusy()) {
+//                telemetry.addData("Target", targetPosition);
+//                telemetry.addData("Current Position", arm.getCurrentPosition());
+//                telemetry.update();
+//            }
+//            arm.setPower(0.1);
+//        }
 
     private void holdPosition(DcMotor arm) {
         int currentTarget = arm.getCurrentPosition();
@@ -187,9 +176,9 @@ private static final int ARM_POSITION_1 = -1559;
 //        telemetry.update();
 //    }
 
-    private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2,int pos){
-        slides1.setTargetPosition(pos);
-        slides2.setTargetPosition(pos);
+    private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2){
+        slides1.setTargetPosition(Drive.S_INTAKE);
+        slides2.setTargetPosition(Drive.S_INTAKE);
         slides1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slides2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slides1.setPower(0.7);
