@@ -50,15 +50,16 @@ private static final int ARM_POSITION_1 = -1559;
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeServo2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //motors modes
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //motors zero power behavior
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -106,7 +107,7 @@ private static final int ARM_POSITION_1 = -1559;
                 slide2.setPower(0);
             }
             if(gamepad1.dpad_left){
-                moveSlideToPos(slide1, slide2);
+                moveSlideToPos(slide1, slide2,S_INTAKE);
             }
 
             //arm
@@ -118,8 +119,7 @@ private static final int ARM_POSITION_1 = -1559;
             else if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                 arm.setPower(0);
             }
-           
-else if (gamepad1.dpad_up) {
+            else if (gamepad1.dpad_up) {
                 moveArmToPosition(arm, ARM_POSITION_1);
             } 
         else if (gamepad1.dpad_left) {
@@ -128,9 +128,9 @@ else if (gamepad1.dpad_up) {
             else if (gamepad1.dpad_down) {
                 moveArmToPosition(arm, ARM_POSITION_3);
             }
-else{
-holdPosition(arm)
-}
+            else{
+                    holdPosition(arm);
+            }
 //wrist 
 
             if (gamepad1.dpad_up) {
@@ -196,25 +196,21 @@ holdPosition(arm)
 //        telemetry.update();
 //    }
 
-    private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
-        slide2.setTargetPosition(Drive.S_INTAKE);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2,int pos){
+        slides1.setTargetPosition(pos);
+        slides2.setTargetPosition(pos);
+        slides1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slides2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slides1.setPower(0.7);
+        slides2.setPower(1);
 
-        slide2.setPower(1);
-        if(slide2.getCurrentPosition() > Drive.S_INTAKE){
-            slide1.setPower(-0.7);
-        }
-        else{
-            slide1.setPower(0.7);
-        }
-        while (opModeIsActive() && slide2.isBusy()) {
-            telemetry.addData("Target", Drive.S_INTAKE);
-            telemetry.addData("Current Position", slide2.getCurrentPosition());
+        do {
+            telemetry.addData("Target", 1000);
+            telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
+            telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
             telemetry.update();
-        }
-
-        slide2.setPower(0);
-        slide1.setPower(0);
-
+        } while (opModeIsActive() && slides1.isBusy() && slides2.isBusy());
+        slides1.setPower(0);
+        slides2.setPower(0);
     }
 }
