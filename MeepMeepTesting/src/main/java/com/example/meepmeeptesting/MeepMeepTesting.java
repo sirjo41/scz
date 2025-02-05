@@ -14,6 +14,8 @@ public class MeepMeepTesting {
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 .setDriveTrainType(DriveTrainType.MECANUM)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setDimensions(20,30)
+                .setStartPose(new Pose2d(-68.09, Math.toRadians(90.00)))
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(24.31, -68.09, Math.toRadians(90.00)))
                         .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00))
                         .waitSeconds(0.5)
