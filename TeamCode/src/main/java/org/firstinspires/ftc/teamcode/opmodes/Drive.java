@@ -177,8 +177,8 @@ public class Drive extends LinearOpMode {
 //    }
 
     private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2){
-        slides1.setTargetPosition(Drive.S_INTAKE);
-        slides2.setTargetPosition(Drive.S_INTAKE);
+        slides1.setTargetPosition(S_INTAKE);
+        slides2.setTargetPosition(S_INTAKE);
         slides1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slides2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slides1.setPower(0.7);
