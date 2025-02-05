@@ -119,15 +119,6 @@ private static final int ARM_POSITION_1 = -1559;
             else if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
                 arm.setPower(0);
             }
-            else if (gamepad1.dpad_up) {
-                moveArmToPosition(arm, ARM_POSITION_1);
-            } 
-        else if (gamepad1.dpad_left) {
-                moveArmToPosition(arm, ARM_POSITION_2);
-            } 
-            else if (gamepad1.dpad_down) {
-                moveArmToPosition(arm, ARM_POSITION_3);
-            }
             else{
                     holdPosition(arm);
             }
