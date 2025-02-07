@@ -31,14 +31,14 @@ public class TestAotun extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(14.62, -61.94, Math.toRadians(90.00));
+        Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
-                .splineToConstantHeading(new Vector2d(3, -25), Math.toRadians(90.00));
+                .splineToConstantHeading(new Vector2d(12.57, -34.93), Math.toRadians(90.00));
 
 
-        TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(3.45, -33.81, Math.toRadians(90.00)))
+        TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(12.57, -34.93, Math.toRadians(90.00)))
                 .splineToConstantHeading(new Vector2d(35.67, -35.49), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(35.67, -10.00), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(45.00, -10.00), Math.toRadians(90.00))
