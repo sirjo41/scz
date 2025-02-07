@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 
+import kotlin.math.MathKt;
+
 @Autonomous(name = "TEST",group = "Test")
 public class TestAotun extends LinearOpMode {
     private static final int S_DF = 0;
@@ -49,6 +51,11 @@ public class TestAotun extends LinearOpMode {
                 .strafeTo(new Vector2d(55,-20))
                .strafeTo(new Vector2d(59,-20))
                .strafeTo(new Vector2d(59,-50));
+
+
+        TrajectoryActionBuilder sp3 = drive.actionBuilder(new Pose2d(59,-50, Math.toRadians(90.00)))
+                .strafeToLinearHeading(new Vector2d(30,-60),Math.toRadians(-80.00));
+
         DcMotor arm = hardwareMap.dcMotor.get("arm");
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
