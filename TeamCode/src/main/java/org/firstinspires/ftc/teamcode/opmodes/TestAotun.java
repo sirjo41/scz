@@ -85,8 +85,13 @@ public class TestAotun extends LinearOpMode {
                         sp2.build(),
                         sp3.build(),
                         sp4.build(),
-                        sp5.build()
-                )
+                        sp5.build(),
+                        sp4.build(),
+                        sp5.build(),
+                        sp4.build(),
+                        sp5.build(),
+                        sp4.build()
+                        )
         );
 
 
