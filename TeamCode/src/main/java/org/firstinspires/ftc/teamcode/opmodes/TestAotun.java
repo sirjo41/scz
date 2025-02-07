@@ -27,10 +27,6 @@ public class TestAotun extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Slides slides = new Slides(hardwareMap);
-        Arm arm = new Arm(hardwareMap);
-        IntakeServos intakeServos = new IntakeServos(hardwareMap);
-
         Pose2d initialPose = new Pose2d(24.31, -68.09, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
