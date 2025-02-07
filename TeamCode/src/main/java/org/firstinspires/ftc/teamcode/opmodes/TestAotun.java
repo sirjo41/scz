@@ -35,7 +35,7 @@ public class TestAotun extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
-                .splineTo(new Vector2d(3.45, -33.81), Math.toRadians(90.00));
+                .splineTo(new Vector2d(3.45, -30), Math.toRadians(90.00));
 
 
         TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(3.45, -33.81, Math.toRadians(90.00)))
