@@ -44,7 +44,7 @@ public class TestAotun extends LinearOpMode {
         if (isStopRequested()) return;
 
         Actions.runBlocking(
-                new ParallelAction(
+                new SequentialAction(
                         arm.goToStage1(),
                         slides.goToStage2(),
                         sp.build()
