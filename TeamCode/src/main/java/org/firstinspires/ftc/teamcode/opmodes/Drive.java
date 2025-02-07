@@ -112,7 +112,7 @@ public class Drive extends LinearOpMode {
             else{
                     holdPosition(arm);
             }
-//wrist 
+//wrist
 
             if (gamepad1.dpad_up) {
                 wrist.setPosition(WR_OPEN);
@@ -158,7 +158,7 @@ public class Drive extends LinearOpMode {
         int currentTarget = arm.getCurrentPosition();
         arm.setTargetPosition(currentTarget);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.2);
+        arm.setPower(0.4);
     }
 
 //    private void slideHoldPosition(DcMotor slide1, DcMotor slide2) {
