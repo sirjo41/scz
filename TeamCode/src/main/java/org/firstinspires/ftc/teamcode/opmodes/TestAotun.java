@@ -64,6 +64,7 @@ public class TestAotun extends LinearOpMode {
 
         waitForStart();
 
+        sp.build();
 
 
         if (isStopRequested()) return;
