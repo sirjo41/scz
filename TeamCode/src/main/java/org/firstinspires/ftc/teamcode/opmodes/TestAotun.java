@@ -37,6 +37,7 @@ public class TestAotun extends LinearOpMode {
         TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
                 .splineTo(new Vector2d(4.57, -34.02), Math.toRadians(90.00));
 
+        intakeServos.resetWrist();
         telemetry.addData("Status","DONE");
         telemetry.update();
         waitForStart();
@@ -50,6 +51,7 @@ public class TestAotun extends LinearOpMode {
                 )
         );
 
+        arm.holdPosition();
 
         telemetry.addData("Status", "Completed");
         telemetry.update();
