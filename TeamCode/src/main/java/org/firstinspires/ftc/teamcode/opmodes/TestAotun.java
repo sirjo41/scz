@@ -42,7 +42,7 @@ public class TestAotun extends LinearOpMode {
                 .strafeTo(new Vector2d(35,-43))
                 .strafeTo(new Vector2d(35,-20))
                 .strafeTo(new Vector2d(40,-20))
-                .strafeTo(new Vector2d(40,-60));
+                .strafeTo(new Vector2d(40,-50));
         DcMotor arm = hardwareMap.dcMotor.get("arm");
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
