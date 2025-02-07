@@ -41,7 +41,8 @@ public class TestAotun extends LinearOpMode {
         TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
                 .splineToConstantHeading(new Vector2d(35, -43), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(35,-20),Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(35,-70),Math.toRadians(90.00));
+                .splineToConstantHeading(new Vector2d(50,-20),Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(50,-70),Math.toRadians(90.00));
         DcMotor arm = hardwareMap.dcMotor.get("arm");
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
