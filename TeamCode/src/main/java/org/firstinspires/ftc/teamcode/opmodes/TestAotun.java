@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -64,7 +66,14 @@ public class TestAotun extends LinearOpMode {
 
         waitForStart();
 
-        sp.build();
+        Actions.runBlocking(
+                new SequentialAction(
+                        sp.build()
+                )
+        );
+        moveArmTo(arm,A_1);
+        moveSlideToPos(slide1,slide2,S_OUTTAKE);
+
 
 
         if (isStopRequested()) return;
