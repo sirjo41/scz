@@ -4,7 +4,6 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -13,17 +12,17 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.actions.Arm;
 import org.firstinspires.ftc.teamcode.actions.IntakeServos;
-import  org.firstinspires.ftc.teamcode.actions.Slides;
+import org.firstinspires.ftc.teamcode.actions.Slides;
 
 @Disabled
-@Autonomous(name = "AutonT",group = "Test")
+@Autonomous(name = "AutonT", group = "Test")
 public class Aotun extends LinearOpMode {
 
     GoBildaPinpointDriverRR odo;
+
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
@@ -35,7 +34,7 @@ public class Aotun extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
-                                .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00));
+                .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00));
 
         TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(1.0, -40.0, Math.toRadians(90.00)))
                 .splineToConstantHeading(new Vector2d(35.67, -35.49), Math.toRadians(90.00))
@@ -48,40 +47,41 @@ public class Aotun extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(55.00, -10.00), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(62.00, -10.00), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(62.00, -49.00), Math.toRadians(90.00))
-                .splineTo(new Vector2d(35.64,-55.75), Math.toRadians(270.00));
+                .splineTo(new Vector2d(35.64, -55.75), Math.toRadians(270.00));
 
         TrajectoryActionBuilder sp3 = drive.actionBuilder(new Pose2d(1.0, -40.0, Math.toRadians(90.00)))
-                .splineTo(new Vector2d(35.64,-55.75), Math.toRadians(270.00));
+                .splineTo(new Vector2d(35.64, -55.75), Math.toRadians(270.00));
 
-        TrajectoryActionBuilder sp4 = drive.actionBuilder(new Pose2d(35.64 , -55.75, Math.toRadians(270.00)))
+        TrajectoryActionBuilder sp4 = drive.actionBuilder(new Pose2d(35.64, -55.75, Math.toRadians(270.00)))
                 .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00));
 
-        telemetry.addData("Status","DONE");
+        telemetry.addData("Status", "Waiting for start...");
         telemetry.update();
         waitForStart();
         if (isStopRequested()) return;
 
         Actions.runBlocking(
                 new ParallelAction(
-                        sp.build(),
-                       slides.goToStage2(),
-                        arm.goToStage1()
+                        sp.build(),            // Drive to first position
+                        slides.goToStage2(),   // Move slides to position
+                        arm.goToStage1(),      // Move arm to position
+                        intakeServos.openIntake() // Open intake for object pickup
                 )
         );
 
         Actions.runBlocking(
                 new SequentialAction(
-                        intakeServos.openIntake(),
-                        sp2.build(),
-                        arm.goToStage1(),
-                        slides.goToStage2(),
-                        intakeServos.closeIntake(),
-                        sp4.build()
+                        intakeServos.openIntake(), // Activate intake roller forward
+                        sp2.build(),                 // Drive trajectory for pickup/delivery
+                        intakeServos.closeIntake(),   // Stop intake
+                        arm.goToStage1(),            // Arm movement
+                        slides.goToStage2(),         // Move slides
+                        intakeServos.closeIntake(),  // Close intake to secure object
+                        sp4.build()                  // Drive back to starting position
                 )
         );
 
-
-        telemetry.addData("Status", "Completed");
+        telemetry.addData("Status", "Autonomous Completed");
         telemetry.update();
     }
 }

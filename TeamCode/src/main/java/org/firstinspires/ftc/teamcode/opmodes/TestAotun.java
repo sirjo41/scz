@@ -12,6 +12,7 @@ import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
@@ -27,11 +28,14 @@ public class TestAotun extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(24.31, -68.09, Math.toRadians(90.00));
+        IntakeServos intakeServos = new IntakeServos(hardwareMap);
+        Slides slides = new Slides(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        Pose2d initialPose = new Pose2d(26.91, -62.25, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
-                .splineToConstantHeading(new Vector2d(1.0, -40.0), Math.toRadians(90.00));
+                .splineTo(new Vector2d(4.57, -34.02), Math.toRadians(90.00));
 
         telemetry.addData("Status","DONE");
         telemetry.update();
@@ -40,6 +44,8 @@ public class TestAotun extends LinearOpMode {
 
         Actions.runBlocking(
                 new ParallelAction(
+                        arm.goToStage1(),
+                        slides.goToStage2(),
                         sp.build()
                 )
         );

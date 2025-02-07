@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.jetbrains.annotations.NonNls;
@@ -26,7 +27,7 @@ public class Slides {
 
         // Set motor directions
         slide2.setDirection(DcMotor.Direction.REVERSE);
-        slide1.setDirection(DcMotor.Direction.REVERSE);
+        slide1.setDirection(DcMotor.Direction.FORWARD);
 
         // Initialize encoders
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
