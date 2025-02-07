@@ -61,9 +61,6 @@ public class TestAotun extends LinearOpMode {
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.FORWARD);
 
-        wrist.setPosition(WR_DF);
-        moveArmTo(arm,A_DF);
-        moveSlideToPos(slide1,slide2,S_DF);
 
         telemetry.addData("Status","INT");
         telemetry.update();
