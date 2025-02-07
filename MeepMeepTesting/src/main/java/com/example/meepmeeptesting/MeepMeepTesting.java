@@ -19,6 +19,7 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
                         .splineToConstantHeading(new Vector2d(35, -43), Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(35,-20),Math.toRadians(90.00))
+                                .splineToConstantHeading(new Vector2d(45,-20),Math.toRadians(90.00))
                         .splineToConstantHeading(new Vector2d(35,-70),Math.toRadians(90.00))
 //                        .waitSeconds(0.5)
 //                        .addTemporalMarker(() -> System.out.println("put sp"))
