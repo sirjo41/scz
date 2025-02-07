@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.actions.Arm;
 import org.firstinspires.ftc.teamcode.actions.IntakeServos;
 import  org.firstinspires.ftc.teamcode.actions.Slides;
 
-@Disabled
-@Autonomous(name = "AutonT",group = "Test")
+
+@Autonomous(name = "TEST",group = "Test")
 public class TestAotun extends LinearOpMode {
 
     GoBildaPinpointDriverRR odo;
