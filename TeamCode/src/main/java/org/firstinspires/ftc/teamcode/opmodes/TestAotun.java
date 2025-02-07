@@ -84,6 +84,7 @@ public class TestAotun extends LinearOpMode {
 
     private void moveArmTo(DcMotor arm,int pos) {
         arm.setTargetPosition(pos);
+
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(1);
 
