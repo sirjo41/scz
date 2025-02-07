@@ -39,8 +39,7 @@ public class TestAotun extends LinearOpMode {
 
 
         TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
-                .lineToXConstantHeading(35)
-                .lineToYConstantHeading(-43)
+                .strafeTo(new Vector2d(35,-43))
                 .splineToConstantHeading(new Vector2d(35,-20),Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(50,-20),Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(50,-70),Math.toRadians(90.00));
