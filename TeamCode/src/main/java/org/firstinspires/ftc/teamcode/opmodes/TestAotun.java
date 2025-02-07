@@ -73,11 +73,10 @@ public class TestAotun extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        sp.build()
+                        sp.build(),
+                        sp2.build()
                 )
         );
-        moveArmTo(arm,A_1);
-        moveSlideToPos(slide1,slide2,S_OUTTAKE);
 
 
 
