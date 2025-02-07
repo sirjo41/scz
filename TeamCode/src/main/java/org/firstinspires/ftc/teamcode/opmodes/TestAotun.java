@@ -49,8 +49,8 @@ public class TestAotun extends LinearOpMode {
                 .strafeTo(new Vector2d(55,-20))
                .strafeTo(new Vector2d(55,-50))
                 .strafeTo(new Vector2d(55,-20))
-               .strafeTo(new Vector2d(59,-20))
-               .strafeTo(new Vector2d(59,-50));
+               .strafeTo(new Vector2d(56,-20))
+               .strafeTo(new Vector2d(56,-50));
 
 
         TrajectoryActionBuilder sp3 = drive.actionBuilder(new Pose2d(59,-50, Math.toRadians(90.00)))
