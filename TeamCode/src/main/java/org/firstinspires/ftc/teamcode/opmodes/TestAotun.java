@@ -82,7 +82,10 @@ public class TestAotun extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                         sp.build(),
-                        sp2.build()
+                        sp2.build(),
+                        sp3.build(),
+                        sp4.build(),
+                        sp5.build()
                 )
         );
 
