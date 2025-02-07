@@ -9,6 +9,7 @@ import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 
@@ -56,6 +57,10 @@ public class TestAotun extends LinearOpMode {
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
         Servo wrist = hardwareMap.servo.get("Wrist");
+
+        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+        slide2.setDirection(DcMotor.Direction.REVERSE);
+        slide1.setDirection(DcMotor.Direction.FORWARD);
 
         wrist.setPosition(WR_DF);
         moveArmTo(arm,A_DF);
