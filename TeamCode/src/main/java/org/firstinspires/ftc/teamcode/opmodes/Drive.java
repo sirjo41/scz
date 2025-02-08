@@ -13,9 +13,9 @@ public class Drive extends LinearOpMode {
 
     private  static  final  int S_INTAKE = 800;
 
-    private static final double WR_DF = 0.5;
-    private static final double WR_CLOSED = 0.0;
-    private static final double WR_OPEN = 1.0;
+    private static final double WR_DF = 0.7;
+    private static final double WR_CLOSED = 0.2;
+    private static final double WR_OPEN = 0.4;
 
     @Override
     public void runOpMode() throws InterruptedException {
