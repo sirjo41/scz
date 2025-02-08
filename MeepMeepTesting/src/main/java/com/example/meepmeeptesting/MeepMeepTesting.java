@@ -13,7 +13,7 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 .setDriveTrainType(DriveTrainType.MECANUM)
-                .setConstraints(200, 100, Math.PI, Math.PI, 15)
+                .setConstraints(1500, 220, Math.PI*2.35, Math.PI, 15)
                 .setDimensions(17.5,17.5)
                 .setStartPose(new Pose2d(14.25, -62.13, Math.toRadians(90.00)))
                 .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(14.25, -62.13, Math.toRadians(90.00)))
