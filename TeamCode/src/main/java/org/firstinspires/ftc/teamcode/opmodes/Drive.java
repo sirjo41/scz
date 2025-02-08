@@ -102,7 +102,7 @@ public class Drive extends LinearOpMode {
 
             //arm
 
-            if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
+            if(gamepad1.left_stick_y >= 0.5 || gamepad1.left_stick_y <= 0.5){
                 arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.left_stick_y);
             }
@@ -158,7 +158,7 @@ public class Drive extends LinearOpMode {
         int currentTarget = arm.getCurrentPosition();
         arm.setTargetPosition(currentTarget);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.4);
+        arm.setPower(0.5);
     }
 
 //    private void slideHoldPosition(DcMotor slide1, DcMotor slide2) {
