@@ -37,7 +37,8 @@ public class TestAotun extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(12.57, -43));
+                .strafeToConstantHeading(new Vector2d(12.57, -43))
+                .waitSeconds(1);
 
 
         TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
@@ -54,13 +55,16 @@ public class TestAotun extends LinearOpMode {
 
 
         TrajectoryActionBuilder sp3 = drive.actionBuilder(new Pose2d(61,-50, Math.toRadians(90.00)))
-                .strafeToLinearHeading(new Vector2d(30,-55),Math.toRadians(-80.00));
+                .strafeToLinearHeading(new Vector2d(30,-55),Math.toRadians(-80.00))
+                .waitSeconds(1);
 
         TrajectoryActionBuilder sp4 = drive.actionBuilder(new Pose2d(30,-55, Math.toRadians(-80.00)))
-                .strafeToLinearHeading(new Vector2d(12, -43), Math.toRadians(90.00));
+                .strafeToLinearHeading(new Vector2d(12, -43), Math.toRadians(90.00))
+                .waitSeconds(1);
 
         TrajectoryActionBuilder sp5 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
-                .strafeToLinearHeading(new Vector2d(30,-55),Math.toRadians(-80.00));
+                .strafeToLinearHeading(new Vector2d(30,-55),Math.toRadians(-80.00))
+                .waitSeconds(1);
         DcMotor arm = hardwareMap.dcMotor.get("arm");
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
