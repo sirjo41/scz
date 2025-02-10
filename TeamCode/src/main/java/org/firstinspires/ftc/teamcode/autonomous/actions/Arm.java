@@ -76,10 +76,7 @@ public class Arm {
             packet.put("Arm Current Position", arm_pos);
             packet.put("Power", power);
 
-            // **Start Holding the Position in a Background Thread**
-            startHoldingPosition();
-
-            return Math.abs(arm_pos - targetPosition) > 10;  // Keep running if not close enough
+            return Math.abs(arm_pos - targetPosition) > 5;  // Stop running when within 5 ticks
         }
     }
 
@@ -105,7 +102,7 @@ public class Arm {
         );
     }
 
-    // **Continuously Holds Position in a Separate Thread**
+    // **Continuously Holds Position Until Close Enough**
     public void startHoldingPosition() {
         if (isHolding) return;  // Avoid multiple threads
 
@@ -118,6 +115,13 @@ public class Arm {
                 double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
                 double power = pid + ff;
                 arm.setPower(power);
+
+                // **Stop Holding When Close Enough**
+                if (Math.abs(arm_pos - targetPosition) <= 5) {
+                    isHolding = false;
+                    arm.setPower(0);
+                    break;
+                }
 
                 try {
                     Thread.sleep(20);  // Run at ~50Hz
@@ -138,11 +142,16 @@ public class Arm {
         arm.setPower(0);
     }
 
-    // **Creates a Holding Action That Runs Indefinitely**
+    // **Creates a Holding Action That Stops When Close Enough**
     public Action holdPositionAction() {
         return packet -> {
             startHoldingPosition();
-            return true;  // Always return true to keep it running
+            int arm_pos = arm.getCurrentPosition();
+            boolean isHolding = Math.abs(arm_pos - targetPosition) > 5;  // Stop when within 5 ticks
+            if (!isHolding) {
+                stopHoldingPosition();
+            }
+            return isHolding;
         };
     }
 }
