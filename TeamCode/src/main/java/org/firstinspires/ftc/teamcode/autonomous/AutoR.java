@@ -1,41 +1,25 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.VelConstraint;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.PinpointDrive;
-import org.firstinspires.ftc.teamcode.actions.Arm;
-import org.firstinspires.ftc.teamcode.actions.IntakeServos;
-import org.firstinspires.ftc.teamcode.actions.Slides;
 
-import kotlin.math.MathKt;
+import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
+import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
+import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
+import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
-@Autonomous(name = "TEST",group = "Test")
-public class TestAotun extends LinearOpMode {
+@Autonomous(name = "Right Side Auton",group = "Autonomous")
+public class AutoR extends LinearOpMode {
 
     private static final Vector2d OutTake = new Vector2d(12, -43);
     private static final Vector2d InTake = new Vector2d(30,-55);
-    private static final int S_DF = 0;
-    private static final int S_OUTTAKE = 800;
-
-    private static final int A_DF = 0;
-    private static final int A_1 = 800;
-    private static final int A_2 = 1600;
-    private static final int A_3 = 2200;
-
-    private static final double WR_DF = 0.5;
-    private static final double WR_CLOSED = 0.0;
-    private static final double WR_OPEN = 1.0;
-
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {
@@ -76,8 +60,55 @@ public class TestAotun extends LinearOpMode {
 
         waitForStart();
 
-
-
+        Actions.runBlocking(
+                new ParallelAction(
+                        OutTakePos.build(),
+                        new SequentialAction(
+                                arm.goToStage1(),
+                                arm.holdPositionAction()
+                        ),
+                        intakeServos.setWristOutTake()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        slides.goToStage1(),
+                        intakeServos.Outtake(),
+                        arm.goToStage0(),
+                        arm.holdPositionAction()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        slides.goToStage0(),
+                        SampToHum.build()
+                )
+        );
+        Actions.runBlocking(
+                 new ParallelAction(
+                         InTakePos.build(),
+                         new SequentialAction(
+                                 arm.goToStage1(),
+                                 arm.holdPositionAction()
+                         ),
+                         intakeServos.setWristOutTake()
+                 )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeServos.Outtake()
+                )
+        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        OutTakePos2.build(),
+                        new SequentialAction(
+                                arm.goToStage1(),
+                                arm.holdPositionAction()
+                        ),
+                        intakeServos.WOutTake1()
+                )
+        );
 
 
         if (isStopRequested()) return;
@@ -86,12 +117,5 @@ public class TestAotun extends LinearOpMode {
         telemetry.update();
     }
 
-    private void moveArmTo(DcMotor arm,int pos) {
-        arm.setTargetPosition(pos);
-
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(1);
-
-    }
 
 }

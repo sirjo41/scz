@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.actions;
+package org.firstinspires.ftc.teamcode.autonomous.actions;
 
 import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Action;
@@ -34,27 +34,27 @@ public class IntakeServos {
     }
 
     // Action to run the intake forward for 2 seconds
-    public Action openIntake() {
+    public Action Intake() {
         return new IntakeAction(INTAKE_POWER);
     }
 
     // Action to run the intake in reverse for 2 seconds
-    public Action closeIntake() {
+    public Action Outtake() {
         return new IntakeAction(-INTAKE_POWER);
     }
 
     // Action to set wrist to open position
-    public Action setWristOpen() {
+    public Action setWristInTake() {
         return new WristAction(WRIST_OPEN);
     }
 
     // Action to set wrist to closed position
-    public Action setWristClosed() {
+    public Action setWristOutTake() {
         return new WristAction(WRIST_CLOSED);
     }
 
     // Action to reset wrist to default position
-    public Action resetWrist() {
+    public Action WOutTake1() {
         return new WristAction(WRIST_DEFAULT);
     }
 
@@ -77,7 +77,7 @@ public class IntakeServos {
             }
 
             long elapsedTime = System.currentTimeMillis() - startTime;
-            if (elapsedTime >= 2000) { // 2 seconds
+            if (elapsedTime >= 1000) { // 2 seconds
                 intakeServo1.setPower(STOP_POWER);
                 intakeServo2.setPower(STOP_POWER);
                 return false; // Action completes
@@ -107,7 +107,7 @@ public class IntakeServos {
             }
 
             long elapsedTime = System.currentTimeMillis() - startTime;
-            if (elapsedTime >= 2000) { // 2 seconds
+            if (elapsedTime >= 1000) { // 2 seconds
                 return false; // Action completes
             }
 

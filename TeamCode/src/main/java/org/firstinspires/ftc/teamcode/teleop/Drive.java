@@ -1,5 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes;
-
+package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -10,6 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
+    private boolean isHolding = false;
+    private Thread holdThread;
 
     private  static  final  int S_INTAKE = 800;
 
@@ -110,7 +111,7 @@ public class Drive extends LinearOpMode {
                 arm.setPower(0);
             }
             else{
-                    holdPosition(arm);
+                    startHoldingPosition(arm);
             }
 //wrist 
 
@@ -140,42 +141,34 @@ public class Drive extends LinearOpMode {
 
         }
     }
+    private void startHoldingPosition(DcMotor arm) {
+        if (isHolding) return; // Prevent multiple threads
+        isHolding = true;
 
-//        private void moveArmToPosition(DcMotor arm, int targetPosition) {
-//           arm.setTargetPosition(targetPosition);
-//            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            arm.setPower(0.5);
-//
-//            while (opModeIsActive() && arm.isBusy()) {
-//                telemetry.addData("Target", targetPosition);
-//                telemetry.addData("Current Position", arm.getCurrentPosition());
-//                telemetry.update();
-//            }
-//            arm.setPower(0.1);
-//        }
+        holdThread = new Thread(() -> {
+            while (isHolding) {
+                arm.setTargetPosition(arm.getCurrentPosition());
+                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                arm.setPower(0.2); // Hold position efficiently
 
-    private void holdPosition(DcMotor arm) {
-        int currentTarget = arm.getCurrentPosition();
-        arm.setTargetPosition(currentTarget);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.2);
+                try {
+                    Thread.sleep(20); // Run at ~50Hz
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        holdThread.start();
     }
 
-//    private void slideHoldPosition(DcMotor slide1, DcMotor slide2) {
-//        int currentTarget = slide2.getCurrentPosition();
-//        slide2.setTargetPosition(currentTarget);
-//        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slide2.setPower(0.2);
-//    }
+    private void stopHoldingPosition(DcMotor arm) {
+        isHolding = false;
+        if (holdThread != null) {
+            holdThread.interrupt();
+        }
+        arm.setPower(0); // Stop motor power when no longer holding
+    }
 
-//    private void moveIntakeServos(Servo intakeServo1, Servo intakeServo2, double position1, double position2) {
-//        intakeServo1.setPosition(position1);
-//        intakeServo2.setPosition(position2);
-//
-//        telemetry.addData("Intake Servo 1", position1);
-//        telemetry.addData("Intake Servo 2", position2);
-//        telemetry.update();
-//    }
 
     private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2){
         slides1.setTargetPosition(S_INTAKE);
