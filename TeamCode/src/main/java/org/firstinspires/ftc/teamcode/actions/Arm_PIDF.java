@@ -22,7 +22,7 @@ public class Arm_PIDF extends OpMode {
 
     public static double target = 0;
 
-    private final double ticks_in_deg = 1200 / 180.0;
+    private final double ticks_in_deg = 537.7 / 360.0;
 
     private DcMotorEx arm;
     @Override
