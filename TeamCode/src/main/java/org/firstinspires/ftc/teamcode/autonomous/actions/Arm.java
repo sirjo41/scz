@@ -17,8 +17,8 @@ public class Arm {
     private boolean isHolding = false;  // Track whether the arm should keep holding
 
     // PIDF Constants (Tunable in FTC Dashboard)
-    public static double p = 0.01, i = 0, d = 0.002;
-    public static double f = 0.05;
+    public static double p = 0.015, i = 0, d = 0.001;
+    public static double f = -0.05;
 
     // Correct Ticks per Degree for GoBILDA 117 RPM with 5:1 Gear Ratio
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
