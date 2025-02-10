@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.VelConstraint;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -12,11 +13,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
+import org.firstinspires.ftc.teamcode.actions.Arm;
+import org.firstinspires.ftc.teamcode.actions.IntakeServos;
+import org.firstinspires.ftc.teamcode.actions.Slides;
 
 import kotlin.math.MathKt;
 
 @Autonomous(name = "TEST",group = "Test")
 public class TestAotun extends LinearOpMode {
+
+    private static final Vector2d OutTake = new Vector2d(12, -43);
+    private static final Vector2d InTake = new Vector2d(30,-55);
     private static final int S_DF = 0;
     private static final int S_OUTTAKE = 800;
 
@@ -35,13 +42,14 @@ public class TestAotun extends LinearOpMode {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
         Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(90.00));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
+        Arm arm = new Arm(hardwareMap);
+        IntakeServos intakeServos = new IntakeServos(hardwareMap);
+        Slides slides = new Slides(hardwareMap);
 
-        TrajectoryActionBuilder sp = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(12.57, -43))
-                .waitSeconds(1);
+        TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
+                .strafeToConstantHeading(OutTake);
 
-
-        TrajectoryActionBuilder sp2 = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
+        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(32,-43))
                 .strafeTo(new Vector2d(32,-15))
                 .strafeTo(new Vector2d(45,-15))
@@ -53,50 +61,22 @@ public class TestAotun extends LinearOpMode {
                 .strafeTo(new Vector2d(61,-15))
                 .strafeTo(new Vector2d(61,-50));
 
+        TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(61,-50, Math.toRadians(90.00)))
+                .strafeToConstantHeading(InTake);
 
-        TrajectoryActionBuilder sp3 = drive.actionBuilder(new Pose2d(61,-50, Math.toRadians(90.00)))
-                .strafeToLinearHeading(new Vector2d(30,-55),Math.toRadians(-80.00))
-                .waitSeconds(1);
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-55, Math.toRadians(90.00)))
+                .strafeToConstantHeading(OutTake);
 
-        TrajectoryActionBuilder sp4 = drive.actionBuilder(new Pose2d(30,-55, Math.toRadians(-80.00)))
-                .strafeToLinearHeading(new Vector2d(12, -43), Math.toRadians(90.00))
-                .waitSeconds(1);
-
-        TrajectoryActionBuilder sp5 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
-                .strafeToLinearHeading(new Vector2d(30,-55),Math.toRadians(-80.00))
-                .waitSeconds(1);
-        DcMotor arm = hardwareMap.dcMotor.get("arm");
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
-        DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
-        Servo wrist = hardwareMap.servo.get("Wrist");
-
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
-        slide2.setDirection(DcMotor.Direction.REVERSE);
-        slide1.setDirection(DcMotor.Direction.FORWARD);
+        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
+                .strafeToConstantHeading(InTake);
 
 
-        telemetry.addData("Status","INT");
+        telemetry.addData("Status","READDDYYYY ");
         telemetry.update();
 
         waitForStart();
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        sp.build(),
-                        sp2.build(),
-                        sp3.build(),
-                        sp4.build(),
-                        sp5.build(),
-                        sp4.build(),
-                        sp5.build(),
-                        sp4.build(),
-                        sp5.build(),
-                        sp4.build()
-                )
-        );
+
 
 
 
@@ -114,21 +94,4 @@ public class TestAotun extends LinearOpMode {
 
     }
 
-    private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2,int pos){
-        slides1.setTargetPosition(pos);
-        slides2.setTargetPosition(pos);
-        slides1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slides2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slides1.setPower(0.7);
-        slides2.setPower(1);
-
-        do {
-            telemetry.addData("Target", pos);
-            telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
-            telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
-            telemetry.update();
-        } while (opModeIsActive() && slides1.isBusy() && slides2.isBusy());
-        slides1.setPower(0);
-        slides2.setPower(0);
-    }
 }
