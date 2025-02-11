@@ -63,10 +63,7 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new ParallelAction(
                         OutTakePos.build(),
-                        new SequentialAction(
-                                arm.goToStage1(),
-                                arm.holdPositionAction()
-                        ),
+                        arm.goToStage1(),
                         intakeServos.setWristOutTake()
                 )
         );
@@ -74,8 +71,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         slides.goToStage1(),
                         intakeServos.Outtake(),
-                        arm.goToStage0(),
-                        arm.holdPositionAction()
+                        arm.goToStage0()
                 )
         );
         Actions.runBlocking(
@@ -87,10 +83,7 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                  new ParallelAction(
                          InTakePos.build(),
-                         new SequentialAction(
-                                 arm.goToStage1(),
-                                 arm.holdPositionAction()
-                         ),
+                         arm.goToStage1(),
                          intakeServos.setWristOutTake()
                  )
         );
@@ -102,14 +95,12 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new ParallelAction(
                         OutTakePos2.build(),
-                        new SequentialAction(
-                                arm.goToStage1(),
-                                arm.holdPositionAction()
-                        ),
+                        arm.goToStage1(),
                         intakeServos.WOutTake1()
                 )
         );
 
+        arm.stop();
 
         if (isStopRequested()) return;
 

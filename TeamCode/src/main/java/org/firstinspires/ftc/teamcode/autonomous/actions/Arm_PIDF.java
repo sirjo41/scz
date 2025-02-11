@@ -13,8 +13,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class Arm_PIDF extends OpMode {
     private PIDController armController;
 
-    public static double p = 0, i = 0, d = 0;
-    public static double f = 0;
+    public static double p = 0.015, i = 0, d = 0.001;
+    public static double f = -0.05;
     public static double target = 0;
 
     private final double ticks_in_deg = 2688.5 / 360.0;
