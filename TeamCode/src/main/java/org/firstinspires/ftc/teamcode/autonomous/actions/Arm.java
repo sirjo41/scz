@@ -22,9 +22,9 @@ public class Arm {
 
     // Arm Position Stages (Using Ticks)
     public static final int STAGE_0 = 0;
-    public static final int STAGE_1 = -50;  // 0 degrees
-    public static final int STAGE_2 = 50;   // 90 degrees
-    public static final int STAGE_3 = 100;  // 160 degrees
+    public static final int STAGE_1 = -100;  // 0 degrees
+    public static final int STAGE_2 = 100;   // 90 degrees
+    public static final int STAGE_3 = 200;  // 160 degrees
 
     private double targetPosition = STAGE_0; // Default target
 
@@ -73,7 +73,7 @@ public class Arm {
         private boolean initialized = false;
 
         public ArmPIDFAction(double targetDegrees) {
-            this.targetTicks = targetDegrees * ticks_in_deg;
+            this.targetTicks = targetDegrees;
         }
 
         @Override
