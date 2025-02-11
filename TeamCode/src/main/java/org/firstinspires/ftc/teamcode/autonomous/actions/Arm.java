@@ -65,7 +65,7 @@ public class Arm {
             packet.put("Arm Target (Ticks)", targetPosition);
             packet.put("Arm Current Position", arm.getCurrentPosition());
 
-            return Math.abs(arm.getCurrentPosition() - targetPosition) > 10;
+            return Math.abs(arm.getCurrentPosition() - targetPosition) > 50;
         }
     }
 
