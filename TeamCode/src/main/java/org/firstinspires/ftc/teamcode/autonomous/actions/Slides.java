@@ -12,9 +12,9 @@ public class Slides {
 
     // Constants for stage positions
     public static final int STAGE_0 = 5;
-    public static final int STAGE_1 = 900;
-    public static final int STAGE_2 = 1800;
-    public static final int STAGE_3 = 2700;
+    public static final int STAGE_1 = 600;
+    public static final int STAGE_2 = 1000;
+    public static final int STAGE_3 = 2000;
 
     public Slides(HardwareMap hardwareMap) {
         // Initialize motors

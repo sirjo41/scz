@@ -62,7 +62,7 @@ public class AutoR extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        slides.goToStage3(),
+                        slides.goToStage1(),
                         slides.goToStage0()
                 )
         );
