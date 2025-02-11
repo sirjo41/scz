@@ -59,7 +59,7 @@ public class Slides {
             packet.put("Slide Target", targetPosition);
             packet.put("Slide Current Position", slide2.getCurrentPosition());
 
-            if (!slide1.isBusy()) {
+            if (!slide1.isBusy() && Math.abs(slide1.getCurrentPosition() - targetPosition) > 50) {
                 slide1.setPower(0);
                 slide2.setPower(0);
                 return false; // Action is complete
