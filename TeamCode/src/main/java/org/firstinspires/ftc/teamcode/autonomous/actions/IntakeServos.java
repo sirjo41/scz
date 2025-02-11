@@ -73,7 +73,7 @@ public class IntakeServos {
             if (startTime == -1) {
                 startTime = System.currentTimeMillis();
                 intakeServo1.setPower(power);
-                intakeServo2.setPower(power);
+                intakeServo2.setPower(-power);
             }
 
             long elapsedTime = System.currentTimeMillis() - startTime;
@@ -93,28 +93,14 @@ public class IntakeServos {
     // Internal action class for controlling the wrist with a 2-second delay
     private class WristAction implements Action {
         private final double position;
-        private long startTime = -1;
-
         public WristAction(double position) {
             this.position = position;
         }
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            if (startTime == -1) {
-                startTime = System.currentTimeMillis();
                 wrist.setPosition(position);
-            }
-
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            if (elapsedTime >= 1000) { // 2 seconds
-                return false; // Action completes
-            }
-
-            // Provide telemetry
-            packet.put("Wrist Position", position);
-            packet.put("Elapsed Time", elapsedTime / 1000.0);
-            return true; // Continue running
+                return true;
         }
     }
 }
