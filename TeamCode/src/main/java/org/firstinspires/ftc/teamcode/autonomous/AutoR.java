@@ -63,7 +63,7 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new ParallelAction(
                         OutTakePos.build(),
-                        arm.goToStage1(),
+                        arm.goToStage2(),
                         intakeServos.setWristOutTake()
                 )
         );
@@ -71,11 +71,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         slides.goToStage1(),
                         intakeServos.Outtake(),
-                        arm.goToStage0()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
+                        arm.goToStage0(),
                         slides.goToStage0(),
                         SampToHum.build()
                 )
@@ -84,7 +80,7 @@ public class AutoR extends LinearOpMode {
                  new ParallelAction(
                          InTakePos.build(),
                          arm.goToStage1(),
-                         intakeServos.setWristOutTake()
+                         intakeServos.setWristInTake()
                  )
         );
         Actions.runBlocking(
@@ -95,7 +91,7 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new ParallelAction(
                         OutTakePos2.build(),
-                        arm.goToStage1(),
+                        arm.goToStage2(),
                         intakeServos.WOutTake1()
                 )
         );

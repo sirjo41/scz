@@ -1,18 +1,14 @@
 package org.firstinspires.ftc.teamcode.autonomous.actions;
 
 import androidx.annotation.NonNull;
-
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.jetbrains.annotations.NonNls;
-
 public class Slides {
-    private DcMotor slide1;
-    private DcMotor slide2;
+    private final DcMotor slide1;
+    private final DcMotor slide2;
 
     // Constants for stage positions
     public static final int STAGE_0 = 5;
@@ -22,15 +18,17 @@ public class Slides {
 
     public Slides(HardwareMap hardwareMap) {
         // Initialize motors
-        slide2 = hardwareMap.get(DcMotor.class, "slide2");
         slide1 = hardwareMap.get(DcMotor.class, "slide1");
+        slide2 = hardwareMap.get(DcMotor.class, "slide2");
 
         // Set motor directions
-        slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.FORWARD);
+        slide2.setDirection(DcMotor.Direction.REVERSE);
 
         // Initialize encoders
+        slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -50,18 +48,21 @@ public class Slides {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
+                slide1.setTargetPosition(targetPosition);
                 slide2.setTargetPosition(targetPosition);
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slide1.setPower(1);
                 slide2.setPower(1);
-                slide1.setPower((targetPosition > slide2.getCurrentPosition() ? 1 : -1) * 0.7);
                 initialized = true;
             }
 
             // Provide telemetry
             packet.put("Slide Target", targetPosition);
-            packet.put("Slide Current Position", slide2.getCurrentPosition());
+            packet.put("Slide1 Current Position", slide1.getCurrentPosition());
+            packet.put("Slide2 Current Position", slide2.getCurrentPosition());
 
-            if (!slide2.isBusy()) {
+            if (!slide1.isBusy() && !slide2.isBusy()) {
                 slide1.setPower(0);
                 slide2.setPower(0);
                 return false; // Action is complete

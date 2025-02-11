@@ -8,6 +8,8 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import java.security.PublicKey;
+
 @Config
 public class Arm {
     private final DcMotor arm;
@@ -23,9 +25,10 @@ public class Arm {
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
 
     // Arm Position Stages (Using Ticks)
-    public static final int STAGE_0 = -200;  // 0 degrees
-    public static final int STAGE_1 = 300;   // 90 degrees
-    public static final int STAGE_2 = 500;   // 160 degrees
+public  static final int STAGE_0 = 0
+    public static final int STAGE_1 = -200;  // 0 degrees
+    public static final int STAGE_2 = 300;   // 90 degrees
+    public static final int STAGE_3 = 500;   // 160 degrees
 
     private double targetPosition = STAGE_0; // Default target
 
@@ -103,6 +106,10 @@ public class Arm {
 
     public Action goToStage2() {
         return moveToPositionAction(STAGE_2);
+    }
+
+    public Action goToStage3() {
+        return moveToPositionAction(STAGE_3);
     }
 
     public void stop() {
