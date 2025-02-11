@@ -60,6 +60,11 @@ public class AutoR extends LinearOpMode {
 
         waitForStart();
 
+        while (opModeIsActive()) {
+            arm.maintainPosition();  // Keep PID control active
+            idle();  // Allows FTC scheduler to run background tasks
+        }
+
         Actions.runBlocking(
                 new ParallelAction(
                         OutTakePos.build(),
@@ -69,7 +74,7 @@ public class AutoR extends LinearOpMode {
         );
         Actions.runBlocking(
                 new SequentialAction(
-                        slides.goToStage1(),
+                        slides.goToStage3(),
                         intakeServos.Outtake(),
                         arm.goToStage0(),
                         slides.goToStage0(),
@@ -95,8 +100,6 @@ public class AutoR extends LinearOpMode {
                         intakeServos.WOutTake1()
                 )
         );
-
-        arm.stop();
 
         if (isStopRequested()) return;
 

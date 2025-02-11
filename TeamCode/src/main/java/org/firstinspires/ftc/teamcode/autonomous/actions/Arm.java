@@ -8,14 +8,10 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import java.security.PublicKey;
-
 @Config
 public class Arm {
     private final DcMotor arm;
     private final PIDController armController;
-    private Thread armThread;
-    private boolean running = true;
 
     // PIDF Constants (Tunable in FTC Dashboard)
     public static double p = 0.015, i = 0, d = 0.001;
@@ -25,10 +21,10 @@ public class Arm {
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
 
     // Arm Position Stages (Using Ticks)
-    public  static final int STAGE_0 = 0;
+    public static final int STAGE_0 = 0;
     public static final int STAGE_1 = -50;  // 0 degrees
     public static final int STAGE_2 = 50;   // 90 degrees
-    public static final int STAGE_3 = 100;   // 160 degrees
+    public static final int STAGE_3 = 100;  // 160 degrees
 
     private double targetPosition = STAGE_0; // Default target
 
@@ -45,6 +41,15 @@ public class Arm {
         // Initialize encoders
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    public void maintainPosition() {
+        armController.setPID(p, i, d);
+        int arm_pos = arm.getCurrentPosition();
+        double pid = armController.calculate(arm_pos, targetPosition);
+        double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
+        double power = pid + ff;
+        arm.setPower(power);
     }
 
     public Action moveToPositionAction(int targetDegrees) {
@@ -64,35 +69,14 @@ public class Arm {
             if (!initialized) {
                 targetPosition = targetTicks;
                 initialized = true;
-                startArmThread();
             }
+
+            maintainPosition();
 
             packet.put("Arm Target (Ticks)", targetPosition);
             packet.put("Arm Current Position", arm.getCurrentPosition());
 
             return Math.abs(arm.getCurrentPosition() - targetPosition) > 5;
-        }
-    }
-
-    private void startArmThread() {
-        if (armThread == null || !armThread.isAlive()) {
-            armThread = new Thread(() -> {
-                while (running) {
-                    armController.setPID(p, i, d);
-                    int arm_pos = arm.getCurrentPosition();
-                    double pid = armController.calculate(arm_pos, targetPosition);
-                    double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
-                    double power = pid + ff;
-                    arm.setPower(power);
-
-                    try {
-                        Thread.sleep(20); // 20ms loop time
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            });
-            armThread.start();
         }
     }
 
@@ -110,16 +94,5 @@ public class Arm {
 
     public Action goToStage3() {
         return moveToPositionAction(STAGE_3);
-    }
-
-    public void stop() {
-        running = false;
-        if (armThread != null) {
-            try {
-                armThread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
     }
 }
