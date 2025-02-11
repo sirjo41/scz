@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Arm {
     private final DcMotor arm;
-    private final PIDController armController;
     private Thread armThread;
     private volatile boolean running = true;
 
@@ -34,7 +33,6 @@ public class Arm {
         arm = hardwareMap.get(DcMotor.class, "arm");
 
         // Initialize PID Controller
-        armController = new PIDController(p, i, d);
 
         // Set motor direction
         arm.setDirection(DcMotor.Direction.FORWARD);
@@ -74,6 +72,7 @@ public class Arm {
     private void startArmThread() {
         if (armThread == null || !armThread.isAlive()) {
             armThread = new Thread(() -> {
+                PIDController armController = new PIDController(p, i, d);
                 while (running) {
                     armController.setPID(p, i, d);
                     int arm_pos = arm.getCurrentPosition();
