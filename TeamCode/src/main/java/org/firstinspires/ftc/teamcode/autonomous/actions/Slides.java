@@ -51,7 +51,7 @@ public class Slides {
                 slide1.setTargetPosition(targetPosition);
                 slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 slide1.setPower(1);
-                slide2.setPower((targetPosition > slide1.getCurrentPosition() ? 1 : -1) * 0.8);
+                slide2.setPower((targetPosition > slide1.getCurrentPosition() ? 1 : -1) * 0.7);
                 initialized = true;
             }
 
@@ -59,7 +59,7 @@ public class Slides {
             packet.put("Slide Target", targetPosition);
             packet.put("Slide Current Position", slide2.getCurrentPosition());
 
-            if (!slide1.isBusy() && Math.abs(slide1.getCurrentPosition() - targetPosition) > 50) {
+            if (!slide1.isBusy()) {
                 slide1.setPower(0);
                 slide2.setPower(0);
                 return false; // Action is complete
