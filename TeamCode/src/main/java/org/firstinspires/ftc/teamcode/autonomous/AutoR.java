@@ -60,8 +60,12 @@ public class AutoR extends LinearOpMode {
 
         waitForStart();
 
-        slides.goToStage2();
-        slides.goToStage0();
+        Actions.runBlocking(
+                new SequentialAction(
+                        slides.goToStage3(),
+                        slides.goToStage0()
+                )
+        );
 //        Actions.runBlocking(
 //                new ParallelAction(
 //                        OutTakePos.build(),
