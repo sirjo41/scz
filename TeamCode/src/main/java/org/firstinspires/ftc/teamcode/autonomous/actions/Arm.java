@@ -8,33 +8,30 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@Config
 public class Arm {
     private final DcMotor arm;
     private final PIDController armController;
+    private Thread armThread;
+    private volatile boolean running = true;
 
     // PIDF Constants (Tunable in FTC Dashboard)
-    public static double p = 0.015, i = 0, d = 0.001;
-    public static double f = -0.05;
+    public volatile static double p = 0.015, i = 0, d = 0.001;
+    public volatile  static double f = -0.05;
 
     // Correct Ticks per Degree for GoBILDA 117 RPM with 5:1 Gear Ratio
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
 
     // Arm Position Stages (Using Ticks)
-    public static final int STAGE_0 = 0;
-    public static final int STAGE_1 = -100;   // Example
-    public static final int STAGE_2 = 100;    // Example
-    public static final int STAGE_3 = 200;    // Example
+    public  static final int STAGE_0 = 0;
+    public static final int STAGE_1 = -50;  // 0 degrees
+    public static final int STAGE_2 = 50;   // 90 degrees
+    public static final int STAGE_3 = 100;   // 160 degrees
 
-    // Default to stage2 for demonstration
-    private double targetPosition = STAGE_2;
+    private volatile  double targetPosition = STAGE_0; // Default target
 
     public Arm(HardwareMap hardwareMap) {
         // Initialize motor
         arm = hardwareMap.get(DcMotor.class, "arm");
-
-        // Optionally set ZeroPowerBehavior to BRAKE
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Initialize PID Controller
         armController = new PIDController(p, i, d);
@@ -47,84 +44,55 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    /**
-     * Continuously apply PIDF to hold targetPosition.
-     */
-    public void maintainPosition() {
-        armController.setPID(p, i, d);
-        int arm_pos = arm.getCurrentPosition();
-        double pid = armController.calculate(arm_pos, targetPosition);
-        double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
-        double power = pid + ff;
-        arm.setPower(power);
+    public Action moveToPositionAction(int targetDegrees) {
+        return new ArmPIDFAction(targetDegrees);
     }
 
-    /**
-     * Creates a Road Runner action to move the arm to a specific angle (in ticks).
-     * If you want real degrees, you can do the conversion or store your angles
-     * in ticks directly as shown in the STAGE_x constants.
-     */
-    public Action moveToPositionAction(int targetTicks) {
-        return new ArmPIDFAction(targetTicks);
-    }
-
-    /**
-     * Creates an action that calls maintainPosition() indefinitely
-     * until you explicitly call stop(). Good for background holding.
-     */
-    public MaintainArmAction maintainArmForever() {
-        return new MaintainArmAction();
-    }
-
-    // Single move action
     private class ArmPIDFAction implements Action {
         private final double targetTicks;
         private boolean initialized = false;
 
-        public ArmPIDFAction(double targetTicks) {
-            this.targetTicks = targetTicks;
+        public ArmPIDFAction(double targetDegrees) {
+            this.targetTicks = targetDegrees * ticks_in_deg;
         }
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            // On first iteration, set the new target
             if (!initialized) {
                 targetPosition = targetTicks;
                 initialized = true;
+                startArmThread();
             }
 
-            // Maintain arm with PID each cycle
-            maintainPosition();
-
-            // Telemetry
             packet.put("Arm Target (Ticks)", targetPosition);
             packet.put("Arm Current Position", arm.getCurrentPosition());
 
-            // Action completes once within ±5 ticks
-            return Math.abs(arm.getCurrentPosition() - targetPosition) <= 5;
+            return Math.abs(arm.getCurrentPosition() - targetPosition) > 5;
         }
     }
 
-    // Indefinite arm-holding action
-    public class MaintainArmAction implements Action {
-        private boolean done = false;
+    private void startArmThread() {
+        if (armThread == null || !armThread.isAlive()) {
+            armThread = new Thread(() -> {
+                while (running) {
+                    armController.setPID(p, i, d);
+                    int arm_pos = arm.getCurrentPosition();
+                    double pid = armController.calculate(arm_pos, targetPosition);
+                    double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
+                    double power = pid + ff;
+                    arm.setPower(power);
 
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            // Always run maintainPosition until told to stop
-            maintainPosition();
-
-            // This returns 'true' only if we set done=true (stop() called)
-            return done;
-        }
-
-        // Call this externally if you want to end the hold
-        public void stop() {
-            done = true;
+                    try {
+                        Thread.sleep(20); // 20ms loop time
+                    } catch (InterruptedException e) {
+                        return; // end this thread
+                    }
+                }
+            });
+            armThread.start();
         }
     }
 
-    // Helper methods for quick referencing
     public Action goToStage0() {
         return moveToPositionAction(STAGE_0);
     }
@@ -139,5 +107,16 @@ public class Arm {
 
     public Action goToStage3() {
         return moveToPositionAction(STAGE_3);
+    }
+
+    public void stop() {
+        if (armThread != null) {
+            try {
+                armThread.interrupt(); // make it stop
+                armThread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
