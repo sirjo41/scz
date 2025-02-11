@@ -49,20 +49,17 @@ public class Slides {
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
                 slide1.setTargetPosition(targetPosition);
-                slide2.setTargetPosition(targetPosition);
                 slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 slide1.setPower(1);
-                slide2.setPower(0.7);
+                slide2.setPower((targetPosition > slide1.getCurrentPosition() ? 1 : -1) * 0.7);
                 initialized = true;
             }
 
             // Provide telemetry
             packet.put("Slide Target", targetPosition);
-            packet.put("Slide1 Current Position", slide1.getCurrentPosition());
-            packet.put("Slide2 Current Position", slide2.getCurrentPosition());
+            packet.put("Slide Current Position", slide2.getCurrentPosition());
 
-            if (!slide1.isBusy() && !slide2.isBusy()) {
+            if (!slide1.isBusy()) {
                 slide1.setPower(0);
                 slide2.setPower(0);
                 return false; // Action is complete
