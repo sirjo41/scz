@@ -32,6 +32,9 @@ public class Arm {
         // Initialize motor
         arm = hardwareMap.get(DcMotor.class, "arm");
 
+        // Optionally set ZeroPowerBehavior to BRAKE
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // Initialize PID Controller
         armController = new PIDController(p, i, d);
 
@@ -43,6 +46,7 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    // Continuously apply PIDF to hold targetPosition
     public void maintainPosition() {
         armController.setPID(p, i, d);
         int arm_pos = arm.getCurrentPosition();
@@ -52,10 +56,18 @@ public class Arm {
         arm.setPower(power);
     }
 
+    // Creates a Road Runner action to move the arm to a specific angle
     public Action moveToPositionAction(int targetDegrees) {
         return new ArmPIDFAction(targetDegrees);
     }
 
+    // Creates an Action that runs maintainPosition() indefinitely
+    // until we explicitly call stop(). Useful to keep the arm from falling.
+    public MaintainArmAction maintainArmForever() {
+        return new MaintainArmAction();
+    }
+
+    // Actual action class that moves once to a target, then completes
     private class ArmPIDFAction implements Action {
         private final double targetTicks;
         private boolean initialized = false;
@@ -66,20 +78,44 @@ public class Arm {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+            // On first iteration, set the new target
             if (!initialized) {
                 targetPosition = targetTicks;
                 initialized = true;
             }
 
+            // Maintain arm with PID each cycle
             maintainPosition();
 
+            // Send telemetry
             packet.put("Arm Target (Ticks)", targetPosition);
             packet.put("Arm Current Position", arm.getCurrentPosition());
 
-            return Math.abs(arm.getCurrentPosition() - targetPosition) > 5;
+            // Stop action once within ~5 ticks
+            return Math.abs(arm.getCurrentPosition() - targetPosition) <= 5;
         }
     }
 
+    // Indefinite arm-holding action
+    public class MaintainArmAction implements Action {
+        private boolean done = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // Always run maintainPosition until told to stop
+            maintainPosition();
+
+            // This returns 'true' only if we set done=true (stop() called)
+            return done;
+        }
+
+        // Call this externally if you want to end the hold
+        public void stop() {
+            done = true;
+        }
+    }
+
+    // Helper methods for quick referencing
     public Action goToStage0() {
         return moveToPositionAction(STAGE_0);
     }
