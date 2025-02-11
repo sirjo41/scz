@@ -14,7 +14,7 @@ public class Arm {
     private volatile boolean running = true;
 
     // PIDF Constants (Tunable in FTC Dashboard)
-    public volatile static double p = 0.015, i = 1, d = 0.001;
+    public volatile static double p = 0.015, i = 0.55, d = 0.001;
     public volatile  static double f = -0.05;
 
     // Correct Ticks per Degree for GoBILDA 117 RPM with 5:1 Gear Ratio
