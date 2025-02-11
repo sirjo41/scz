@@ -91,8 +91,8 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(0.7);
                 slide2.setPower(1);
             } else if (gamepad1.left_bumper) {
-                slide1.setPower(-0.7);
-                slide2.setPower(-1);
+                slide1.setPower(1);
+                slide2.setPower(0.7);
             } else {
                 slide1.setPower(0);
                 slide2.setPower(0);
@@ -176,7 +176,7 @@ public class Drive extends LinearOpMode {
         slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setPower(1);
-        slide2.setPower(1);
+        slide2.setPower(0.7);
         while (opModeIsActive() && slide1.isBusy() && slide2.isBusy()) {
             telemetry.addData("Target", S_INTAKE);
             telemetry.addData("Current Position Slide1", slide1.getCurrentPosition());
