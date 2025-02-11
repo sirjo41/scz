@@ -100,7 +100,7 @@ public class IntakeServos {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
                 wrist.setPosition(position);
-                return true;
+                return false;
         }
     }
 }
