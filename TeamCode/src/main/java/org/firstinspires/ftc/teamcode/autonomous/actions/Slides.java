@@ -51,7 +51,7 @@ public class Slides {
                 slide1.setTargetPosition(targetPosition);
                 slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 slide1.setPower(1);
-                slide2.setPower((targetPosition > slide1.getCurrentPosition() ? 1 : -1) * 0.7);
+                slide2.setPower((targetPosition > slide1.getCurrentPosition() ? 1 : -1) * 1);
                 initialized = true;
             }
 
