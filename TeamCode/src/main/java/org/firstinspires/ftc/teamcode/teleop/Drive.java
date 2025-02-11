@@ -104,10 +104,12 @@ public class Drive extends LinearOpMode {
             //arm
 
             if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
-                arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+               stopHoldingPosition(arm);
+ arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 arm.setPower(gamepad1.left_stick_y);
             }
             else if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
+stopHoldingPosition(arm);
                 arm.setPower(0);
             }
             else{
@@ -141,35 +143,19 @@ public class Drive extends LinearOpMode {
 
         }
     }
-    private void startHoldingPosition(DcMotor arm) {
-        if (isHolding) return; // Prevent multiple threads
-        isHolding = true;
 
-        holdThread = new Thread(() -> {
-            while (isHolding) {
-                arm.setTargetPosition(arm.getCurrentPosition());
-                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                arm.setPower(0.2); // Hold position efficiently
+private void startHoldingPosition(DcMotor arm) {
+    isHolding = true;
+    int targetPosition = arm.getCurrentPosition(); // Get current position
+    arm.setTargetPosition(targetPosition);
+    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    arm.setPower(0.2); // Hold position efficiently
+}
 
-                try {
-                    Thread.sleep(20); // Run at ~50Hz
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-        });
-        holdThread.start();
-    }
-
-    private void stopHoldingPosition(DcMotor arm) {
-        isHolding = false;
-        if (holdThread != null) {
-            holdThread.interrupt();
-        }
-        arm.setPower(0); // Stop motor power when no longer holding
-    }
-
-
+private void stopHoldingPosition(DcMotor arm) {
+    isHolding = false;
+    arm.setPower(0); // Stop motor power when no longer holding
+}
     private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
         slide1.setTargetPosition(S_INTAKE);
         slide2.setTargetPosition(S_INTAKE);
