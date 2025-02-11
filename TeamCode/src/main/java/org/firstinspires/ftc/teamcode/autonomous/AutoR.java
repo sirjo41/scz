@@ -85,7 +85,7 @@ public class AutoR extends LinearOpMode {
         );
         Actions.runBlocking(
                 new SequentialAction(
-                        intakeServos.Outtake()
+                        intakeServos.Intake()
                 )
         );
         Actions.runBlocking(
