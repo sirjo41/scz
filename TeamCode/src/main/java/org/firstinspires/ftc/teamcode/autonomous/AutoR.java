@@ -95,6 +95,7 @@ public class AutoR extends LinearOpMode {
 
         // Create a persistent action that holds your arm
         Arm.MaintainArmAction holdAction = arm.maintainArmForever();
+
         // Combine the main sequence & the arm hold in parallel
         ParallelAction entireAutonInParallel = new ParallelAction(
                 holdAction,

@@ -22,11 +22,12 @@ public class Arm {
 
     // Arm Position Stages (Using Ticks)
     public static final int STAGE_0 = 0;
-    public static final int STAGE_1 = -100;  // 0 degrees
-    public static final int STAGE_2 = 100;   // 90 degrees
-    public static final int STAGE_3 = 200;  // 160 degrees
+    public static final int STAGE_1 = -100;   // Example
+    public static final int STAGE_2 = 100;    // Example
+    public static final int STAGE_3 = 200;    // Example
 
-    private double targetPosition = STAGE_0; // Default target
+    // Default to stage2 for demonstration
+    private double targetPosition = STAGE_2;
 
     public Arm(HardwareMap hardwareMap) {
         // Initialize motor
@@ -46,7 +47,9 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    // Continuously apply PIDF to hold targetPosition
+    /**
+     * Continuously apply PIDF to hold targetPosition.
+     */
     public void maintainPosition() {
         armController.setPID(p, i, d);
         int arm_pos = arm.getCurrentPosition();
@@ -56,24 +59,30 @@ public class Arm {
         arm.setPower(power);
     }
 
-    // Creates a Road Runner action to move the arm to a specific angle
-    public Action moveToPositionAction(int targetDegrees) {
-        return new ArmPIDFAction(targetDegrees);
+    /**
+     * Creates a Road Runner action to move the arm to a specific angle (in ticks).
+     * If you want real degrees, you can do the conversion or store your angles
+     * in ticks directly as shown in the STAGE_x constants.
+     */
+    public Action moveToPositionAction(int targetTicks) {
+        return new ArmPIDFAction(targetTicks);
     }
 
-    // Creates an Action that runs maintainPosition() indefinitely
-    // until we explicitly call stop(). Useful to keep the arm from falling.
+    /**
+     * Creates an action that calls maintainPosition() indefinitely
+     * until you explicitly call stop(). Good for background holding.
+     */
     public MaintainArmAction maintainArmForever() {
         return new MaintainArmAction();
     }
 
-    // Actual action class that moves once to a target, then completes
+    // Single move action
     private class ArmPIDFAction implements Action {
         private final double targetTicks;
         private boolean initialized = false;
 
-        public ArmPIDFAction(double targetDegrees) {
-            this.targetTicks = targetDegrees;
+        public ArmPIDFAction(double targetTicks) {
+            this.targetTicks = targetTicks;
         }
 
         @Override
@@ -87,11 +96,11 @@ public class Arm {
             // Maintain arm with PID each cycle
             maintainPosition();
 
-            // Send telemetry
+            // Telemetry
             packet.put("Arm Target (Ticks)", targetPosition);
             packet.put("Arm Current Position", arm.getCurrentPosition());
 
-            // Stop action once within ~5 ticks
+            // Action completes once within ±5 ticks
             return Math.abs(arm.getCurrentPosition() - targetPosition) <= 5;
         }
     }
