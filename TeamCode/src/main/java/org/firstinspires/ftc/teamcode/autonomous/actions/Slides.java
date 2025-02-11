@@ -52,8 +52,8 @@ public class Slides {
                 slide2.setTargetPosition(targetPosition);
                 slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slide1.setPower(0.7);
-                slide2.setPower(1);
+                slide1.setPower(1);
+                slide2.setPower(0.7);
                 initialized = true;
             }
 
