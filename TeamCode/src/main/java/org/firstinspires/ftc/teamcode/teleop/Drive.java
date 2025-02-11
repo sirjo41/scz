@@ -170,21 +170,20 @@ public class Drive extends LinearOpMode {
     }
 
 
-    private  void  moveSlideToPos(DcMotor slides1, DcMotor slides2){
-        slides1.setTargetPosition(S_INTAKE);
-        slides2.setTargetPosition(S_INTAKE);
-        slides1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slides2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slides1.setPower(0.7);
-        slides2.setPower(1);
-
-        do {
+    private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
+        slide1.setTargetPosition(S_INTAKE);
+        slide2.setTargetPosition(S_INTAKE);
+        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide1.setPower(1);
+        slide2.setPower(1);
+        while (opModeIsActive() && slide1.isBusy() && slide2.isBusy()) {
             telemetry.addData("Target", S_INTAKE);
-            telemetry.addData("Current Position Slide1", slides1.getCurrentPosition());
-            telemetry.addData("Current Position Slide2", slides2.getCurrentPosition());
+            telemetry.addData("Current Position Slide1", slide1.getCurrentPosition());
+            telemetry.addData("Current Position Slide2", slide2.getCurrentPosition());
             telemetry.update();
-        } while (opModeIsActive() && slides1.isBusy() && slides2.isBusy());
-        slides1.setPower(0);
-        slides2.setPower(0);
+        }
+        slide1.setPower(0.1);
+        slide2.setPower(0.1);
     }
 }
