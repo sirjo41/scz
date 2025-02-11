@@ -183,7 +183,7 @@ public class Drive extends LinearOpMode {
             telemetry.addData("Current Position Slide2", slide2.getCurrentPosition());
             telemetry.update();
         }
-        slide1.setPower(0.1);
-        slide2.setPower(0.1);
+        slide1.setPower(0);
+        slide2.setPower(0);
     }
 }
