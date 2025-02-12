@@ -46,9 +46,9 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(61,-52));
 
         TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(61,-52, Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(30,-55));
+                .strafeTo(new Vector2d(30,-52));
 
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-55, Math.toRadians(90.00)))
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-52, Math.toRadians(90.00)))
                 .strafeTo(OutTake);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
