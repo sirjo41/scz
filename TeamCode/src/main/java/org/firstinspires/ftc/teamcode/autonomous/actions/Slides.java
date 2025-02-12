@@ -11,8 +11,8 @@ public class Slides {
     private final DcMotor slide2;
 
     // Constants for stage positions
-    public static final int STAGE_0 = 5;
-    public static final int STAGE_1 = 750;
+    public static final int STAGE_INTAKE = 5;
+    public static final int STAGE_OUTTAKE = 800;
     public static final int STAGE_2 = 1200;
     public static final int STAGE_3 = 2000;
 
@@ -66,11 +66,11 @@ public class Slides {
 
     // Predefined stage actions
     public Action goToStage0() {
-        return moveToPositionAction(STAGE_0);
+        return moveToPositionAction(STAGE_INTAKE);
     }
 
     public Action goToStage1() {
-        return moveToPositionAction(STAGE_1);
+        return moveToPositionAction(STAGE_OUTTAKE);
     }
 
     public Action goToStage2() {

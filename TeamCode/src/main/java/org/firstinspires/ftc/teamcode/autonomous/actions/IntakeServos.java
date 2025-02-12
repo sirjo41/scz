@@ -17,9 +17,9 @@ public class IntakeServos {
     private static final double STOP_POWER = 0.0;
 
     // Constants for the wrist positions
-    private static final double WRIST_DEFAULT = 0.5;
-    private static final double WRIST_CLOSED = 0.0;
-    private static final double WRIST_OPEN = 1.0;
+    private static final double WRIST_DEFAULT = 0.7;
+    private static final double WRIST_OUTTAKE = 0.2;
+    private static final double WRIST_INTAKE = 1.0;
 
     public IntakeServos(HardwareMap hardwareMap) {
         // Initialize servos
@@ -45,12 +45,12 @@ public class IntakeServos {
 
     // Action to set wrist to open position
     public Action setWristInTake() {
-        return new WristAction(WRIST_OPEN);
+        return new WristAction(WRIST_INTAKE);
     }
 
     // Action to set wrist to closed position
     public Action setWristOutTake() {
-        return new WristAction(WRIST_CLOSED);
+        return new WristAction(WRIST_OUTTAKE);
     }
 
     // Action to reset wrist to default position
