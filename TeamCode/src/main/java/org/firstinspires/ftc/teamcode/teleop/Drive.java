@@ -97,9 +97,6 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(0);
                 slide2.setPower(0);
             }
-            if(gamepad1.dpad_left){
-                moveSlideToPos(slide1, slide2);
-            }
 
             //arm
 
@@ -149,20 +146,4 @@ private void holdPosition(DcMotor arm) {
         arm.setPower(0.2);
     }
 
-    private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
-        slide1.setTargetPosition(S_INTAKE);
-        slide2.setTargetPosition(S_INTAKE);
-        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slide1.setPower(1);
-        slide2.setPower(0.7);
-        while (opModeIsActive() && slide1.isBusy() && slide2.isBusy()) {
-            telemetry.addData("Target", S_INTAKE);
-            telemetry.addData("Current Position Slide1", slide1.getCurrentPosition());
-            telemetry.addData("Current Position Slide2", slide2.getCurrentPosition());
-            telemetry.update();
-        }
-        slide1.setPower(0);
-        slide2.setPower(0);
-    }
 }
