@@ -21,9 +21,9 @@ public class Arm {
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
 
     // Arm Position Stages (Using Ticks)
-    public  int STAGE_0 = 0;
-    public int STAGE_INTAKE = -50;  // 0 degrees
-    public  int STAGE_OUTTAKE = 70;   // 90 degrees
+    public static int STAGE_0 = 0;
+    public static int STAGE_INTAKE = -50;  // 0 degrees
+    public static int STAGE_OUTTAKE = 70;   // 90 degrees
 
     private volatile  double targetPosition = STAGE_0; // Default target
 

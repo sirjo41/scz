@@ -13,10 +13,10 @@ public class Slides {
     private final DcMotor slide2;
 
     // Constants for stage positions
-    public int STAGE_INTAKE = 5;
-    public int STAGE_OUTTAKE = 1100;
-    public int STAGE_OUTTAKE2 = 2000;
-    public int STAGE_3 = 2000;
+    public static int STAGE_INTAKE = 5;
+    public static int STAGE_OUTTAKE = 1100;
+    public static int STAGE_OUTTAKE2 = 2000;
+    public static int STAGE_3 = 2000;
 
     public Slides(HardwareMap hardwareMap) {
         // Initialize motors
