@@ -14,7 +14,7 @@ public class Slides {
 
     // Constants for stage positions
     public static int STAGE_INTAKE = 5;
-    public static int STAGE_OUTTAKE = 1100;
+    public static int STAGE_OUTTAKE = 1300;
     public static int STAGE_OUTTAKE2 = 2000;
     public static int STAGE_3 = 2000;
 
