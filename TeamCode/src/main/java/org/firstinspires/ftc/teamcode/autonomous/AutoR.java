@@ -49,7 +49,7 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(30,-52));
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-52, Math.toRadians(90.00)))
-                .strafeToConstantHeading(new Vector2d(12, -43));
+                .strafeTo(new Vector2d(12, -43));
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(30,-52));
@@ -74,26 +74,31 @@ public class AutoR extends LinearOpMode {
                 )
         );
 
-        sleep(100000);
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        arm.goToStage0(),
-//                        slides.goToStage0(),
-//                        SampToHum.build()
-//                )
-//        );
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        InTakePos.build(),
-//                        arm.goToStage1(),
-//                        intakeServos.setWristInTake()
-//                )
-//        );
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        intakeServos.Intake()
-//                )
-//        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStage0(),
+                        slides.goToStage0(),
+                        SampToHum.build()
+                )
+        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        InTakePos.build()
+                )
+        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStage1(),
+                        intakeServos.setWristInTake()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeServos.Intake()
+                )
+        );
+
+        sleep(1000000);
 //        Actions.runBlocking(
 //                new ParallelAction(
 //                        OutTakePos2.build(),
