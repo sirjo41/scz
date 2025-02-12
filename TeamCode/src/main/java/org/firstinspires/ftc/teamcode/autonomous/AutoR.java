@@ -35,24 +35,24 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(32,-43))
-                .strafeTo(new Vector2d(32,-12))
-                .strafeTo(new Vector2d(45,-12))
-                .strafeTo(new Vector2d(45,-52))
-                .strafeTo(new Vector2d(45,-12))
-                .strafeTo(new Vector2d(55,-12))
+                .strafeTo(new Vector2d(32,-14))
+                .strafeTo(new Vector2d(47,-14))
+                .strafeTo(new Vector2d(47,-52))
+                .strafeTo(new Vector2d(47,-14))
+                .strafeTo(new Vector2d(55,-14))
                 .strafeTo(new Vector2d(55,-52))
-                .strafeTo(new Vector2d(55,-12))
-                .strafeTo(new Vector2d(61,-12))
+                .strafeTo(new Vector2d(55,-14))
+                .strafeTo(new Vector2d(61,-14))
                 .strafeTo(new Vector2d(61,-52));
 
         TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(61,-52, Math.toRadians(90.00)))
-                .strafeToConstantHeading(InTake);
+                .strafeTo(new Vector2d(30,-55));
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-55, Math.toRadians(90.00)))
-                .strafeToConstantHeading(OutTake);
+                .strafeTo(OutTake);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
-                .strafeToConstantHeading(InTake);
+                .strafeTo(InTake);
 
 
         telemetry.addData("Status","READDDYYYY ");
