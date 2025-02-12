@@ -19,9 +19,9 @@ public class IntakeServos {
     public static final double STOP_POWER = 0.0;
 
     // Constants for the wrist positions
-    public static final double WRIST_DEFAULT = 0.7;
-    public static final double WRIST_OUTTAKE = 0.2;
-    public static final double WRIST_INTAKE = 1.0;
+    public  double WRIST_DEFAULT = 0.7;
+    public  double WRIST_OUTTAKE = 0.2;
+    public  double WRIST_INTAKE = 1.0;
 
     public IntakeServos(HardwareMap hardwareMap) {
         // Initialize servos

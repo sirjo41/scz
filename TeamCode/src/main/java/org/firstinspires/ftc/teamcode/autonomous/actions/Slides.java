@@ -16,7 +16,7 @@ public class Slides {
     public int STAGE_INTAKE = 5;
     public int STAGE_OUTTAKE = 1100;
     public int STAGE_OUTTAKE2 = 1200;
-    public  int STAGE_3 = 2000;
+    public int STAGE_3 = 2000;
 
     public Slides(HardwareMap hardwareMap) {
         // Initialize motors
