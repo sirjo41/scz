@@ -1,25 +1,27 @@
 package org.firstinspires.ftc.teamcode.autonomous.actions;
 
 import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
+@Config
 public class IntakeServos {
     private final Servo wrist;
     private final CRServo intakeServo1;
     private final CRServo intakeServo2;
 
     // Constants for intake servo power
-    private static final double INTAKE_POWER = 1.0;
-    private static final double STOP_POWER = 0.0;
+    public static final double INTAKE_POWER = 1.0;
+    public static final double STOP_POWER = 0.0;
 
     // Constants for the wrist positions
-    private static final double WRIST_DEFAULT = 0.7;
-    private static final double WRIST_OUTTAKE = 0.2;
-    private static final double WRIST_INTAKE = 1.0;
+    public static final double WRIST_DEFAULT = 0.7;
+    public static final double WRIST_OUTTAKE = 0.2;
+    public static final double WRIST_INTAKE = 1.0;
 
     public IntakeServos(HardwareMap hardwareMap) {
         // Initialize servos

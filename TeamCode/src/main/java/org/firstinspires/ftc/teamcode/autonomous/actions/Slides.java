@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.autonomous.actions;
 
 import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
+@Config
 public class Slides {
     private final DcMotor slide1;
     private final DcMotor slide2;
@@ -13,7 +15,7 @@ public class Slides {
     // Constants for stage positions
     public static final int STAGE_INTAKE = 5;
     public static final int STAGE_OUTTAKE = 800;
-    public static final int STAGE_2 = 1200;
+    public static final int STAGE_OUTTAKE2 = 1200;
     public static final int STAGE_3 = 2000;
 
     public Slides(HardwareMap hardwareMap) {
@@ -74,7 +76,7 @@ public class Slides {
     }
 
     public Action goToStage2() {
-        return moveToPositionAction(STAGE_2);
+        return moveToPositionAction(STAGE_OUTTAKE2);
     }
 
     public Action goToStage3() {
