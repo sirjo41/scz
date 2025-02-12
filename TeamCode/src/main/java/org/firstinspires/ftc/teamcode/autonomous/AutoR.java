@@ -52,7 +52,7 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(OutTake);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
-                .strafeTo(InTake);
+                .strafeTo(new Vector2d(30,-52));
 
 
         telemetry.addData("Status","READDDYYYY ");
