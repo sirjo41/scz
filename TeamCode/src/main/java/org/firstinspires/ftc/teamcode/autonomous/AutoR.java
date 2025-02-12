@@ -34,8 +34,8 @@ public class AutoR extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(12, -43));
 
         TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(32,-43))
-                .strafeTo(new Vector2d(32,-14))
+                .strafeTo(new Vector2d(35,-43))
+                .strafeTo(new Vector2d(35,-14))
                 .strafeTo(new Vector2d(47,-14))
                 .strafeTo(new Vector2d(47,-52))
                 .strafeTo(new Vector2d(47,-14))
