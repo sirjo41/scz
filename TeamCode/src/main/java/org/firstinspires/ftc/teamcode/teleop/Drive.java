@@ -103,18 +103,16 @@ public class Drive extends LinearOpMode {
 
             //arm
 
-            if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
-               stopHoldingPosition(arm);
- arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
+                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 arm.setPower(gamepad1.left_stick_y);
             }
             else if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
-stopHoldingPosition(arm);
-                arm.setPower(0);
-            }
-            else{
-                    startHoldingPosition(arm);
-            }
+                    arm.setPower(0);
+                }
+            else {
+                    holdPosition(arm);
+                }
 //wrist 
 
             if (gamepad1.dpad_up) {
@@ -144,18 +142,13 @@ stopHoldingPosition(arm);
         }
     }
 
-private void startHoldingPosition(DcMotor arm) {
-    isHolding = true;
-    int targetPosition = arm.getCurrentPosition(); // Get current position
-    arm.setTargetPosition(targetPosition);
-    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    arm.setPower(0.2); // Hold position efficiently
-}
+private void holdPosition(DcMotor arm) {
+        int currentTarget = arm.getCurrentPosition();
+        arm.setTargetPosition(currentTarget);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(0.2);
+    }
 
-private void stopHoldingPosition(DcMotor arm) {
-    isHolding = false;
-    arm.setPower(0); // Stop motor power when no longer holding
-}
     private  void  moveSlideToPos(DcMotor slide1, DcMotor slide2){
         slide1.setTargetPosition(S_INTAKE);
         slide2.setTargetPosition(S_INTAKE);
