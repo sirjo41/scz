@@ -56,33 +56,32 @@ public class AutoL extends LinearOpMode {
 
         waitForStart();
 
-
         Actions.runBlocking(
-                new SequentialAction(
-                        InTake1.build(),
-                        new ParallelAction(
-                                arm.goToStage3(),
-                                intakeServos.WOutTake1()
-                        ),
-                        new SequentialAction(
-                                slides.goToStage1(),
-                                intakeServos.Intake(),
-                                new ParallelAction(
-                                        slides.goToStage0(),
-                                        arm.goToStage0()
-                                )
-                        ),
-                        OutTake1.build(),
-                        slides.goToStage2(),
-                        intakeServos.setWristInTake(),
-                        intakeServos.Outtake(),
-                        intakeServos.setWristOutTake(),
-                        slides.goToStage0()
+                InTake1.build()
+        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStage3(),
+                        intakeServos.WOutTake1()
+
+//                        OutTake1.build(),
+//                        slides.goToStage2(),
+//                        intakeServos.setWristInTake(),
+//                        intakeServos.Outtake(),
+//                        intakeServos.setWristOutTake(),
+//                        slides.goToStage0()
 
                 )
         );
-
-
+        Actions.runBlocking(
+                new SequentialAction(
+                slides.goToStage1(),
+                intakeServos.Intake(),
+                new ParallelAction(
+                        slides.goToStage0(),
+                        arm.goToStage0()
+                )
+        ));
         Actions.runBlocking(
                 park.build()
         );
