@@ -29,7 +29,7 @@ public class AutoL extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
 
         TrajectoryActionBuilder InTake1 = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(-48.30, -42.88));
+                .strafeToConstantHeading(new Vector2d(-48, -42));;
 
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(new Pose2d(-48.30, -42.88, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(-54,-54))
