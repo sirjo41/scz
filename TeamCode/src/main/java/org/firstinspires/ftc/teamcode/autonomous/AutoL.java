@@ -63,14 +63,6 @@ public class AutoL extends LinearOpMode {
                 new ParallelAction(
                         arm.goToStage3(),
                         intakeServos.WOutTake1()
-
-//                        OutTake1.build(),
-//                        slides.goToStage2(),
-//                        intakeServos.setWristInTake(),
-//                        intakeServos.Outtake(),
-//                        intakeServos.setWristOutTake(),
-//                        slides.goToStage0()
-
                 )
         );
         Actions.runBlocking(
@@ -82,6 +74,18 @@ public class AutoL extends LinearOpMode {
                         arm.goToStage0()
                 )
         ));
+
+        Actions.runBlocking(
+                new ParallelAction(
+                OutTake1.build(),
+                slides.goToStage2(),
+                intakeServos.setWristInTake(),
+                intakeServos.Outtake(),
+                intakeServos.setWristOutTake(),
+                slides.goToStage0()
+                )
+        );
+
         Actions.runBlocking(
                 park.build()
         );

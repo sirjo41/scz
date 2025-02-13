@@ -61,28 +61,26 @@ public class AutoR extends LinearOpMode {
         waitForStart();
 
         Actions.runBlocking(
-                new ParallelAction(
+                new SequentialAction(
+                    new ParallelAction(
                         OutTakePos.build(),
                         arm.goToStage2(),
                         intakeServos.setWristOutTake()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                        slides.goToStage1(),
-                        intakeServos.Outtake()
+                ),
+                        new SequentialAction(
+                                slides.goToStage1(),
+                                intakeServos.Outtake()
+                        )
                 )
         );
 
         Actions.runBlocking(
+                new SequentialAction(
                 new ParallelAction(
                         arm.goToStage0(),
                         slides.goToStage0(),
                         SampToHum.build()
-                )
-        );
-        Actions.runBlocking(
-                new ParallelAction(
+                ),
                         InTakePos.build()
                 )
         );
@@ -98,14 +96,41 @@ public class AutoR extends LinearOpMode {
                 )
         );
 
-        sleep(1000000);
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        OutTakePos2.build(),
-//                        arm.goToStage2(),
-//                        intakeServos.setWristOutTake()
-//                )
-//        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                OutTakePos2.build(),
+                                arm.goToStage2(),
+                                intakeServos.setWristOutTake()
+                        ),
+                        new SequentialAction(
+                                slides.goToStage1(),
+                                intakeServos.Outtake()
+                        )
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                arm.goToStage0(),
+                                slides.goToStage0()
+                        ),
+                        InTakePos2.build()
+                )
+        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStage1(),
+                        intakeServos.setWristInTake()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeServos.Intake()
+                )
+        );
+
+
 
         arm.stop();
 

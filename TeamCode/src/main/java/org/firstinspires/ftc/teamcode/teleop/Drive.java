@@ -34,6 +34,8 @@ public class Drive extends LinearOpMode {
 
         CRServo intakeServo1 = hardwareMap.crservo.get("Lin");
         CRServo intakeServo2 = hardwareMap.crservo.get("Rin");
+        CRServo hook1 = hardwareMap.crservo.get("hook1");
+        CRServo hook2 = hardwareMap.crservo.get("hook2");
         Servo wrist = hardwareMap.servo.get("Wrist");
 
         //motors directions
@@ -135,6 +137,20 @@ public class Drive extends LinearOpMode {
                 intakeServo1.setPower(0);
                 intakeServo2.setPower(0);
             }
+            //hook
+            if (gamepad2.dpad_down) {
+                hook1.setPower(1);
+                hook2.setPower(1);
+            }
+            else if(gamepad1.dpad_up){
+                hook1.setPower(-1);
+                hook2.setPower(-1);
+            }
+            else {
+                hook1.setPower(0);
+                hook2.setPower(0);
+            }
+
 
         }
     }
