@@ -46,7 +46,7 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(62,-52))
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-52, Math.toRadians(90.00)))
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(initialPose) //TODO: change this
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.00)))
@@ -58,31 +58,31 @@ public class AutoR extends LinearOpMode {
 
         waitForStart();
 
-        Actions.runBlocking(
-                new ParallelAction(
-                        OutTakePos.build(),
-                        arm.goToStageOutTake(),
-                        intakeServos.setWristOutTake()
-                )
-        );
-
-        Actions.runBlocking(
-                new ParallelAction(
-                        slides.goToStage1(),
-                        arm.goToStageIntake2()
-                )
-        );
-
-        Actions.runBlocking(intakeServos.Outtake());
-
-        Actions.runBlocking(
-                new ParallelAction(
-                        arm.goToStage0(),
-                        slides.goToStage0()
-                )
-        );
-
-        Actions.runBlocking(SampToHum.build());
+//        Actions.runBlocking(
+//                new ParallelAction(
+//                        OutTakePos.build(),
+//                        arm.goToStageOutTake(),
+//                        intakeServos.setWristOutTake()
+//                )
+//        );
+//
+//        Actions.runBlocking(
+//                new ParallelAction(
+//                        slides.goToStage1(),
+//                        arm.goToStageIntake2()
+//                )
+//        );
+//
+//        Actions.runBlocking(intakeServos.Outtake());
+//
+//        Actions.runBlocking(
+//                new ParallelAction(
+//                        arm.goToStage0(),
+//                        slides.goToStage0()
+//                )
+//        );
+//
+//        Actions.runBlocking(SampToHum.build());
 
         Actions.runBlocking(
                 new SequentialAction(
