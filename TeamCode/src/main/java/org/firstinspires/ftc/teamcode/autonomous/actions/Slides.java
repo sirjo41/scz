@@ -55,7 +55,7 @@ public class Slides {
             slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             slide1.setPower(1);
-            slide2.setPower(0.7);
+            slide2.setPower(1);
 
             if(!slide1.isBusy() && slide2.isBusy()){
             slide1.setPower(0);
