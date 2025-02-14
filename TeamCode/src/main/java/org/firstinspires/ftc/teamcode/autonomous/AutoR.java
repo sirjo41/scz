@@ -94,7 +94,7 @@ public class AutoR extends LinearOpMode {
                 new ParallelAction(
                         OutTakePos2.build(),
                         arm.goToStageOutTake(),
-                        intakeServos.setWristOutTake()
+                        intakeServos.setWristInTake()
                 )
         );
 
