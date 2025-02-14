@@ -24,18 +24,16 @@ public class AutoR extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(90.00));
+        Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(270.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         Arm arm = new Arm(hardwareMap);
         IntakeServos intakeServos = new IntakeServos(hardwareMap);
         Slides slides = new Slides(hardwareMap);
 
         TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
-                .setReversed(true)
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
-        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.00)))
-                .setReversed(true)
+        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(270.0)))
                 .strafeTo(new Vector2d(36,-43))
                 .strafeTo(new Vector2d(36,-13))
                 .strafeTo(new Vector2d(47,-13))
@@ -49,16 +47,14 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
         TrajectoryActionBuilder InTakePos1 = drive.actionBuilder(initialPose)
-                .setReversed(true)
+
             .strafeTo(new Vector2d(InTake.x, InTake.y));
 
 
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.00)))
-                .setReversed(true)
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(270.0)))
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y));
 
-        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.00)))
-                .setReversed(true)
+        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(270.0)))
                 .strafeTo(new Vector2d(InTake.x,InTake.y));
 
 
