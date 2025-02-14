@@ -31,18 +31,18 @@ public class AutoR extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
 
         TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(4, -44));
+                .strafeToConstantHeading(new Vector2d(4, -43));
 
         TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(12.57, -43, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(37,-43))
-                .strafeTo(new Vector2d(37,-14))
-                .strafeTo(new Vector2d(47,-14))
+                .strafeTo(new Vector2d(37,-13))
+                .strafeTo(new Vector2d(47,-13))
                 .strafeTo(new Vector2d(47,-52))
-                .strafeTo(new Vector2d(47,-14))
-                .strafeTo(new Vector2d(55,-14))
+                .strafeTo(new Vector2d(47,-13))
+                .strafeTo(new Vector2d(55,-13))
                 .strafeTo(new Vector2d(55,-52))
-                .strafeTo(new Vector2d(55,-14))
-                .strafeTo(new Vector2d(62,-14))
+                .strafeTo(new Vector2d(55,-13))
+                .strafeTo(new Vector2d(62,-13))
                 .strafeTo(new Vector2d(62,-52));
 
         TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(62,-52, Math.toRadians(90.00)))
