@@ -12,8 +12,8 @@ import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 
 public class MeepMeepTesting {
-    private static final Vector2d OutTake = new Vector2d(4, -43);
-    private static final Vector2d InTake = new Vector2d(40,-56);
+    public static final Vector2d OutTake = new Vector2d(4, -43);
+    public static final Vector2d InTake = new Vector2d(40,-56);
 
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(700);
@@ -23,7 +23,7 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.PI, Math.PI, 15)
                 .setDimensions(18,18)
                 .setStartPose(new Pose2d(-68.09, Math.toRadians(90.00)))
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-4, -43, Math.toRadians(270.0))).setReversed(true)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-4, -43, Math.toRadians(90.0)))
                         .strafeTo(new Vector2d(36,-43))
                         .strafeTo(new Vector2d(36,-13))
                         .strafeTo(new Vector2d(47,-13))
@@ -34,6 +34,9 @@ public class MeepMeepTesting {
                         .strafeTo(new Vector2d(55,-13))
                         .strafeTo(new Vector2d(62,-13))
                         .strafeTo(new Vector2d(62,-52))
+                        .strafeTo(new Vector2d(40,-56))
+                        .turn(3.15)
+                        .turn(3.15)
                         .build()
 
                 );

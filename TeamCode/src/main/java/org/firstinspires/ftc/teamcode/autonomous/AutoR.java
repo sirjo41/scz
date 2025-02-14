@@ -24,7 +24,7 @@ public class AutoR extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(270.0));
+        Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         Arm arm = new Arm(hardwareMap);
         IntakeServos intakeServos = new IntakeServos(hardwareMap);
@@ -47,14 +47,17 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
         TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
-                .strafeToLinearHeading(new Vector2d(InTake.x, InTake.y),Math.toRadians(270.0));
+                .strafeTo(new Vector2d(InTake.x, InTake.y))
+                .turn(3.15);
 
 
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(270.0)))
-                .strafeToLinearHeading(new Vector2d(OutTake.x, OutTake.y),Math.toRadians(90.00));
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.0)))
+                .strafeTo(new Vector2d(OutTake.x, OutTake.y))
+                .turn(3.15);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
-                .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270.0));
+                .strafeTo(new Vector2d(InTake.x,InTake.y))
+                .turn(3.15);
 
 
         telemetry.addData("Status","READDDYYYY ");
