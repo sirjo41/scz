@@ -19,8 +19,8 @@ public class IntakeServos {
     public static final double STOP_POWER = 0.0;
 
     // Constants for the wrist positions
-    public static double WRIST_DEFAULT = 0.5;
-    public static double WRIST_OUTTAKE = 0.2;
+    public static double WRIST_DEFAULT = 0;
+    public static double WRIST_OUTTAKE = 0.4;
     public static double WRIST_INTAKE = 1.0;
 
     public IntakeServos(HardwareMap hardwareMap) {

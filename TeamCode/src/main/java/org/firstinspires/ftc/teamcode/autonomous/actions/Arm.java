@@ -24,7 +24,8 @@ public class Arm {
     public static int STAGE_0 = 0;
     public static int STAGE_INTAKE = -50;  // 0 degrees
     public static int STAGE_OUTTAKE = 78;// 90 degrees
-    public static int STAGE_INTAKE2 = 165; // 180 degrees;
+    public static int STAGE_INTAKE2 = 77;// 180 degrees;
+    public static int STAGE_OUTTAKE2 = 77;
 
     private volatile  double targetPosition = STAGE_0; // Default target
 
