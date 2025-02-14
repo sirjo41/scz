@@ -7,6 +7,9 @@ import com.acmerobotics.roadrunner.Action;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import java.security.PublicKey;
+
 @Config
 public class Arm {
     private final DcMotor arm;
@@ -26,6 +29,9 @@ public class Arm {
     public static double STAGE_OUTTAKE = 76;// 90 degrees// 180 degrees;
     public static double STAGE_OUTTAKE2 = 77;
     public static double STAGE_INTAKE2 = 77;
+
+    public static double STAGE_INTAKE3 = 100;
+
 
     private volatile  double targetPosition = STAGE_0; // Default target
 
@@ -111,6 +117,10 @@ public class Arm {
 
     public Action goToStageOuttake2() {
         return moveToPositionAction(STAGE_OUTTAKE2);
+    }
+
+    public Action goToStageInTake3() {
+        return moveToPositionAction(STAGE_INTAKE2);
     }
 
     public void stop() {

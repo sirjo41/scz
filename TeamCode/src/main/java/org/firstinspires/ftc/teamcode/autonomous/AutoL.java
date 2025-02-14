@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -53,36 +55,36 @@ public class AutoL extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-//
-//        Actions.runBlocking(
-//                InTake1.build()
-//        );
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        arm.goToStage3(),
-//                        intakeServos.WOutTake1()
-//                )
-//        );
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                slides.goToStage1(),
-//                intakeServos.Intake(),
-//                new ParallelAction(
-//                        slides.goToStage0(),
-//                        arm.goToStage0()
-//                )
-//        ));
-//
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                OutTake1.build(),
-//                slides.goToStage2(),
-//                intakeServos.setWristInTake(),
-//                intakeServos.Outtake(),
-//                intakeServos.setWristOutTake(),
-//                slides.goToStage0()
-//                )
-//        );
+
+        Actions.runBlocking(
+                InTake1.build()
+        );
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStageInTake3(),
+                        intakeServos.setWristOutDf()
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                slides.goToStage1(),
+                intakeServos.Intake(),
+                new ParallelAction(
+                        slides.goToStage0(),
+                        arm.goToStage0()
+                )
+        ));
+
+        Actions.runBlocking(
+                new ParallelAction(
+                OutTake1.build(),
+                slides.goToStage2(),
+                intakeServos.setWristInTake(),
+                intakeServos.Outtake(),
+                intakeServos.setWristOutTake(),
+                slides.goToStage0()
+                )
+        );
 
         Actions.runBlocking(
                 park.build()
