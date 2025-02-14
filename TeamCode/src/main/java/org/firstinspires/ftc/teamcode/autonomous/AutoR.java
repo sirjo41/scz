@@ -45,8 +45,8 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(62,-14))
                 .strafeTo(new Vector2d(62,-52));
 
-        TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(61,-52, Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(30,-52));
+        TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(62,-52, Math.toRadians(90.00)))
+                .strafeToLinearHeading(new Vector2d(36,-52),Math.toRadians(90.00));
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-52, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(12, -43));
@@ -75,15 +75,17 @@ public class AutoR extends LinearOpMode {
         );
 
         Actions.runBlocking(
-                new SequentialAction(
                 new ParallelAction(
                         arm.goToStage0(),
                         slides.goToStage0(),
                         SampToHum.build()
-                ),
-                        InTakePos.build()
                 )
         );
+
+        Actions.runBlocking(
+                InTakePos.build()
+        );
+
         Actions.runBlocking(
                 new ParallelAction(
                         arm.goToStage1(),
@@ -110,13 +112,14 @@ public class AutoR extends LinearOpMode {
                 )
         );
         Actions.runBlocking(
-                new SequentialAction(
-                        new ParallelAction(
-                                arm.goToStage0(),
-                                slides.goToStage0()
-                        ),
-                        InTakePos2.build()
+                new ParallelAction(
+                        arm.goToStage0(),
+                        slides.goToStage0()
                 )
+        );
+        Actions.runBlocking(
+
+                        InTakePos2.build()
         );
         Actions.runBlocking(
                 new ParallelAction(
@@ -129,8 +132,6 @@ public class AutoR extends LinearOpMode {
                         intakeServos.Intake()
                 )
         );
-
-
 
         arm.stop();
 

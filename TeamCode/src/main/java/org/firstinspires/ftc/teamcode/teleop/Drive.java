@@ -111,6 +111,8 @@ public class Drive extends LinearOpMode {
 
                 slide1.setPower(0);
                 slide2.setPower(0);
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             else {
                 slide1.setPower(0);
@@ -159,7 +161,7 @@ public class Drive extends LinearOpMode {
                 hook1.setPower(1);
                 hook2.setPower(1);
             }
-            else if(gamepad1.dpad_up){
+            else if(gamepad2.dpad_up){
                 hook1.setPower(-1);
                 hook2.setPower(-1);
             }
