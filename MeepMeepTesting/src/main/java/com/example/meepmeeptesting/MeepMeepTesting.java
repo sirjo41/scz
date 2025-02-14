@@ -9,7 +9,12 @@ import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
 import org.rowlandhall.meepmeep.roadrunner.DriveTrainType;
 import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
+
+
 public class MeepMeepTesting {
+    private static final Vector2d OutTake = new Vector2d(4, -43);
+    private static final Vector2d InTake = new Vector2d(40,-56);
+
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(700);
 
