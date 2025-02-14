@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 public class AutoR extends LinearOpMode {
 
     private static final Vector2d OutTake = new Vector2d(4, -43);
-    private static final Vector2d InTake = new Vector2d(40,-56);
+    private static final Vector2d InTake = new Vector2d(40,-59);
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {
@@ -48,16 +48,16 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(InTake.x, InTake.y))
-                .turn(3.15);
+                .turn(3);
 
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.0)))
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y))
-                .turn(3.15);
+                .turn(3);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
                 .strafeTo(new Vector2d(InTake.x,InTake.y))
-                .turn(3.15);
+                .turn(3);
 
 
         telemetry.addData("Status","READDDYYYY ");
