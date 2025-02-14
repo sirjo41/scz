@@ -178,7 +178,7 @@ private void holdPosition(DcMotor arm) {
         int currentTarget = arm.getCurrentPosition();
         arm.setTargetPosition(currentTarget);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.2);
+        arm.setPower(0.7);
     }
 
 }
