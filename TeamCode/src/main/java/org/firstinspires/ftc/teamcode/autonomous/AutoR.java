@@ -46,11 +46,15 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(62,-52))
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(initialPose) //TODO: change this
-                .strafeTo(new Vector2d(InTake.x, InTake.y));
+        TrajectoryActionBuilder InTakePos1 = drive.actionBuilder(initialPose)
+            .strafeTo(new Vector2d(InTake.x, InTake.y));
 
-        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(OutTake.x,OutTake.y));
+
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.00)))
+                .strafeTo(new Vector2d(OutTake.x, OutTake.y));
+
+        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.00)))
+                .strafeTo(new Vector2d(InTake.x,InTake.y));
 
 
         telemetry.addData("Status","READDDYYYY ");
@@ -85,7 +89,8 @@ public class AutoR extends LinearOpMode {
 //        Actions.runBlocking(SampToHum.build());
 
         Actions.runBlocking(
-                new SequentialAction(
+                new ParallelAction(
+                        InTakePos1.build(),
                         arm.goToStageIn1(),
                         intakeServos.Intake()
                 )
@@ -94,7 +99,7 @@ public class AutoR extends LinearOpMode {
                 new ParallelAction(
                         OutTakePos2.build(),
                         arm.goToStageOutTake(),
-                        intakeServos.setWristInTake()
+                        intakeServos.setWristOutTake()
                 )
         );
 
