@@ -91,10 +91,10 @@ public class Drive extends LinearOpMode {
             //slides
             if (gamepad1.right_bumper) {
                 slide1.setPower(1);
-                slide2.setPower(0.7);
+                slide2.setPower(1);
             } else if (gamepad1.left_bumper) {
                 slide1.setPower(-1);
-                slide2.setPower(-0.7);
+                slide2.setPower(-1);
             }
             else if(gamepad1.dpad_left){
                 slide1.setTargetPosition(800);
