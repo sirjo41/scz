@@ -65,11 +65,12 @@ public class AutoR extends LinearOpMode {
                     new ParallelAction(
                         OutTakePos.build(),
                         arm.goToStage2(),
-                        intakeServos.setWristOutTake()
+                            intakeServos.WOutTake1()
                 ),
                         new SequentialAction(
+                                arm.goToStage3(),
                                 slides.goToStage1(),
-                                intakeServos.Outtake()
+                                intakeServos.setWristOutTake()
                         )
                 )
         );
