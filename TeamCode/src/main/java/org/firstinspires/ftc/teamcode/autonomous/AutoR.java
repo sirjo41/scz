@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 public class AutoR extends LinearOpMode {
 
     private static final Vector2d OutTake = new Vector2d(4, -43);
-    private static final Vector2d InTake = new Vector2d(36,-52);
+    private static final Vector2d InTake = new Vector2d(38,-54);
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {

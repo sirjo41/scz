@@ -22,7 +22,7 @@ public class Arm {
 
     // Arm Position Stages (Using Ticks)
     public static double STAGE_0 = 0;
-    public static double STAGE_INTAKE = -50;  // 0 degrees
+    public static double STAGE_INTAKE = -66;  // 0 degrees
     public static double STAGE_OUTTAKE = 76;// 90 degrees// 180 degrees;
     public static double STAGE_OUTTAKE2 = 77;
     public static double STAGE_INTAKE2 = 77;
