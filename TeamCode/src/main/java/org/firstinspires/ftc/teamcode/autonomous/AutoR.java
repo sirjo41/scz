@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
 import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
 import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
-@Autonomous(name = "Right Side Auton",group = "Autonomous")
+@Autonomous(name = "Right Side Auton",group = "Autonomous",preselectTeleOp ="drive")
 public class AutoR extends LinearOpMode {
 
     private static final Vector2d OutTake = new Vector2d(12, -43);
@@ -81,57 +81,57 @@ public class AutoR extends LinearOpMode {
                         SampToHum.build()
                 )
         );
-
-        Actions.runBlocking(
-                InTakePos.build()
-        );
-
-        Actions.runBlocking(
-                new ParallelAction(
-                        arm.goToStage1(),
-                        intakeServos.setWristInTake()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                        intakeServos.Intake()
-                )
-        );
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new ParallelAction(
-                                OutTakePos2.build(),
-                                arm.goToStage2(),
-                                intakeServos.setWristOutTake()
-                        ),
-                        new SequentialAction(
-                                slides.goToStage1(),
-                                intakeServos.Outtake()
-                        )
-                )
-        );
-        Actions.runBlocking(
-                new ParallelAction(
-                        arm.goToStage0(),
-                        slides.goToStage0()
-                )
-        );
-        Actions.runBlocking(
-
-                        InTakePos2.build()
-        );
-        Actions.runBlocking(
-                new ParallelAction(
-                        arm.goToStage1(),
-                        intakeServos.setWristInTake()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
-                        intakeServos.Intake()
-                )
-        );
+//
+//        Actions.runBlocking(
+//                InTakePos.build()
+//        );
+//
+//        Actions.runBlocking(
+//                new ParallelAction(
+//                        arm.goToStage1(),
+//                        intakeServos.setWristInTake()
+//                )
+//        );
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        intakeServos.Intake()
+//                )
+//        );
+//
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        new ParallelAction(
+//                                OutTakePos2.build(),
+//                                arm.goToStage2(),
+//                                intakeServos.setWristOutTake()
+//                        ),
+//                        new SequentialAction(
+//                                slides.goToStage1(),
+//                                intakeServos.Outtake()
+//                        )
+//                )
+//        );
+//        Actions.runBlocking(
+//                new ParallelAction(
+//                        arm.goToStage0(),
+//                        slides.goToStage0()
+//                )
+//        );
+//        Actions.runBlocking(
+//
+//                        InTakePos2.build()
+//        );
+//        Actions.runBlocking(
+//                new ParallelAction(
+//                        arm.goToStage1(),
+//                        intakeServos.setWristInTake()
+//                )
+//        );
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        intakeServos.Intake()
+//                )
+//        );
 
         arm.stop();
 
