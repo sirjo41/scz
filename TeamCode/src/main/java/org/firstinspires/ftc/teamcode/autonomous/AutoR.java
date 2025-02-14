@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 public class AutoR extends LinearOpMode {
 
     private static final Vector2d OutTake = new Vector2d(4, -43);
-    private static final Vector2d InTake = new Vector2d(38,-54);
+    private static final Vector2d InTake = new Vector2d(40,-56);
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {
@@ -62,30 +62,30 @@ public class AutoR extends LinearOpMode {
 
         waitForStart();
 
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        OutTakePos.build(),
-//                        arm.goToStageOutTake(),
-//                        intakeServos.setWristOutTake()
-//                )
-//        );
-//
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        slides.goToStage1(),
-//                        arm.goToStageIntake2()
-//                )
-//        );
-//
-//        Actions.runBlocking(intakeServos.Outtake());
-//
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        arm.goToStage0(),
-//                        slides.goToStage0()
-//                )
-//        );
-//
+        Actions.runBlocking(
+                new ParallelAction(
+                        OutTakePos.build(),
+                        arm.goToStageOutTake(),
+                        intakeServos.setWristOutTake()
+                )
+        );
+
+        Actions.runBlocking(
+                new ParallelAction(
+                        slides.goToStage1(),
+                        arm.goToStageIntake2()
+                )
+        );
+
+        Actions.runBlocking(intakeServos.Outtake());
+
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStage0(),
+                        slides.goToStage0()
+                )
+        );
+
 //        Actions.runBlocking(SampToHum.build());
 
         Actions.runBlocking(
@@ -113,6 +113,9 @@ public class AutoR extends LinearOpMode {
         );
 
         Actions.runBlocking(intakeServos.Outtake());
+
+        sleep(100000000);
+
 
         arm.stop();
 
