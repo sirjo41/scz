@@ -21,11 +21,11 @@ public class Arm {
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
 
     // Arm Position Stages (Using Ticks)
-    public static int STAGE_0 = 0;
-    public static int STAGE_INTAKE = -50;  // 0 degrees
-    public static int STAGE_OUTTAKE = 78;// 90 degrees
-    public static int STAGE_INTAKE2 = 77;// 180 degrees;
-    public static int STAGE_OUTTAKE2 = 77;
+    public static double STAGE_0 = 0;
+    public static double STAGE_INTAKE = -50;  // 0 degrees
+    public static double STAGE_OUTTAKE = 76;// 90 degrees// 180 degrees;
+    public static double STAGE_OUTTAKE2 = 77;
+    public static double STAGE_INTAKE2 = 77;
 
     private volatile  double targetPosition = STAGE_0; // Default target
 
@@ -43,7 +43,7 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public Action moveToPositionAction(int targetDegrees) {
+    public Action moveToPositionAction(double targetDegrees) {
         return new ArmPIDFAction(targetDegrees);
     }
 
@@ -97,16 +97,20 @@ public class Arm {
         return moveToPositionAction(STAGE_0);
     }
 
-    public Action goToStage1() {
+    public Action goToStageIn1() {
         return moveToPositionAction(STAGE_INTAKE);
     }
 
-    public Action goToStage2() {
+    public Action goToStageOutTake() {
         return moveToPositionAction(STAGE_OUTTAKE);
     }
 
-    public Action goToStage3() {
+    public Action goToStageIntake2() {
         return moveToPositionAction(STAGE_INTAKE2);
+    }
+
+    public Action goToStageOuttake2() {
+        return moveToPositionAction(STAGE_OUTTAKE2);
     }
 
     public void stop() {

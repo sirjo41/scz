@@ -56,7 +56,7 @@ public class IntakeServos {
     }
 
     // Action to reset wrist to default position
-    public Action WOutTake1() {
+    public Action setWristOutDf() {
         return new WristAction(WRIST_DEFAULT);
     }
 

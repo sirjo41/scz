@@ -31,9 +31,9 @@ public class AutoR extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
 
         TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(4, -43));
+                .strafeToConstantHeading(new Vector2d(4, -42));
 
-        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(4, -43, Math.toRadians(90.00)))
+        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(4, -42, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(36,-43))
                 .strafeTo(new Vector2d(36,-13))
                 .strafeTo(new Vector2d(47,-13))
@@ -61,78 +61,21 @@ public class AutoR extends LinearOpMode {
         waitForStart();
 
         Actions.runBlocking(
-                new SequentialAction(
-                    new ParallelAction(
+                new ParallelAction(
                         OutTakePos.build(),
-                        arm.goToStage2(),
-                            intakeServos.WOutTake1()
-                ),
-                        new SequentialAction(
-                                arm.goToStage3(),
-                                slides.goToStage1(),
-                                intakeServos.setWristOutTake()
-                        )
+                        arm.goToStageOutTake()
                 )
         );
 
         Actions.runBlocking(
                 new ParallelAction(
-                        arm.goToStage0(),
-                        slides.goToStage0(),
-                        SampToHum.build()
+                        slides.goToStage1(),
+                        arm.goToStageIntake2()
                 )
         );
-//
-//        Actions.runBlocking(
-//                InTakePos.build()
-//        );
-//
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        arm.goToStage1(),
-//                        intakeServos.setWristInTake()
-//                )
-//        );
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        intakeServos.Intake()
-//                )
-//        );
-//
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                OutTakePos2.build(),
-//                                arm.goToStage2(),
-//                                intakeServos.setWristOutTake()
-//                        ),
-//                        new SequentialAction(
-//                                slides.goToStage1(),
-//                                intakeServos.Outtake()
-//                        )
-//                )
-//        );
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        arm.goToStage0(),
-//                        slides.goToStage0()
-//                )
-//        );
-//        Actions.runBlocking(
-//
-//                        InTakePos2.build()
-//        );
-//        Actions.runBlocking(
-//                new ParallelAction(
-//                        arm.goToStage1(),
-//                        intakeServos.setWristInTake()
-//                )
-//        );
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        intakeServos.Intake()
-//                )
-//        );
+
+
+
 
         arm.stop();
 
