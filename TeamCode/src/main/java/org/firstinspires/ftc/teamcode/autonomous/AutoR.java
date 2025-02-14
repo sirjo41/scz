@@ -91,10 +91,12 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new ParallelAction(
                         InTakePos1.build(),
-                        arm.goToStageIn1(),
-                        intakeServos.Intake()
+                        arm.goToStageIn1()
                 )
         );
+
+        Actions.runBlocking(intakeServos.Intake());
+
         Actions.runBlocking(
                 new ParallelAction(
                         OutTakePos2.build(),
