@@ -31,9 +31,11 @@ public class AutoR extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
 
         TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
+                .setReversed(true)
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.00)))
+                .setReversed(true)
                 .strafeTo(new Vector2d(36,-43))
                 .strafeTo(new Vector2d(36,-13))
                 .strafeTo(new Vector2d(47,-13))
@@ -47,13 +49,16 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
         TrajectoryActionBuilder InTakePos1 = drive.actionBuilder(initialPose)
+                .setReversed(true)
             .strafeTo(new Vector2d(InTake.x, InTake.y));
 
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.00)))
+                .setReversed(true)
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.00)))
+                .setReversed(true)
                 .strafeTo(new Vector2d(InTake.x,InTake.y));
 
 
