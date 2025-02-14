@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -15,11 +16,14 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
 import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
 import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
+@Config
 @Autonomous(name = "Right Side Auton",group = "Autonomous",preselectTeleOp ="drive")
 public class AutoR extends LinearOpMode {
 
-    private static final Vector2d OutTake = new Vector2d(4, -43);
-    private static final Vector2d InTake = new Vector2d(40,-59);
+    public static final Vector2d OutTake = new Vector2d(4, -43);
+    public static final Vector2d InTake = new Vector2d(40,-59);
+    public static final double turnnn = 3;
+
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {
@@ -48,16 +52,16 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(InTake.x, InTake.y))
-                .turn(3);
+                .turn(turnnn);
 
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.0)))
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y))
-                .turn(3);
+                .turn(turnnn);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
                 .strafeTo(new Vector2d(InTake.x,InTake.y))
-                .turn(3);
+                .turn(turnnn);
 
 
         telemetry.addData("Status","READDDYYYY ");
