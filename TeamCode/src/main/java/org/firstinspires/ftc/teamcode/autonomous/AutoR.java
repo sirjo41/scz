@@ -18,8 +18,8 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 @Autonomous(name = "Right Side Auton",group = "Autonomous",preselectTeleOp ="drive")
 public class AutoR extends LinearOpMode {
 
-    private static final Vector2d OutTake = new Vector2d(12, -43);
-    private static final Vector2d InTake = new Vector2d(30,-55);
+    private static final Vector2d OutTake = new Vector2d(4, -42);
+    private static final Vector2d InTake = new Vector2d(36,-52);
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {
@@ -31,9 +31,9 @@ public class AutoR extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
 
         TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(4, -42));
+                .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
-        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(4, -42, Math.toRadians(90.00)))
+        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(36,-43))
                 .strafeTo(new Vector2d(36,-13))
                 .strafeTo(new Vector2d(47,-13))
@@ -43,16 +43,14 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(55,-52))
                 .strafeTo(new Vector2d(55,-13))
                 .strafeTo(new Vector2d(62,-13))
-                .strafeTo(new Vector2d(62,-52));
-
-        TrajectoryActionBuilder InTakePos = drive.actionBuilder(new Pose2d(62,-52, Math.toRadians(90.00)))
-                .strafeToLinearHeading(new Vector2d(36,-52),Math.toRadians(90.00));
+                .strafeTo(new Vector2d(62,-52))
+                .strafeTo(new Vector2d(InTake.x, InTake.y));
 
         TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(30,-52, Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(12, -43));
+                .strafeTo(new Vector2d(InTake.x, InTake.y));
 
-        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(12,-43, Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(30,-52));
+        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.00)))
+                .strafeTo(new Vector2d(OutTake.x,OutTake.y));
 
 
         telemetry.addData("Status","READDDYYYY ");
@@ -74,6 +72,9 @@ public class AutoR extends LinearOpMode {
                 )
         );
 
+        Actions.runBlocking(intakeServos.Outtake());
+
+        Actions.runBlocking(SampToHum.build());
 
 
 
