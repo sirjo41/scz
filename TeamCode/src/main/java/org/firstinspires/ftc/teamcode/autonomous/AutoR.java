@@ -52,16 +52,16 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
                 .strafeTo(new Vector2d(InTake.x, InTake.y))
-                .turn(turnnn);
+                .turn(3);
 
 
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(90.0)))
+        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(270.0)))
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y))
-                .turn(turnnn);
+                .turn(3);
 
         TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
                 .strafeTo(new Vector2d(InTake.x,InTake.y))
-                .turn(turnnn);
+                .turn(3);
 
 
         telemetry.addData("Status","READDDYYYY ");
