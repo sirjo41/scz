@@ -74,6 +74,13 @@ public class AutoR extends LinearOpMode {
 
         Actions.runBlocking(intakeServos.Outtake());
 
+        Actions.runBlocking(
+                new ParallelAction(
+                        arm.goToStage0(),
+                        slides.goToStage0()
+                )
+        );
+
         Actions.runBlocking(SampToHum.build());
 
 
