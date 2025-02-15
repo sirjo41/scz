@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,14 +10,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
-    private boolean isHolding = false;
-    private Thread holdThread;
+    public volatile static double p = 0.001, i = 0.0, d = 0.0001;
+    public volatile  static double f = -0.05;
+    private final double ticks_in_deg = 2688.5 / 360.0;
 
     private  static  final  int S_INTAKE = 800;
 
     private static final double WR_DF = 0.7;
     private static final double WR_CLOSED = 0.2;
     private static final double WR_OPEN = 0.4;
+
+    private static double targetPosition = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -59,6 +63,8 @@ public class Drive extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        PIDController armController = new PIDController(p, i, d);
+        armController.setPID(p, i, d);
 //        // Set Initial Servo Positions
 //        intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
 //        intakeServo2.setPosition(INTAKE_OPEN_POSITION);
@@ -122,15 +128,15 @@ public class Drive extends LinearOpMode {
             //arm
 
         if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
-                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                arm.setPower(gamepad1.left_stick_y);
+                targetPosition = targetPosition + (gamepad1.left_stick_y * 10);
             }
-            else if (arm.getCurrentPosition() <= 200 && arm.getCurrentPosition() >= -200) {
-                    arm.setPower(0);
-                }
-            else {
-                    holdPosition(arm);
-                }
+            int arm_pos = arm.getCurrentPosition();
+            double pid = armController.calculate(arm_pos, targetPosition);
+            double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
+            double power = pid + ff;
+            arm.setPower(power);
+
+
 //wrist 
 
             if (gamepad1.dpad_up) {
@@ -174,11 +180,11 @@ public class Drive extends LinearOpMode {
         }
     }
 
-private void holdPosition(DcMotor arm) {
-        int currentTarget = arm.getCurrentPosition();
-        arm.setTargetPosition(currentTarget);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.7);
-    }
+//private void holdPosition(DcMotor arm) {
+//        int currentTarget = arm.getCurrentPosition();
+//        arm.setTargetPosition(currentTarget);
+//        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        arm.setPower(0.7);
+//    }
 
 }
