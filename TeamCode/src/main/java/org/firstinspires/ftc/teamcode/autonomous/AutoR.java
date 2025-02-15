@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 @Autonomous(name = "Right Side Auton",group = "Autonomous",preselectTeleOp ="drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(4, -43);
+    public static final Vector2d OutTake = new Vector2d(4, -41);
     public static final Vector2d InTake = new Vector2d(40,-59);
 
     GoBildaPinpointDriverRR odo;
@@ -87,15 +87,18 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new ParallelAction(
                         arm.goToStage0(),
-                        slides.goToStage0()
+                        slides.goToStage0(),
+                        SampToHum.build()
                 )
         );
 
-        Actions.runBlocking(SampToHum.build());
 
-       sleep(10000000);
 
+
+        sleep(1000000);
        arm.stop();
+
+
 
         if (isStopRequested()) return;
 
