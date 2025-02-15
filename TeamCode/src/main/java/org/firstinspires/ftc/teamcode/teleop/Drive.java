@@ -126,7 +126,7 @@ public class Drive extends LinearOpMode {
                 slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 slide1.setPower(1);
-                slide2.setPower(1);
+                slide2.setPower(-1);
 
                 while (opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
 
