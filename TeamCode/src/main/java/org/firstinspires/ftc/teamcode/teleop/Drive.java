@@ -131,9 +131,6 @@ public class Drive extends LinearOpMode {
                 while (opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
 
                 }
-
-                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             else {
                 slide1.setPower(0);
