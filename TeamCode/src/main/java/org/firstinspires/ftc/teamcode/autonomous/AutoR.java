@@ -22,7 +22,6 @@ public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(4, -43);
     public static final Vector2d InTake = new Vector2d(40,-59);
-    public static final double turnnn = 3;
 
     GoBildaPinpointDriverRR odo;
     @Override
@@ -38,16 +37,16 @@ public class AutoR extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
-                .strafeTo(new Vector2d(36,-43))
-                .strafeTo(new Vector2d(36,-13))
+                .strafeTo(new Vector2d(35,-43))
+                .strafeTo(new Vector2d(35,-13))
                 .strafeTo(new Vector2d(47,-13))
                 .strafeTo(new Vector2d(47,-52))
                 .strafeTo(new Vector2d(47,-13))
                 .strafeTo(new Vector2d(55,-13))
                 .strafeTo(new Vector2d(55,-52))
                 .strafeTo(new Vector2d(55,-13))
-                .strafeTo(new Vector2d(62,-13))
-                .strafeTo(new Vector2d(62,-54));
+                .strafeTo(new Vector2d(61,-13))
+                .strafeTo(new Vector2d(61,-56));
 
 //        TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
 //                .strafeTo(new Vector2d(InTake.x, InTake.y))
