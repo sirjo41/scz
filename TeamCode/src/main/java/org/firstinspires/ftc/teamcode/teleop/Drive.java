@@ -187,11 +187,11 @@ public class Drive extends LinearOpMode {
             //hook
             if (gamepad2.dpad_down) {
                 hook1.setPower(1);
-                hook2.setPower(1);
+                hook2.setPower(-1);
             }
             else if(gamepad2.dpad_up){
                 hook1.setPower(-1);
-                hook2.setPower(-1);
+                hook2.setPower(1);
             }
             else {
                 hook1.setPower(0);
