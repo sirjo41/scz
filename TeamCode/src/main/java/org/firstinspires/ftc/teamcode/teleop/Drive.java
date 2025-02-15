@@ -144,8 +144,8 @@ public class Drive extends LinearOpMode {
 
             //arm
 
-        if(gamepad1.left_stick_y >= 0.2 || gamepad1.left_stick_y <= 0.2){
-                targetPosition = targetPosition +gamepad1.left_stick_y ;
+        if(gamepad1.left_stick_y >= 0.1){
+                targetPosition = targetPosition +(gamepad1.left_stick_y*10) ;
             }
             int arm_pos = arm.getCurrentPosition();
             double pid = armController.calculate(arm_pos, targetPosition);
