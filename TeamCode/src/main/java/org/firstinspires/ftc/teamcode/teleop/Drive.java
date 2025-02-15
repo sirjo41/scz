@@ -119,6 +119,23 @@ public class Drive extends LinearOpMode {
                 slide2.setPower(0);
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }else if(gamepad2.dpad_left){
+                slide1.setTargetPosition(20);
+                slide2.setTargetPosition(20);
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                slide1.setPower(1);
+                slide2.setPower(1);
+
+                while (opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
+
+                }
+
+                slide1.setPower(0);
+                slide2.setPower(0);
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             else {
                 slide1.setPower(0);
