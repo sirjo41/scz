@@ -22,6 +22,7 @@ public class Drive extends LinearOpMode {
 
     private static double targetPosition = 0;
 
+    private static boolean end = false;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -119,7 +120,14 @@ public class Drive extends LinearOpMode {
                 slide2.setPower(0);
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }else if(gamepad2.dpad_left){
+            }
+            else if(!end) {
+                slide1.setPower(0);
+                slide2.setPower(0);
+            }
+
+            if(gamepad2.dpad_left){
+                end = true;
                 slide1.setTargetPosition(20);
                 slide2.setTargetPosition(20);
                 slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -132,11 +140,6 @@ public class Drive extends LinearOpMode {
 
                 }
             }
-            else {
-                slide1.setPower(0);
-                slide2.setPower(0);
-            }
-
             //arm
 
         if(Math.abs(gamepad1.left_stick_y) >= 0.1){
