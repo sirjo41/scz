@@ -90,7 +90,7 @@ public class AutoR extends LinearOpMode {
                         slides.goToStage0(),
                         SampToHum.build()
                 )
-        ).;
+        );
 
 
 
