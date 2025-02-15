@@ -37,15 +37,15 @@ public class AutoR extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
-                .strafeTo(new Vector2d(35,-43))
-                .strafeTo(new Vector2d(35,-13))
-                .strafeTo(new Vector2d(47,-13))
+                .strafeTo(new Vector2d(33,-43))
+                .strafeTo(new Vector2d(33,-14))
+                .strafeTo(new Vector2d(47,-14))
                 .strafeTo(new Vector2d(47,-52))
-                .strafeTo(new Vector2d(47,-13))
-                .strafeTo(new Vector2d(55,-13))
+                .strafeTo(new Vector2d(47,-14))
+                .strafeTo(new Vector2d(55,-14))
                 .strafeTo(new Vector2d(55,-52))
-                .strafeTo(new Vector2d(55,-13))
-                .strafeTo(new Vector2d(61,-13))
+                .strafeTo(new Vector2d(55,-14))
+                .strafeTo(new Vector2d(61,-14))
                 .strafeTo(new Vector2d(61,-56));
 
 //        TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
