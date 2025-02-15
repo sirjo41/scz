@@ -132,8 +132,6 @@ public class Drive extends LinearOpMode {
 
                 }
 
-                slide1.setPower(0);
-                slide2.setPower(0);
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
