@@ -97,9 +97,13 @@ public class Drive extends LinearOpMode {
 
             //slides
             if (gamepad1.right_bumper) {
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide1.setPower(1);
                 slide2.setPower(1);
             } else if (gamepad1.left_bumper) {
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide1.setPower(-1);
                 slide2.setPower(-1);
             }
@@ -122,8 +126,13 @@ public class Drive extends LinearOpMode {
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
             else if(!end) {
-                slide1.setPower(0);
-                slide2.setPower(0);
+                slide1.setTargetPosition(slide1.getCurrentPosition());
+                slide2.setTargetPosition(slide2.getCurrentPosition());
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                slide1.setPower(1);
+                slide2.setPower(1);
             }
 
             if(gamepad2.right_trigger >= 0.1){
@@ -136,9 +145,6 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(1);
                 slide2.setPower(-1);
 
-                while (opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
-
-                }
             }
             //arm
 
