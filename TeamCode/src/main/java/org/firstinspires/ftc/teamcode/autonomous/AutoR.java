@@ -50,18 +50,18 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(62,-52))
                 .strafeTo(new Vector2d(InTake.x, InTake.y));
 
-        TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
-                .strafeTo(new Vector2d(InTake.x, InTake.y))
-                .turn(Math.PI);
-
-
-        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(270.0)))
-                .strafeTo(new Vector2d(OutTake.x, OutTake.y))
-                .turn(Math.PI);
-
-        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
-                .strafeTo(new Vector2d(InTake.x,InTake.y))
-                .turn(Math.PI);
+//        TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
+//                .strafeTo(new Vector2d(InTake.x, InTake.y))
+//                .turn(Math.PI);
+//
+//
+//        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(270.0)))
+//                .strafeTo(new Vector2d(OutTake.x, OutTake.y))
+//                .turn(Math.PI);
+//
+//        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
+//                .strafeTo(new Vector2d(InTake.x,InTake.y))
+//                .turn(Math.PI);
 
 
         telemetry.addData("Status","READDDYYYY ");
@@ -93,38 +93,11 @@ public class AutoR extends LinearOpMode {
                 )
         );
 
-//        Actions.runBlocking(SampToHum.build());
+        Actions.runBlocking(SampToHum.build());
 
-        Actions.runBlocking(
-                new ParallelAction(
-                        InTakePos1.build(),
-                        arm.goToStageIn1()
-                )
-        );
+       sleep(10000000);
 
-        Actions.runBlocking(intakeServos.Intake());
-
-        Actions.runBlocking(
-                new ParallelAction(
-                        OutTakePos2.build(),
-                        arm.goToStageOutTake(),
-                        intakeServos.setWristOutTake()
-                )
-        );
-
-        Actions.runBlocking(
-                new ParallelAction(
-                        slides.goToStage1(),
-                        arm.goToStageIntake2()
-                )
-        );
-
-        Actions.runBlocking(intakeServos.Outtake());
-
-        sleep(100000000);
-
-
-        arm.stop();
+       arm.stop();
 
         if (isStopRequested()) return;
 
