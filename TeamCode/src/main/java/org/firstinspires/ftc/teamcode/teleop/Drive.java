@@ -144,7 +144,7 @@ public class Drive extends LinearOpMode {
 
             //arm
 
-        if(gamepad1.left_stick_y >= 0.1){
+        if(Math.abs(gamepad1.left_stick_y) >= 0.1){
                 arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 arm.setPower(gamepad1.left_stick_y);
             }
