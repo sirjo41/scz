@@ -145,13 +145,20 @@ public class Drive extends LinearOpMode {
             //arm
 
         if(gamepad1.left_stick_y >= 0.1){
-                targetPosition = targetPosition +(gamepad1.left_stick_y*10) ;
+                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                arm.setPower(gamepad1.left_stick_y);
             }
-            int arm_pos = arm.getCurrentPosition();
-            double pid = armController.calculate(arm_pos, targetPosition);
-            double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
-            double power = pid + ff;
-            arm.setPower(power);
+        else {
+
+            int currentPos = arm.getCurrentPosition();
+
+            if (arm.getMode() != DcMotor.RunMode.RUN_TO_POSITION) {
+                arm.setTargetPosition(currentPos);
+                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+
+            arm.setPower(0.8);
+        }
 
 
 //wrist 
