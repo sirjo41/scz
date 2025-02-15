@@ -126,7 +126,7 @@ public class Drive extends LinearOpMode {
                 slide2.setPower(0);
             }
 
-            if(gamepad2.dpad_left){
+            if(gamepad2.right_trigger >= 0.1){
                 end = true;
                 slide1.setTargetPosition(20);
                 slide2.setTargetPosition(20);
