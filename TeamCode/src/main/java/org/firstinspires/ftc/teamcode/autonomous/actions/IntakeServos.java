@@ -14,10 +14,10 @@ public class IntakeServos {
     Servo shoulder;
 
 
-    public static double FINGERS_OPEN = 0.4;
-    public static double FINGERS_CLOSE = 0;
-    public static double ELBOW_DF = 1;
-    public static double SHOULDER_DF = 0.9;
+    public static double FINGERS_OPEN = 0.60;
+    public static double FINGERS_CLOSE = 0.4;
+    public static double ELBOW_INTAKE = 0.4;
+    public static double SHOULDER_INTAKE = 0;
 
     public IntakeServos(HardwareMap hardwareMap) {
         // Initialize servos
@@ -27,8 +27,8 @@ public class IntakeServos {
 
 //        // Stop all servos initially
         fingers.setPosition(FINGERS_CLOSE);
-        elbow.setPosition(ELBOW_DF);
-        shoulder.setPosition(SHOULDER_DF);
+        elbow.setPosition(ELBOW_INTAKE);
+        shoulder.setPosition(SHOULDER_INTAKE);
     }
     public Action openfingers() {
         return new SetServoPositionAction(fingers, FINGERS_OPEN);
