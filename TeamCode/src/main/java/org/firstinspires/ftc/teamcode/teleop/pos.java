@@ -10,7 +10,11 @@ public class pos extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Servo fingers = hardwareMap.servo.get("fingers");
-
+        Servo elbow  = hardwareMap.servo.get("elbow");
+        Servo shoulder = hardwareMap.servo.get("shoulder");
         telemetry.addData("Fingers pos", fingers.getPosition());
+        telemetry.addData("elbow pos",elbow.getPosition());
+        telemetry.addData("shoulder pos", shoulder.getPosition());
+        telemetry.update();
     }
 }

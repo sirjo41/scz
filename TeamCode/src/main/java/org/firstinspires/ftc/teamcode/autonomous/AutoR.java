@@ -33,12 +33,14 @@ public class AutoR extends LinearOpMode {
         IntakeServos intakeServos = new IntakeServos(hardwareMap);
         Slides slides = new Slides(hardwareMap);
 
-        TrajectoryActionBuilder OutTakePos = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
-        TrajectoryActionBuilder SampToHum = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
-                .strafeTo(new Vector2d(33,-43))
-                .strafeTo(new Vector2d(33,-14))
+
+        TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
+                .turn(Math.PI/2)
+                .strafeTo(new Vector2d(31.5,-43))
+                .strafeTo(new Vector2d(31.5,-14))
                 .strafeTo(new Vector2d(47,-14))
                 .strafeTo(new Vector2d(47,-52))
                 .strafeTo(new Vector2d(47,-14))
@@ -46,20 +48,22 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(55,-52))
                 .strafeTo(new Vector2d(55,-14))
                 .strafeTo(new Vector2d(61,-14))
-                .strafeTo(new Vector2d(61,-56));
+                .strafeTo(new Vector2d(61,-56))
+                .waitSeconds(0.5);
 
-//        TrajectoryActionBuilder InTakePos1 = drive.actionBuilder( new Pose2d(OutTake.x,OutTake.y,Math.toRadians(90.00)))
-//                .strafeTo(new Vector2d(InTake.x, InTake.y))
-//                .turn(Math.PI);
-//
-//
-//        TrajectoryActionBuilder OutTakePos2 = drive.actionBuilder(new Pose2d(InTake.x, InTake.y, Math.toRadians(270.0)))
-//                .strafeTo(new Vector2d(OutTake.x, OutTake.y))
-//                .turn(Math.PI);
-//
-//        TrajectoryActionBuilder InTakePos2 = drive.actionBuilder(new Pose2d(OutTake.x, OutTake.y, Math.toRadians(90.0)))
-//                .strafeTo(new Vector2d(InTake.x,InTake.y))
-//                .turn(Math.PI);
+        TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
+                .turn(Math.PI/2)
+                .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
+
+
+        TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
+                .strafeToConstantHeading(new Vector2d(InTake.x, InTake.y))
+                .turn(Math.PI/2)
+                .waitSeconds(0.5);
+
+        TrajectoryActionBuilder OutTake3 = InTake1.endTrajectory().fresh()
+                .strafeToConstantHeading(new Vector2d(OutTake.x,OutTake.y))
+                .turn(Math.PI/2);
 
 
         telemetry.addData("Status","READDDYYYY ");
@@ -67,7 +71,95 @@ public class AutoR extends LinearOpMode {
 
         waitForStart();
 
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                arm.goToStage0(),
+                                slides.goToStage2(),
+                                OutTake1.build()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // FIRST THING puts specmien
 
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage0(),
+                                SampToHum.build()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // SECOND THING go to human player and get the specmien
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage2(),
+                                OutTake2.build()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // OUT TAKE SECOND ONE
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage0(),
+                                InTake1.build()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // INTAKE SAMPLE
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage2(),
+                                OutTake3.build()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // outake 3
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage0(),
+                                InTake1.build()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // intake sample
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage2(),
+                                OutTake3.build()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // outake 4
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage0(),
+                                InTake1.build()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // intake sample
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage2(),
+                                OutTake3.build()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // outake 5
 
 
         sleep(1000000);
