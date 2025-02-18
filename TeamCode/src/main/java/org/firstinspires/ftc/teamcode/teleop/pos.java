@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "fingers")
 public class pos extends LinearOpMode {
 
-    public volatile double figners_pos = 0;
-    public volatile double elbow_pos = 0;
-    public volatile double shoulder_pos = 0;
+    public volatile static double figners_pos = 0;
+    public volatile static double elbow_pos = 0;
+    public volatile static double shoulder_pos = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -32,9 +32,9 @@ public class pos extends LinearOpMode {
             elbow.setPosition(elbow_pos);
             shoulder.setPosition(shoulder_pos);
 
-            telemetry.addData("Fingers pos", fingers.getPosition());
-            telemetry.addData("elbow pos", elbow.getPosition());
-            telemetry.addData("shoulder pos", shoulder.getPosition());
+            telemetry.addData("Fingers pos", figners_pos);
+            telemetry.addData("elbow pos",elbow_pos );
+            telemetry.addData("shoulder pos", shoulder_pos);
             telemetry.update();
         }
     }
