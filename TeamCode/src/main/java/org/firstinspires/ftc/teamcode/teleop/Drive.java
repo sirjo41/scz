@@ -37,8 +37,8 @@ public class Drive extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("fr");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("br");
 
-        CRServo wrist = hardwareMap.crservo.get("wrist");
-        CRServo fingers = hardwareMap.crservo.get("fingers");
+        CRServo wrist = hardwareMap.crservo.get("wrist"); // no need;
+        Servo fingers = hardwareMap.servo.get("fingers");
         CRServo hook1 = hardwareMap.crservo.get("hook1");
         CRServo hook2 = hardwareMap.crservo.get("hook2");
         Servo elbow = hardwareMap.servo.get("elbow");
@@ -161,7 +161,6 @@ public class Drive extends LinearOpMode {
 
 
             //shoulder
-
             if (gamepad1.dpad_up) {
                 shoulder.setPosition(0);
             }
@@ -196,6 +195,16 @@ public class Drive extends LinearOpMode {
                 wrist.setPower(0);
                 wrist.setPower(0);
             }
+
+            //fingers
+            if(gamepad2.square){
+                fingers.setPosition(0); // close
+            }
+            else if (gamepad2.circle){
+                fingers.setPosition(1); // open
+            }
+
+
             //hook
             if (gamepad2.dpad_down) {
                 hook1.setPower(1);

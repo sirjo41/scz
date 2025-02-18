@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class IntakeServos {
-    private final Servo wrist;
-    private final CRServo intakeServo1;
-    private final CRServo intakeServo2;
+    private Servo fingers;
+    Servo elbow;
+    Servo shoulder;
 
     // Constants for intake servo power
     public static final double INTAKE_POWER = 1.0;
@@ -25,14 +25,15 @@ public class IntakeServos {
 
     public IntakeServos(HardwareMap hardwareMap) {
         // Initialize servos
-        intakeServo1 = hardwareMap.crservo.get("Lin");
-        intakeServo2 = hardwareMap.crservo.get("Rin");
-        wrist = hardwareMap.get(Servo.class, "Wrist");
-
-        // Stop all servos initially
-        intakeServo1.setPower(STOP_POWER);
-        intakeServo2.setPower(STOP_POWER);
-        wrist.setPosition(WRIST_DEFAULT);
+        fingers = hardwareMap.servo.get("fingers");
+        elbow  = hardwareMap.servo.get("elbow");
+        shoulder = hardwareMap.servo.get("shoulder");
+//        wrist = hardwareMap.get(Servo.class, "Wrist");
+//
+//        // Stop all servos initially
+//        intakeServo1.setPower(STOP_POWER);
+//        intakeServo2.setPower(STOP_POWER);
+//        wrist.setPosition(WRIST_DEFAULT);
     }
 
     // Action to run the intake forward for 2 seconds
@@ -101,8 +102,8 @@ public class IntakeServos {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-                wrist.setPosition(position);
-                return false;
+            wrist.setPosition(position);
+            return false;
         }
     }
 }
