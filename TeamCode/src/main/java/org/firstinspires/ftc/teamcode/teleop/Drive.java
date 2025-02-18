@@ -126,24 +126,24 @@ public class Drive extends LinearOpMode {
 
             //shoulder
             if (gamepad1.dpad_up) {
-                shoulder.setPosition(0);
+                shoulder.setPosition(0.96);
             }
             if (gamepad1.dpad_right) {
-                shoulder.setPosition(0.5);
+                shoulder.setPosition(0.48);
             }
             if (gamepad1.dpad_down) {
-                shoulder.setPosition(1);
+                shoulder.setPosition(0);
             }
 
             //elbow
             if (gamepad2.dpad_up) {
-                elbow.setPosition(0);
+                elbow.setPosition(1);
             }
             if (gamepad2.dpad_right) {
-                elbow.setPosition(0.5);
+                elbow.setPosition(0.6);
             }
             if (gamepad2.dpad_down) {
-                elbow.setPosition(1);
+                elbow.setPosition(0.4);
             }
 
             //wrist
@@ -162,10 +162,10 @@ public class Drive extends LinearOpMode {
 
             //fingers
             if(gamepad2.square){
-                fingers.setPosition(1); // close
+                fingers.setPosition(0.4); // close
             }
             else if (gamepad2.circle){
-                fingers.setPosition(0.4); // open
+                fingers.setPosition(0.6); // open
             }
 
 

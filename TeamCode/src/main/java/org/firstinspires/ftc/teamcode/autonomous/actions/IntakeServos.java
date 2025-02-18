@@ -14,10 +14,10 @@ public class IntakeServos {
     Servo shoulder;
 
 
-    public static double FINGERS_OPEN = 0.60;
-    public static double FINGERS_CLOSE = 0.4;
-    public static double ELBOW_INTAKE = 0.4;
-    public static double SHOULDER_INTAKE = 0;
+    public static double FINGERS_OPEN = 0.4;
+    public static double FINGERS_CLOSE = 0.6;
+    public static double ELBOW_INTAKE = 1;
+    public static double SHOULDER_INTAKE = 0.96;
 
     public IntakeServos(HardwareMap hardwareMap) {
         // Initialize servos
