@@ -13,6 +13,9 @@ public class pos extends LinearOpMode {
         Servo elbow = hardwareMap.servo.get("elbow");
         Servo shoulder = hardwareMap.servo.get("shoulder");
 
+        fingers.setPosition(0.5);
+        elbow.setPosition(0.5);
+        shoulder.setPosition(0.5);
         waitForStart();
 
         if (isStopRequested()) return;
