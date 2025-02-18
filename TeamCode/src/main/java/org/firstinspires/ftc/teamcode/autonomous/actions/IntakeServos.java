@@ -24,7 +24,7 @@ public class IntakeServos {
         fingers = hardwareMap.servo.get("fingers");
         elbow  = hardwareMap.servo.get("elbow");
         shoulder = hardwareMap.servo.get("shoulder");
-//
+
 //        // Stop all servos initially
         fingers.setPosition(FINGERS_CLOSE);
         elbow.setPosition(ELBOW_DF);
