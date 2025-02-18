@@ -22,7 +22,6 @@ public class Drive extends LinearOpMode {
 
     //private static double targetPosition = 0;
 
-    private static boolean end = false;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -98,9 +97,13 @@ public class Drive extends LinearOpMode {
 
             //slides
             if (gamepad1.right_bumper) {
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide1.setPower(1);
                 slide2.setPower(1);
             } else if (gamepad1.left_bumper) {
+                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide1.setPower(-1);
                 slide2.setPower(-1);
             }
@@ -122,41 +125,18 @@ public class Drive extends LinearOpMode {
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
-            else if(!end) {
-                slide1.setPower(0);
-                slide2.setPower(0);
+            else {
+                holdPosition(slide1);
+                holdPosition(slide2);
             }
 
-            if(gamepad2.right_trigger >= 0.1){
-                end = true;
-                slide1.setTargetPosition(20);
-                slide2.setTargetPosition(20);
-                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                slide1.setPower(1);
-                slide2.setPower(-1);
-
-                while (opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
-
-                }
-            }
             //arm
-
             if(Math.abs(gamepad1.left_stick_y) >= 0.1){
                 arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 arm.setPower(gamepad1.left_stick_y);
             }
             else {
-
-                int currentPos = arm.getCurrentPosition();
-
-                if (arm.getMode() != DcMotor.RunMode.RUN_TO_POSITION) {
-                    arm.setTargetPosition(currentPos);
-                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                }
-
-                arm.setPower(0.8);
+                holdPosition(arm);
             }
 
 
@@ -198,10 +178,10 @@ public class Drive extends LinearOpMode {
 
             //fingers
             if(gamepad2.square){
-                fingers.setPosition(0); // close
+                fingers.setPosition(1); // close
             }
             else if (gamepad2.circle){
-                fingers.setPosition(1); // open
+                fingers.setPosition(0); // open
             }
 
 
@@ -223,11 +203,11 @@ public class Drive extends LinearOpMode {
         }
     }
 
-//private void holdPosition(DcMotor arm) {
-//        int currentTarget = arm.getCurrentPosition();
-//        arm.setTargetPosition(currentTarget);
-//        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        arm.setPower(0.7);
-//    }
+private void holdPosition(DcMotor motor) {
+        int currentTarget = motor.getCurrentPosition();
+    motor.setTargetPosition(currentTarget);
+    motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    motor.setPower(0.7);
+    }
 
 }
