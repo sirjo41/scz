@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "fingers")
 public class pos extends LinearOpMode {
 
-    public volatile static double figners_pos = 0;
-    public volatile static double elbow_pos = 0;
-    public volatile static double shoulder_pos = 0;
+    public volatile static double figners_pos = 0.1;
+    public volatile static double elbow_pos = 0.1;
+    public volatile static double shoulder_pos = 0.1;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -22,7 +22,6 @@ public class pos extends LinearOpMode {
 
         waitForStart();
 
-        double po = 0;
         if (isStopRequested()) return;
 
 
