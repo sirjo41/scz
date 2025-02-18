@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 @Config
@@ -15,7 +14,7 @@ public class IntakeServos {
     Servo shoulder;
 
 
-    public static double FINGERS_OPEN = 1;
+    public static double FINGERS_OPEN = 0.4;
     public static double FINGERS_CLOSE = 0;
     public static double ELBOW_DF = 1;
     public static double SHOULDER_DF = 0.9;

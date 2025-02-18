@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.teleop;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -10,17 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Drive", group = "TeleOp")
 public class Drive extends LinearOpMode {
-    public volatile static double p = 0.001, i = 0.0, d = 0.0001;
-    public volatile  static double f = -0.05;
-    private final double ticks_in_deg = 2688.5 / 360.0;
-
-    //private  static  final  int S_INTAKE = 800;
-
-    //private static final double WR_DF = 0;
-    //private static final double WR_CLOSED = 0.5;
-    //private static final double WR_OPEN = 1;
-
-    //private static double targetPosition = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -64,12 +52,6 @@ public class Drive extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        PIDController armController = new PIDController(p, i, d);
-        armController.setPID(p, i, d);
-//        // Set Initial Servo Positions
-//        intakeServo1.setPosition(INTAKE_CLOSED_POSITION);
-//        intakeServo2.setPosition(INTAKE_OPEN_POSITION);
-        //wrist.setPosition(WR_DF);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -116,8 +98,10 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(1);
                 slide2.setPower(1);
 
-                while (opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
-
+                while(opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
+                    telemetry.addData("slide1 pos",slide1.getCurrentPosition());
+                    telemetry.addData("slide2 pos",slide2.getCurrentPosition());
+                    telemetry.update();
                 }
 
                 slide1.setPower(0);
@@ -181,7 +165,7 @@ public class Drive extends LinearOpMode {
                 fingers.setPosition(1); // close
             }
             else if (gamepad2.circle){
-                fingers.setPosition(0); // open
+                fingers.setPosition(0.4); // open
             }
 
 

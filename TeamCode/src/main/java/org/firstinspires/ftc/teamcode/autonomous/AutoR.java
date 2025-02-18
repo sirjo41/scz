@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
 import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
 @Config
-@Autonomous(name = "Right Side Auton",group = "Autonomous",preselectTeleOp ="drive")
+@Autonomous(name = "Right Side Auton",group = "Autonomous", preselectTeleOp ="Drive")
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(4, -45);
