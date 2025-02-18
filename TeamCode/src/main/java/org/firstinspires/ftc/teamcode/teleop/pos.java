@@ -13,15 +13,23 @@ public class pos extends LinearOpMode {
         Servo elbow = hardwareMap.servo.get("elbow");
         Servo shoulder = hardwareMap.servo.get("shoulder");
 
-        fingers.setPosition(0.5);
-        elbow.setPosition(0.5);
-        shoulder.setPosition(0.5);
         waitForStart();
 
+        int po = 0;
         if (isStopRequested()) return;
 
 
         while (opModeIsActive()) {
+            fingers.setPosition(po);
+            elbow.setPosition(po);
+            shoulder.setPosition(po);
+
+            if(gamepad1.a){
+                po++;
+            }
+            else if(gamepad1.b){
+                po--;
+            }
             telemetry.addData("Fingers pos", fingers.getPosition());
             telemetry.addData("elbow pos", elbow.getPosition());
             telemetry.addData("shoulder pos", shoulder.getPosition());
