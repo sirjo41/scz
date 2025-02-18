@@ -20,16 +20,11 @@ public class pos extends LinearOpMode {
 
 
         while (opModeIsActive()) {
-            fingers.setPosition(po);
-            elbow.setPosition(po);
-            shoulder.setPosition(po);
 
-            if(gamepad1.a){
-                po += 0.1;
-            }
-            else if(gamepad1.b){
-                po -= 0.1;
-            }
+            fingers.setPosition(0);
+            elbow.setPosition(0);
+            shoulder.setPosition(0);
+
             telemetry.addData("Fingers pos", fingers.getPosition());
             telemetry.addData("elbow pos", elbow.getPosition());
             telemetry.addData("shoulder pos", shoulder.getPosition());
