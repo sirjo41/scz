@@ -15,7 +15,7 @@ public class pos extends LinearOpMode {
 
         waitForStart();
 
-        int po = 0;
+        double po = 0;
         if (isStopRequested()) return;
 
 
@@ -25,10 +25,10 @@ public class pos extends LinearOpMode {
             shoulder.setPosition(po);
 
             if(gamepad1.a){
-                po++;
+                po += 0.1;
             }
             else if(gamepad1.b){
-                po--;
+                po -= 0.1;
             }
             telemetry.addData("Fingers pos", fingers.getPosition());
             telemetry.addData("elbow pos", elbow.getPosition());
