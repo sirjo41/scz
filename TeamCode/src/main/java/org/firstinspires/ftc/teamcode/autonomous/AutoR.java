@@ -20,14 +20,14 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 @Autonomous(name = "Right Side Auton",group = "Autonomous",preselectTeleOp ="drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(4, -41);
+    public static final Vector2d OutTake = new Vector2d(4, -45);
     public static final Vector2d InTake = new Vector2d(40,-59);
 
     GoBildaPinpointDriverRR odo;
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(14.25, -62.13, Math.toRadians(90.0));
+        Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         Arm arm = new Arm(hardwareMap);
         IntakeServos intakeServos = new IntakeServos(hardwareMap);
@@ -39,8 +39,8 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
                 .turn(Math.PI/2)
-                .strafeTo(new Vector2d(31.5,-43))
-                .strafeTo(new Vector2d(31.5,-14))
+                .strafeTo(new Vector2d(33,-45))
+                .strafeTo(new Vector2d(33,-14))
                 .strafeTo(new Vector2d(47,-14))
                 .strafeTo(new Vector2d(47,-52))
                 .strafeTo(new Vector2d(47,-14))
