@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -13,11 +12,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
-import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
 import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
 import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
-@Config
 @Autonomous(name = "Specimen Side Auton",group = "Autonomous", preselectTeleOp ="Drive")
 public class AutoR extends LinearOpMode {
 
@@ -91,85 +88,48 @@ public class AutoR extends LinearOpMode {
                         new ParallelAction(
                                 OutTake1.build(),
                                 slides.goToStage2()
-                        )
-                )
-        ); // FIRST THING puts specmien
-        Actions.runBlocking(
-                new SequentialAction(
+                        ),
                         slides.goToStage1(),
-                        intakeServos.openfingers()
-                )
-        );
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.openfingers(),
                         new ParallelAction(
                                 SampToHum.build(),
                                 slides.goToStage0()
                         ),
-                        intakeServos.closefingers()
-                )
-        ); // SECOND THING go to human player and get the specmien
-
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.closefingers(),
                         new ParallelAction(
                                 OutTake2.build(),
                                 slides.goToStage2()
                         ),
                         slides.goToStage1(),
-                        intakeServos.openfingers()
-                )
-        ); // OUT TAKE SECOND ONE
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.openfingers(),
                         new ParallelAction(
                                 InTake1.build(),
                                 slides.goToStage0()
                         ),
-                        intakeServos.closefingers()
-                )
-        ); // INTAKE SAMPLE
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.closefingers(),
                         new ParallelAction(
                                 OutTake3.build(),
                                 slides.goToStage2()
                         ),
                         slides.goToStage1(),
-                        intakeServos.openfingers()
-                )
-        ); // outake 3
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.openfingers(),
                         new ParallelAction(
                                 InTake1.build(),
                                 slides.goToStage0()
                         ),
-                        intakeServos.closefingers()
-                )
-        ); // intake sample
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.closefingers(),
                         new ParallelAction(
                                 OutTake3.build(),
                                 slides.goToStage2()
                         ),
                         slides.goToStage1(),
-                        intakeServos.openfingers()
-                )
-        ); // outake 4
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.openfingers(),
                         new ParallelAction(
                                 InTake1.build(),
                                 slides.goToStage0()
 
                         ),
-                        intakeServos.closefingers()
-                )
-        ); // intake sample
-        Actions.runBlocking(
-                new SequentialAction(
+                        intakeServos.closefingers(),
                         new ParallelAction(
                                 OutTake3.build(),
                                 slides.goToStage2()
@@ -177,8 +137,7 @@ public class AutoR extends LinearOpMode {
                         slides.goToStage1(),
                         intakeServos.openfingers()
                 )
-        ); // outake 5
-
+        );
         if (isStopRequested()) return;
 
         telemetry.addData("Status", "Completed");
