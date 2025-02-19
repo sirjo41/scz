@@ -38,9 +38,9 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
                 .strafeTo(new Vector2d(4, -40))
-                .turn(Math.PI / 2)
-                .strafeTo(new Vector2d(33, -45))
-                .strafeTo(new Vector2d(33, -14))
+                .turn(Math.PI)
+                .strafeTo(new Vector2d(31.5, -40))
+                .strafeTo(new Vector2d(31.5, -14))
                 .strafeTo(new Vector2d(47, -14))
                 .strafeTo(new Vector2d(47, -52))
                 .strafeTo(new Vector2d(47, -14))
@@ -52,17 +52,17 @@ public class AutoR extends LinearOpMode {
                 .waitSeconds(0.5);
 
         TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
-                .turn(Math.PI / 2)
+                .turn(Math.PI )
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(InTake.x, InTake.y))
-                .turn(Math.PI / 2)
+                .turn(Math.PI )
                 .waitSeconds(0.5);
 
         TrajectoryActionBuilder OutTake3 = InTake1.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y))
-                .turn(Math.PI / 2);
+                .turn(Math.PI );
 
         // Initialize and configure arm motor
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
@@ -86,8 +86,8 @@ public class AutoR extends LinearOpMode {
             Actions.runBlocking(new SequentialAction(
                     // 1. OutTake1 trajectory with slides to stage 2, then slides to stage 1 and open intake fingers
                     new ParallelAction(
-                            OutTake1.build(),
-                            slides.goToStage2()
+                            slides.goToStage2(),
+                            OutTake1.build()
                     ),
                     slides.goToStage1(),
                     intakeServos.openfingers(),
