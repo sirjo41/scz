@@ -27,7 +27,7 @@ public class AutoR extends LinearOpMode {
     public void runOpMode() {
         // Initialize hardware and starting pose
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90.0));
+        Pose2d initialPose = new Pose2d(10, -62, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         IntakeServos intakeServos = new IntakeServos(hardwareMap);
         Slides slides = new Slides(hardwareMap);
@@ -40,8 +40,8 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(4, -40))
                 .turn(Math.PI / 2 )
                 .turn(Math.PI / 2 )
-                .strafeTo(new Vector2d(31.5, -40))
-                .strafeTo(new Vector2d(31.5, -16))
+                .strafeTo(new Vector2d(28, -40))
+                .strafeTo(new Vector2d(28, -16))
                 .strafeTo(new Vector2d(47, -16))
                 .strafeTo(new Vector2d(47, -52))
                 .strafeTo(new Vector2d(47, -16))
