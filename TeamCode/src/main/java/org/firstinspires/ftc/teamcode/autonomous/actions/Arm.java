@@ -25,7 +25,7 @@ public class Arm {
 
     // Arm Position Stages (Using Ticks)
     public static double STAGE_0 = 11;
-    public static double STAGE_INTAKE = 30;  // 0 degrees
+    public static double STAGE_INTAKE = 20;  // 0 degrees
     public static double STAGE_OUTTAKE = 76;// 90 degrees// 180 degrees;
     public static double STAGE_OUTTAKE2 = 77;
     public static double STAGE_INTAKE2 = 77;
@@ -72,7 +72,7 @@ public class Arm {
             packet.put("Arm Target (Ticks)", targetPosition);
             packet.put("Arm Current Position", arm.getCurrentPosition());
 
-            return Math.abs(arm.getCurrentPosition() - targetPosition) > 10;
+            return Math.abs(arm.getCurrentPosition() - targetPosition) > 50;
         }
     }
 

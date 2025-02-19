@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
@@ -29,7 +30,7 @@ public class AutoR extends LinearOpMode {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
         Pose2d initialPose = new Pose2d(14, -62, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
-        Arm arm = new Arm(hardwareMap);
+        //Arm arm = new Arm(hardwareMap);
         IntakeServos intakeServos = new IntakeServos(hardwareMap);
         Slides slides = new Slides(hardwareMap);
 
@@ -65,18 +66,30 @@ public class AutoR extends LinearOpMode {
         TrajectoryActionBuilder OutTake3 = InTake1.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(OutTake.x,OutTake.y))
                 .turn(Math.PI/2);
+        DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
 
+        // Initialize PID Controller
+
+        // Set motor direction
+        arm.setDirection(DcMotor.Direction.FORWARD);
+
+        // Initialize encoders
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        arm.setTargetPosition(arm.getCurrentPosition());
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         telemetry.addData("Status","READDDYYYY ");
         telemetry.update();
 
         waitForStart();
 
+        arm.setPower(0.9);
+
         Actions.runBlocking(
                 new SequentialAction(
                         new ParallelAction(
                                 OutTake1.build(),
-                                arm.goToStage0(),
                                 slides.goToStage2()
                         ),
                         slides.goToStage1(),
@@ -88,7 +101,6 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 SampToHum.build(),
-                                arm.goToStage0(),
                                 slides.goToStage0()
                         ),
                         intakeServos.closefingers()
@@ -99,8 +111,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 OutTake2.build(),
-                                slides.goToStage2(),
-                                arm.goToStage0()
+                                slides.goToStage2()
                         ),
                         slides.goToStage1(),
                         intakeServos.openfingers()
@@ -110,8 +121,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 InTake1.build(),
-                                slides.goToStage0(),
-                                arm.goToStage0()
+                                slides.goToStage0()
                         ),
                         intakeServos.closefingers()
                 )
@@ -120,8 +130,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 OutTake3.build(),
-                                slides.goToStage2(),
-                                arm.goToStage0()
+                                slides.goToStage2()
                         ),
                         slides.goToStage1(),
                         intakeServos.openfingers()
@@ -131,8 +140,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 InTake1.build(),
-                                slides.goToStage0(),
-                                arm.goToStage0()
+                                slides.goToStage0()
                         ),
                         intakeServos.closefingers()
                 )
@@ -141,8 +149,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 OutTake3.build(),
-                                slides.goToStage2(),
-                                arm.goToStage0()
+                                slides.goToStage2()
                         ),
                         slides.goToStage1(),
                         intakeServos.openfingers()
@@ -152,8 +159,7 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 InTake1.build(),
-                                slides.goToStage0(),
-                                arm.goToStage0()
+                                slides.goToStage0()
 
                         ),
                         intakeServos.closefingers()
@@ -163,19 +169,12 @@ public class AutoR extends LinearOpMode {
                 new SequentialAction(
                         new ParallelAction(
                                 OutTake3.build(),
-                                slides.goToStage2(),
-                                arm.goToStage0()
+                                slides.goToStage2()
                         ),
                         slides.goToStage1(),
                         intakeServos.openfingers()
                 )
         ); // outake 5
-
-
-        sleep(1000000);
-       arm.stop();
-
-
 
         if (isStopRequested()) return;
 
