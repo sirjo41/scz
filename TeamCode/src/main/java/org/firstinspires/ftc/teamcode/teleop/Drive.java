@@ -138,18 +138,18 @@ public class Drive extends LinearOpMode {
                 elbow.setPosition(0.4);
             }
 //fingers
-            if(gamepad1.square){
+            if(gamepad1.b){
                 fingers.setPosition(0.4); // close
             }
-            else if (gamepad1.circle){
+            else if (gamepad1.x){
                 fingers.setPosition(0.6); // open
             }
             //wrist
-            if (gamepad1.triangle) {
+            if (gamepad1.y) {
                 wrist.setPower(0.5);
                 wrist.setPower(0.5);
             }
-            else if(gamepad1.x){
+            else if(gamepad1.a){
                 wrist.setPower(-0.5);
                 wrist.setPower(-0.5);
             }
