@@ -89,26 +89,6 @@ public class Drive extends LinearOpMode {
                 slide1.setPower(-1);
                 slide2.setPower(-1);
             }
-            else if(gamepad1.dpad_left){
-                slide1.setTargetPosition(800);
-                slide2.setTargetPosition(800);
-                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                slide1.setPower(1);
-                slide2.setPower(1);
-
-                while(opModeIsActive() && (slide1.isBusy()&& slide1.isBusy())){
-                    telemetry.addData("slide1 pos",slide1.getCurrentPosition());
-                    telemetry.addData("slide2 pos",slide2.getCurrentPosition());
-                    telemetry.update();
-                }
-
-                slide1.setPower(0);
-                slide2.setPower(0);
-                slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
             else {
                 holdPosition(slide1);
                 holdPosition(slide2);
@@ -128,10 +108,6 @@ public class Drive extends LinearOpMode {
             if (gamepad1.dpad_up) {
                 shoulder.setPosition(0);
                 elbow.setPosition(0.2);
-            }
-            if (gamepad1.dpad_right) {
-                shoulder.setPosition(0.5);
-                elbow.setPosition(0.6);
             }
             if (gamepad1.dpad_down) {
                 shoulder.setPosition(1);
