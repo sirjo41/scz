@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
 import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
 import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
-@Autonomous(name = "Left Side Auton",group = "Autonomous",preselectTeleOp ="drive")
+@Autonomous(name = "Basket Side Auton",group = "Autonomous",preselectTeleOp ="Drive")
 public class AutoL extends LinearOpMode {
 
     GoBildaPinpointDriverRR odo;
