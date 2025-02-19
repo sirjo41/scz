@@ -121,10 +121,10 @@ public class Drive extends LinearOpMode {
                 fingers.setPosition(0.6); // open
             }
             //wrist
-            if (gamepad1.dpad_right) {
+            if (gamepad1.x) {
                 wrist.setPosition(1);
             }
-            if(gamepad1.dpad_left){
+            if(gamepad1.triangle){
                 wrist.setPosition(0);
             }
 
