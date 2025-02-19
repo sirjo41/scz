@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(2, -39);
+    public static final Vector2d OutTake = new Vector2d(2, -40);
     public static final Vector2d InTake = new Vector2d(40, -59);
 
     GoBildaPinpointDriverRR odo;
@@ -40,15 +40,15 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(2, -45))
                 .turn(Math.PI / 2 )
                 .turn(Math.PI / 2 )
-                .strafeTo(new Vector2d(28, -40))
-                .strafeTo(new Vector2d(28, -16))
-                .strafeTo(new Vector2d(47, -16))
+                .strafeTo(new Vector2d(26, -45))
+                .strafeTo(new Vector2d(26, -18))
+                .strafeTo(new Vector2d(47, -18))
                 .strafeTo(new Vector2d(47, -52))
-                .strafeTo(new Vector2d(47, -16))
-                .strafeTo(new Vector2d(55, -16))
+                .strafeTo(new Vector2d(47, -18))
+                .strafeTo(new Vector2d(55, -18))
                 .strafeTo(new Vector2d(55, -52))
-                .strafeTo(new Vector2d(55, -16))
-                .strafeTo(new Vector2d(61, -16))
+                .strafeTo(new Vector2d(55, -18))
+                .strafeTo(new Vector2d(61, -18))
                 .strafeTo(new Vector2d(61, -59))
                 .waitSeconds(0.5);
 
@@ -86,10 +86,8 @@ public class AutoR extends LinearOpMode {
             // Execute the complete autonomous sequence in one blocking call
             Actions.runBlocking(new SequentialAction(
                     // 1. OutTake1 trajectory with slides to stage 2, then slides to stage 1 and open intake fingers
-                    new ParallelAction(
-                            slides.goToStage2(),
-                            OutTake1.build()
-                    ),
+                    slides.goToStage2(),
+                    OutTake1.build(),
                     slides.goToStage1(),
                     intakeServos.openfingers(),
                     // 2. SampToHum trajectory with slides to stage 0, then close intake fingers
