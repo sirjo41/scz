@@ -49,7 +49,7 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(55,-52))
                 .strafeTo(new Vector2d(55,-14))
                 .strafeTo(new Vector2d(61,-14))
-                .strafeTo(new Vector2d(61,-56))
+                .strafeTo(new Vector2d(61,-59))
                 .waitSeconds(0.5);
 
         TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
