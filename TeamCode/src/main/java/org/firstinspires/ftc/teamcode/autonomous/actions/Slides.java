@@ -69,6 +69,7 @@ public class Slides {
 
             return true;
         }
+    }
 
     // Predefined stage actions
     public Action goToStage0() {
@@ -86,5 +87,4 @@ public class Slides {
     public Action goToStage3() {
         return moveToPositionAction(STAGE_3);
     }
-}
 }
