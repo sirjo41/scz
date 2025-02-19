@@ -50,21 +50,25 @@ public class Slides {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
 
-            slide1.setTargetPosition(targetPosition);
-            slide2.setTargetPosition(targetPosition);
-            slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            slide1.setPower(1);
-            slide2.setPower(1);
+            if (!initialized) {
+                slide1.setTargetPosition(targetPosition);
+                slide2.setTargetPosition(targetPosition);
+                slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slide1.setPower(1);
+                slide2.setPower(1);
+                initialized = true;
+            }
 
-            if(!slide1.isBusy() && slide2.isBusy()){
-            slide1.setPower(0);
-            slide2.setPower(0);
-            return false;
+            // Stop when both slides reach the target
+            if (!slide1.isBusy() && !slide2.isBusy()) {
+                slide1.setPower(0);
+                slide2.setPower(0);
+                return false; // Action is completed
+            }
+
+            return true;
         }
-            return true; // Action is still running
-        }
-    }
 
     // Predefined stage actions
     public Action goToStage0() {
@@ -82,4 +86,5 @@ public class Slides {
     public Action goToStage3() {
         return moveToPositionAction(STAGE_3);
     }
+}
 }
