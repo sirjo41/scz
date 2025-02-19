@@ -38,7 +38,8 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
                 .strafeTo(new Vector2d(4, -40))
-                .turn(Math.PI)
+                .turn(Math.PI / 2 )
+                .turn(Math.PI / 2 )
                 .strafeTo(new Vector2d(31.5, -40))
                 .strafeTo(new Vector2d(31.5, -16))
                 .strafeTo(new Vector2d(47, -16))
