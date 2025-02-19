@@ -126,16 +126,16 @@ public class Drive extends LinearOpMode {
 
             //shoulder
             if (gamepad1.dpad_up) {
-                shoulder.setPosition(0.96);
-                elbow.setPosition(1);
+                shoulder.setPosition(0);
+                elbow.setPosition(0.2);
             }
             if (gamepad1.dpad_right) {
-                shoulder.setPosition(0.48);
+                shoulder.setPosition(0.5);
                 elbow.setPosition(0.6);
             }
             if (gamepad1.dpad_down) {
-                shoulder.setPosition(0);
-                elbow.setPosition(0.4);
+                shoulder.setPosition(1);
+                elbow.setPosition(0.8);
             }
 //fingers
             if(gamepad1.b){
