@@ -13,12 +13,14 @@ public class pos extends LinearOpMode {
     public volatile static double figners_pos = 0.1;
     public volatile static double elbow_pos = 0.1;
     public volatile static double shoulder_pos = 0.1;
+    public volatile static double wrist_pos = 0.1;
 
     @Override
     public void runOpMode() throws InterruptedException {
         Servo fingers = hardwareMap.servo.get("fingers");
         Servo elbow = hardwareMap.servo.get("elbow");
         Servo shoulder = hardwareMap.servo.get("shoulder");
+        Servo wrist = hardwareMap.servo.get("wrist");
 
         waitForStart();
 
@@ -30,10 +32,12 @@ public class pos extends LinearOpMode {
             fingers.setPosition(figners_pos);
             elbow.setPosition(elbow_pos);
             shoulder.setPosition(shoulder_pos);
+            wrist.setPosition(wrist_pos);
 
             telemetry.addData("Fingers pos", figners_pos);
             telemetry.addData("elbow pos",elbow_pos );
             telemetry.addData("shoulder pos", shoulder_pos);
+            telemetry.addData("wrist",wrist_pos);
             telemetry.update();
         }
     }

@@ -13,7 +13,7 @@ public class IntakeServos {
     Servo fingers;
     Servo elbow;
     Servo shoulder;
-    CRServo wrist;
+    Servo wrist;
 
 
     public static double FINGERS_OPEN = 0.4;
@@ -26,13 +26,12 @@ public class IntakeServos {
         fingers = hardwareMap.servo.get("fingers");
         elbow  = hardwareMap.servo.get("elbow");
         shoulder = hardwareMap.servo.get("shoulder");
-        wrist = hardwareMap.crservo.get("wrist");
+        wrist = hardwareMap.servo.get("wrist");
 
 //        // Stop all servos initially
         fingers.setPosition(FINGERS_CLOSE);
         elbow.setPosition(ELBOW_INTAKE);
         shoulder.setPosition(SHOULDER_INTAKE);
-        wrist.setPower(0.0);
     }
     public Action openfingers() {
         return new SetServoPositionAction(fingers, FINGERS_OPEN);
