@@ -83,16 +83,16 @@ public class AutoR extends LinearOpMode {
                 )
         ); // FIRST THING puts specmien
 
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage0(),
-//                                SampToHum.build()
-//                        ),
-//                        intakeServos.closefingers()
-//                )
-//        ); // SECOND THING go to human player and get the specmien
-//
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                slides.goToStage0(),
+                                SampToHum.build()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // SECOND THING go to human player and get the specmien
+
 //        Actions.runBlocking(
 //                new SequentialAction(
 //                        new ParallelAction(
