@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 @Autonomous(name = "Specimen Side Auton",group = "Autonomous", preselectTeleOp ="Drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(4, -40);
+    public static final Vector2d OutTake = new Vector2d(4, -38);
     public static final Vector2d InTake = new Vector2d(40,-59);
 
     GoBildaPinpointDriverRR odo;
@@ -38,6 +38,7 @@ public class AutoR extends LinearOpMode {
 
 
         TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
+                .lineToY(-42)
                 .turn(Math.PI/2)
                 .strafeTo(new Vector2d(33,-45))
                 .strafeTo(new Vector2d(33,-14))
