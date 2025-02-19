@@ -38,7 +38,7 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
                 .strafeTo(new Vector2d(2, -45))
-                .turn(Math.PI / 2 )
+                .turn(Math.PI / 2)
                 .turn(Math.PI / 2 )
                 .strafeTo(new Vector2d(26, -45))
                 .strafeTo(new Vector2d(26, -18))
@@ -53,17 +53,20 @@ public class AutoR extends LinearOpMode {
                 .waitSeconds(0.5);
 
         TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
-                .turn(Math.PI )
+                .turn(Math.PI / 2)
+                .turn(Math.PI / 2)
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(InTake.x, InTake.y))
-                .turn(Math.PI )
+                .turn(Math.PI / 2)
+                .turn(Math.PI / 2)
                 .waitSeconds(0.5);
 
         TrajectoryActionBuilder OutTake3 = InTake1.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y))
-                .turn(Math.PI );
+                .turn(Math.PI / 2)
+                .turn(Math.PI / 2);
 
         // Initialize and configure arm motor
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
