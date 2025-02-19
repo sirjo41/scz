@@ -24,7 +24,7 @@ public class Arm {
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree
 
     // Arm Position Stages (Using Ticks)
-    public static double STAGE_0 = 0;
+    public static double STAGE_0 = 9;
     public static double STAGE_INTAKE = 30;  // 0 degrees
     public static double STAGE_OUTTAKE = 76;// 90 degrees// 180 degrees;
     public static double STAGE_OUTTAKE2 = 77;
@@ -58,13 +58,13 @@ public class Arm {
         private boolean initialized = false;
 
         public ArmPIDFAction(double targetDegrees) {
-            this.targetTicks = arm.getCurrentPosition();
+            this.targetTicks = targetDegrees * ticks_in_deg;
         }
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                targetPosition = arm.getCurrentPosition();
+                targetPosition = targetTicks;
                 initialized = true;
                 startArmThread();
             }
@@ -83,7 +83,7 @@ public class Arm {
                 while (running) {
                     armController.setPID(p, i, d);
                     int arm_pos = arm.getCurrentPosition();
-                    double pid = armController.calculate(arm_pos, arm.getCurrentPosition());
+                    double pid = armController.calculate(arm_pos, targetPosition);
                     double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
                     double power = pid + ff;
                     arm.setPower(power);
