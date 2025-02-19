@@ -58,13 +58,13 @@ public class Arm {
         private boolean initialized = false;
 
         public ArmPIDFAction(double targetDegrees) {
-            this.targetTicks = targetDegrees * ticks_in_deg;
+            this.targetTicks = arm.getCurrentPosition();
         }
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                targetPosition = targetTicks;
+                targetPosition = arm.getCurrentPosition();
                 initialized = true;
                 startArmThread();
             }
@@ -83,7 +83,7 @@ public class Arm {
                 while (running) {
                     armController.setPID(p, i, d);
                     int arm_pos = arm.getCurrentPosition();
-                    double pid = armController.calculate(arm_pos, targetPosition);
+                    double pid = armController.calculate(arm_pos, arm.getCurrentPosition());
                     double ff = Math.cos(Math.toRadians(targetPosition / ticks_in_deg)) * f;
                     double power = pid + ff;
                     arm.setPower(power);
