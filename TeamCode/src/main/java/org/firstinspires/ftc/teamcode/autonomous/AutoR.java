@@ -66,9 +66,6 @@ public class AutoR extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
-                .strafeTo(new Vector2d(2, -45))
-                .turn(Math.PI / 2)
-                .turn(Math.PI / 2 )
                 .strafeTo(new Vector2d(26, -45))
                 .strafeTo(new Vector2d(26, -18))
                 .strafeTo(new Vector2d(47, -18))
@@ -79,23 +76,25 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(55, -18))
                 .strafeTo(new Vector2d(61, -18))
                 .strafeTo(new Vector2d(61, -59))
-                .waitSeconds(0.5);
+                .turn(Math.PI /2)
+                .turn(Math.PI /2)
+                .waitSeconds(0.3);
 
         TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
                 .turn(Math.PI / 2)
                 .turn(Math.PI / 2)
-                .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
+                .strafeTo(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(InTake.x, InTake.y))
+                .strafeTo(new Vector2d(InTake.x, InTake.y))
                 .turn(Math.PI / 2)
                 .turn(Math.PI / 2)
-                .waitSeconds(0.5);
+                .waitSeconds(0.3);
 
         TrajectoryActionBuilder OutTake3 = InTake1.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y))
                 .turn(Math.PI / 2)
-                .turn(Math.PI / 2);
+                .turn(Math.PI / 2)
+                .strafeTo(new Vector2d(OutTake.x, OutTake.y));
 
         // Initialize and configure arm motor
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
