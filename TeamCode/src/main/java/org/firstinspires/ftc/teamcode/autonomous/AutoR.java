@@ -106,7 +106,7 @@ public class AutoR extends LinearOpMode {
         arm.setPower(0.9);
 
         // Signal readiness and wait for start
-        telemetry.addData("Status", "READY");
+        telemetry.addData("Status", "READY V2 :) ");
         telemetry.update();
         waitForStart();
         if (isStopRequested()) return;
