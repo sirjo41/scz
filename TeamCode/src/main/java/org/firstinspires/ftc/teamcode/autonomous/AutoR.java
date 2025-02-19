@@ -91,12 +91,15 @@ public class AutoR extends LinearOpMode {
                         new ParallelAction(
                                 OutTake1.build(),
                                 slides.goToStage2()
-                        ),
+                        )
+                )
+        ); // FIRST THING puts specmien
+        Actions.runBlocking(
+                new SequentialAction(
                         slides.goToStage1(),
                         intakeServos.openfingers()
                 )
-        ); // FIRST THING puts specmien
-
+        );
         Actions.runBlocking(
                 new SequentialAction(
                         new ParallelAction(
