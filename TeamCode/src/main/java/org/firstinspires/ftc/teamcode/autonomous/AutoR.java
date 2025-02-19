@@ -91,7 +91,6 @@ public class AutoR extends LinearOpMode {
                     ),
                     slides.goToStage1(),
                     intakeServos.openfingers(),
-
                     // 2. SampToHum trajectory with slides to stage 0, then close intake fingers
                     new ParallelAction(
                             SampToHum.build(),
