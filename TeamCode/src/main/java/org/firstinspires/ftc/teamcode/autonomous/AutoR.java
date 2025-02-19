@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
-import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
 
+
+@Config
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
@@ -24,6 +24,10 @@ public class AutoR extends LinearOpMode {
     public static double ELBOW_INTAKE = 0.8;
     public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
+
+    public static int STAGE_INTAKE = 5;
+    public static int STAGE_OUTTAKE = 2400;
+    public static int STAGE_OUTTAKE2 = 2800;
 
     GoBildaPinpointDriverRR odo;
 
@@ -110,45 +114,49 @@ public class AutoR extends LinearOpMode {
         telemetry.addData("Status", "Executing Autonomous Routine");
         telemetry.update();
 
-        gotostage(slide1,slide2,2400);
+        gotostage(slide1,slide2,STAGE_OUTTAKE2);
         OutTake1.build();
-        gotostage(slide1,slide2,2100);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
         SampToHum.build();
+        gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
-        gotostage(slide1,slide2,2400);
+        gotostage(slide1,slide2,STAGE_OUTTAKE2);
         OutTake2.build();
-        gotostage(slide1,slide2,2100);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
         InTake1.build();
+        gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
-        gotostage(slide1,slide2,2400);
+        gotostage(slide1,slide2,STAGE_OUTTAKE2);
         OutTake3.build();
-        gotostage(slide1,slide2,2100);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
         InTake1.build();
+        gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
-        gotostage(slide1,slide2,2400);
+        gotostage(slide1,slide2,STAGE_OUTTAKE2);
         OutTake3.build();
-        gotostage(slide1,slide2,2100);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
         InTake1.build();
+        gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
-        gotostage(slide1,slide2,2400);
+        gotostage(slide1,slide2,STAGE_OUTTAKE2);
         OutTake3.build();
-        gotostage(slide1,slide2,2100);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
         InTake1.build();
-        gotostage(slide1,slide2,0);
+        gotostage(slide1,slide2,STAGE_INTAKE);
 
             if (isStopRequested()) return;
 
