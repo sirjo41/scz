@@ -18,7 +18,7 @@ public class Arm {
 
     // PIDF Constants (Tunable in FTC Dashboard)
     public volatile static double p = 0.001, i = 0.0, d = 0.0001;
-    public volatile  static double f = -0.05;
+    public volatile  static double f = -0.06;
 
     // Correct Ticks per Degree for GoBILDA 117 RPM with 5:1 Gear Ratio
     private final double ticks_in_deg = 2688.5 / 360.0;  // ~7.468 ticks per degree

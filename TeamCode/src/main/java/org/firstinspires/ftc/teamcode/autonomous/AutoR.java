@@ -87,80 +87,89 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                         new ParallelAction(
-                                slides.goToStage0(),
-                                SampToHum.build()
+                                SampToHum.build(),
+                                arm.goToStage0(),
+                                slides.goToStage0()
                         ),
                         intakeServos.closefingers()
                 )
         ); // SECOND THING go to human player and get the specmien
 
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage2(),
-//                                OutTake2.build()
-//                        ),
-//                        slides.goToStage1(),
-//                        intakeServos.openfingers()
-//                )
-//        ); // OUT TAKE SECOND ONE
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage0(),
-//                                InTake1.build()
-//                        ),
-//                        intakeServos.closefingers()
-//                )
-//        ); // INTAKE SAMPLE
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage2(),
-//                                OutTake3.build()
-//                        ),
-//                        slides.goToStage1(),
-//                        intakeServos.openfingers()
-//                )
-//        ); // outake 3
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage0(),
-//                                InTake1.build()
-//                        ),
-//                        intakeServos.closefingers()
-//                )
-//        ); // intake sample
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage2(),
-//                                OutTake3.build()
-//                        ),
-//                        slides.goToStage1(),
-//                        intakeServos.openfingers()
-//                )
-//        ); // outake 4
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage0(),
-//                                InTake1.build()
-//                        ),
-//                        intakeServos.closefingers()
-//                )
-//        ); // intake sample
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        new ParallelAction(
-//                                slides.goToStage2(),
-//                                OutTake3.build()
-//                        ),
-//                        slides.goToStage1(),
-//                        intakeServos.openfingers()
-//                )
-//        ); // outake 5
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                OutTake2.build(),
+                                slides.goToStage2(),
+                                arm.goToStage0()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // OUT TAKE SECOND ONE
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                InTake1.build(),
+                                slides.goToStage0(),
+                                arm.goToStage0()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // INTAKE SAMPLE
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                OutTake3.build(),
+                                slides.goToStage2(),
+                                arm.goToStage0()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // outake 3
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                InTake1.build(),
+                                slides.goToStage0(),
+                                arm.goToStage0()
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // intake sample
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                OutTake3.build(),
+                                slides.goToStage2(),
+                                arm.goToStage0()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // outake 4
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                InTake1.build(),
+                                slides.goToStage0(),
+                                arm.goToStage0()
+
+                        ),
+                        intakeServos.closefingers()
+                )
+        ); // intake sample
+        Actions.runBlocking(
+                new SequentialAction(
+                        new ParallelAction(
+                                OutTake3.build(),
+                                slides.goToStage2(),
+                                arm.goToStage0()
+                        ),
+                        slides.goToStage1(),
+                        intakeServos.openfingers()
+                )
+        ); // outake 5
 
 
         sleep(1000000);
