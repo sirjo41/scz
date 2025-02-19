@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -114,47 +115,47 @@ public class AutoR extends LinearOpMode {
         telemetry.update();
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        OutTake1.build();
+        Actions.runBlocking( OutTake1.build() );
         gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
-        SampToHum.build();
+        Actions.runBlocking( SampToHum.build());
         gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        OutTake2.build();
+        Actions.runBlocking(OutTake2.build());
         gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
-        InTake1.build();
+        Actions.runBlocking(InTake1.build());
         gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        OutTake3.build();
+        Actions.runBlocking(OutTake3.build());
         gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
-        InTake1.build();
+        Actions.runBlocking(InTake1.build());
         gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        OutTake3.build();
+        Actions.runBlocking(OutTake3.build());
         gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
-        InTake1.build();
+        Actions.runBlocking(InTake1.build());
         gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        OutTake3.build();
+        Actions.runBlocking(OutTake3.build());
         gotostage(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
-        InTake1.build();
+        Actions.runBlocking(InTake1.build());
         gotostage(slide1,slide2,STAGE_INTAKE);
 
             if (isStopRequested()) return;
