@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -10,16 +8,22 @@ import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
-import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(2, -40);
     public static final Vector2d InTake = new Vector2d(40, -59);
+
+    public static double FINGERS_OPEN = 0.4;
+    public static double FINGERS_CLOSE = 0.6;
+    public static double ELBOW_INTAKE = 0.8;
+    public static double SHOULDER_INTAKE = 1;
+    public static double WRIST_INTAKE = 1;
 
     GoBildaPinpointDriverRR odo;
 
@@ -29,8 +33,29 @@ public class AutoR extends LinearOpMode {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
         Pose2d initialPose = new Pose2d(10, -62, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
-        IntakeServos intakeServos = new IntakeServos(hardwareMap);
-        Slides slides = new Slides(hardwareMap);
+        DcMotor slide1 = hardwareMap.get(DcMotor.class, "slide1");
+        DcMotor slide2 = hardwareMap.get(DcMotor.class, "slide2");
+
+        // Set motor directions
+        slide1.setDirection(DcMotor.Direction.FORWARD);
+        slide2.setDirection(DcMotor.Direction.REVERSE);
+
+        // Initialize encoders
+        slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        Servo fingers = hardwareMap.servo.get("fingers");
+        Servo elbow  = hardwareMap.servo.get("elbow");
+        Servo shoulder = hardwareMap.servo.get("shoulder");
+        Servo wrist = hardwareMap.servo.get("wrist");
+
+//        // Stop all servos initially
+        fingers.setPosition(FINGERS_CLOSE);
+        elbow.setPosition(ELBOW_INTAKE);
+        shoulder.setPosition(SHOULDER_INTAKE);
+        wrist.setPosition(WRIST_INTAKE);
 
         // Build trajectory segments
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
@@ -85,77 +110,57 @@ public class AutoR extends LinearOpMode {
         telemetry.addData("Status", "Executing Autonomous Routine");
         telemetry.update();
 
-        try {
-            // Execute the complete autonomous sequence in one blocking call
-            Actions.runBlocking(new SequentialAction(
-                    // 1. OutTake1 trajectory with slides to stage 2, then slides to stage 1 and open intake fingers
-                    slides.goToStage2(),
-                    OutTake1.build(),
-                    slides.goToStage1(),
-                    intakeServos.openfingers(),
-                    // 2. SampToHum trajectory with slides to stage 0, then close intake fingers
-                    new ParallelAction(
-                            SampToHum.build(),
-                            slides.goToStage0()
-                    ),
-                    intakeServos.closefingers(),
+        gotostage(slide1,slide2,2400);
+        OutTake1.build();
+        gotostage(slide1,slide2,2100);
+        fingers.setPosition(FINGERS_OPEN);
 
-                    // 3. OutTake2 trajectory with slides to stage 2, then slides to stage 1 and open intake fingers
-                    new ParallelAction(
-                            OutTake2.build(),
-                            slides.goToStage2()
-                    ),
-                    slides.goToStage1(),
-                    intakeServos.openfingers(),
+        SampToHum.build();
+        fingers.setPosition(FINGERS_CLOSE);
 
-                    // 4. First cycle: InTake1 trajectory with slides to stage 0, then close intake fingers,
-                    //    OutTake3 trajectory with slides to stage 2, then slides to stage 1 and open intake fingers
-                    new ParallelAction(
-                            InTake1.build(),
-                            slides.goToStage0()
-                    ),
-                    intakeServos.closefingers(),
-                    new ParallelAction(
-                            OutTake3.build(),
-                            slides.goToStage2()
-                    ),
-                    slides.goToStage1(),
-                    intakeServos.openfingers(),
+        gotostage(slide1,slide2,2400);
+        OutTake2.build();
+        gotostage(slide1,slide2,2100);
+        fingers.setPosition(FINGERS_OPEN);
 
-                    // 5. Second cycle: repeat InTake1 and OutTake3 sequence
-                    new ParallelAction(
-                            InTake1.build(),
-                            slides.goToStage0()
-                    ),
-                    intakeServos.closefingers(),
-                    new ParallelAction(
-                            OutTake3.build(),
-                            slides.goToStage2()
-                    ),
-                    slides.goToStage1(),
-                    intakeServos.openfingers(),
+        InTake1.build();
+        fingers.setPosition(FINGERS_CLOSE);
 
-                    // 6. Third cycle: repeat InTake1 and OutTake3 sequence
-                    new ParallelAction(
-                            InTake1.build(),
-                            slides.goToStage0()
-                    ),
-                    intakeServos.closefingers(),
-                    new ParallelAction(
-                            OutTake3.build(),
-                            slides.goToStage2()
-                    ),
-                    slides.goToStage1(),
-                    intakeServos.openfingers()
-            ));
-        } catch (Exception e) {
-            telemetry.addData("Error", "Error executing autonomous routine: " + e.getMessage());
-            telemetry.update();
+        gotostage(slide1,slide2,2400);
+        OutTake3.build();
+        gotostage(slide1,slide2,2100);
+        fingers.setPosition(FINGERS_OPEN);
+
+        InTake1.build();
+        fingers.setPosition(FINGERS_CLOSE);
+
+        gotostage(slide1,slide2,2400);
+        OutTake3.build();
+        gotostage(slide1,slide2,2100);
+        fingers.setPosition(FINGERS_OPEN);
+
+        InTake1.build();
+        fingers.setPosition(FINGERS_CLOSE);
+
+        gotostage(slide1,slide2,2400);
+        OutTake3.build();
+        gotostage(slide1,slide2,2100);
+        fingers.setPosition(FINGERS_OPEN);
+
+        InTake1.build();
+        gotostage(slide1,slide2,0);
 
             if (isStopRequested()) return;
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
         }
+    private void gotostage(DcMotor slide1, DcMotor slide2, int targ) {
+        slide1.setTargetPosition(targ);
+        slide2.setTargetPosition(targ);
+        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide1.setPower(1);
+        slide2.setPower(1);
     }
-}
+    }
