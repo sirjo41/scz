@@ -22,10 +22,6 @@ public class AutoR extends LinearOpMode {
     public static final Vector2d OutTake = new Vector2d(11,-34 );
     public static final Vector2d InTake = new Vector2d(37, -61);
 
-    public static double FINGERS_OPEN = 0.4;
-    public static double FINGERS_CLOSE = 0.6;
-    public static double ELBOW_INTAKE = 0.8;
-    public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
 
     public static int STAGE_DF = 0;
