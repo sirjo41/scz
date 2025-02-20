@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(11,-32 );
-    public static final Vector2d InTake = new Vector2d(37, -55);
+    public static final Vector2d InTake = new Vector2d(60, -55);
 
     public static double WRIST_OUTTAKE = 0.4;
     public static double WRIST_INTAKE = 0.7;
@@ -131,25 +131,8 @@ public class AutoR extends LinearOpMode {
         intake1.setPower(0);
         intake2.setPower(0);
 
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
-        Actions.runBlocking(OutTake2.build());
-        gotostage2(slide1,slide2,STAGE_OUTTAKE2);
-        intake1.setPower(1);
-        intake2.setPower(1);
-        startTime = runtime.seconds();
 
-        while (opModeIsActive() && (runtime.seconds() - startTime < 1)) {
-            telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
-            telemetry.update();
-        }
-        intake1.setPower(0);
-        intake2.setPower(0);
-        gotostage(slide1,slide2,STAGE_DF);
-
-        Actions.runBlocking(SampToHum.build());
-
-
-
+        sleep(100000);
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
