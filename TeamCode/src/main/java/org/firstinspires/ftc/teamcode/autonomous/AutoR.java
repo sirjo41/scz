@@ -81,8 +81,8 @@ public class AutoR extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(6, -27),Math.toRadians(90));
 
         TrajectoryActionBuilder SampToHum = OutTake2.endTrajectory().fresh()
-                .strafeTo(new Vector2d(34, -34))
-                .strafeTo(new Vector2d(34, -15))
+                .strafeTo(new Vector2d(35, -34))
+                .strafeTo(new Vector2d(35, -15))
                 .strafeTo(new Vector2d(48, -15))
                 .strafeTo(new Vector2d(48, -52))
                 .strafeTo(new Vector2d(48, -15))
