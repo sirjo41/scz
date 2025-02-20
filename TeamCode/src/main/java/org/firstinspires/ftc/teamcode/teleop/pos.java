@@ -10,16 +10,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "fingers")
 public class pos extends LinearOpMode {
 
-    public volatile static double figners_pos = 0.1;
-    public static double ELBOW_INTAKE = 0.8;
-    public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
 
     @Override
     public void runOpMode() throws InterruptedException {
-//        Servo fingers = hardwareMap.servo.get("fingers");
-//        Servo elbow = hardwareMap.servo.get("elbow");
-//        Servo shoulder = hardwareMap.servo.get("shoulder");
         Servo wrist = hardwareMap.servo.get("wrist");
         waitForStart();
 
@@ -28,13 +22,7 @@ public class pos extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-//            fingers.setPosition(figners_pos);
-//            elbow.setPosition(ELBOW_INTAKE);
-//            shoulder.setPosition(SHOULDER_INTAKE);
             wrist.setPosition(WRIST_INTAKE);
-//            telemetry.addData("Fingers pos", figners_pos);
-//            telemetry.addData("elbow pos",ELBOW_INTAKE );
-//            telemetry.addData("shoulder pos", SHOULDER_INTAKE);
             telemetry.addData("wrist",WRIST_INTAKE);
             telemetry.update();
         }
