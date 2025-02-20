@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(2, -40);
-    public static final Vector2d InTake = new Vector2d(40, -63);
+    public static final Vector2d InTake = new Vector2d(40, -65);
 
     public static double FINGERS_OPEN = 0.4;
     public static double FINGERS_CLOSE = 0.6;
@@ -78,18 +78,18 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(61, -20))
                 .strafeTo(new Vector2d(61, -59))
                 .turn(Math.PI /2)
-                .turn(Math.PI /2)
-                .waitSeconds(0.3);
+                .turn(Math.PI /2);
 
         TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
                 .turn(Math.PI / 2)
                 .turn(Math.PI / 2)
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y));
+
         TrajectoryActionBuilder InTake2 = OutTake1.endTrajectory().fresh()
                 .strafeTo(new Vector2d(InTake.x, InTake.y))
                 .turn(Math.PI / 2)
-                .turn(Math.PI / 2)
-                .waitSeconds(0.3);
+                .turn(Math.PI / 2);
+
         TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
                 .strafeTo(new Vector2d(InTake.x, InTake.y))
                 .turn(Math.PI / 2)
@@ -125,6 +125,7 @@ public class AutoR extends LinearOpMode {
 
         Actions.runBlocking( InTake2.build());
         gotostage2(slide1,slide2,STAGE_INTAKE);
+        sleep(1000);
         fingers.setPosition(FINGERS_CLOSE);
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
