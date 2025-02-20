@@ -87,10 +87,10 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(48, -52))
                 .strafeTo(new Vector2d(48, -15))
                 .strafeTo(new Vector2d(55, -15))
-                .strafeTo(new Vector2d(55, -52))
-                .strafeTo(new Vector2d(55, -15))
-                .strafeTo(new Vector2d(61, -15))
-                .strafeTo(new Vector2d(61, -55));
+                .strafeTo(new Vector2d(55, -52));
+
+        TrajectoryActionBuilder InTake3 = SampToHum.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270));
 
         // Signal readiness and wait for start
         telemetry.addData("Status", "READY V3 BABYYYYYYYYY MAMAAAMIAAAA :) ");
