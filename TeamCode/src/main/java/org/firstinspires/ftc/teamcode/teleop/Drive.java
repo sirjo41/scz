@@ -82,13 +82,13 @@ public class Drive extends LinearOpMode {
             if (gamepad1.right_bumper) {
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                slide1.setPower(1);
-                slide2.setPower(1);
+                slide1.setPower(0.8);
+                slide2.setPower(0.8);
             } else if (gamepad1.left_bumper) {
                 slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                slide1.setPower(-1);
-                slide2.setPower(-1);
+                slide1.setPower(-0.8);
+                slide2.setPower(-0.8);
             }
             else {
                 holdPosition(slide1);
@@ -120,10 +120,10 @@ public class Drive extends LinearOpMode {
 
             //wrist
             if(wrr < 1 && gamepad1.cross){
-                wrr += 0.01;
+                wrr += 0.1;
             }
             if(wrr > 0 && gamepad1.triangle){
-                wrr -= 0.01;
+                wrr -= 0.1;
             }
             wrist.setPosition(wrr);
 
