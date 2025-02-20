@@ -17,10 +17,10 @@ public class pos extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Servo fingers = hardwareMap.servo.get("fingers");
-        Servo elbow = hardwareMap.servo.get("elbow");
-        Servo shoulder = hardwareMap.servo.get("shoulder");
-        Servo wrist = hardwareMap.servo.get("wrist");
+//        Servo fingers = hardwareMap.servo.get("fingers");
+//        Servo elbow = hardwareMap.servo.get("elbow");
+//        Servo shoulder = hardwareMap.servo.get("shoulder");
+//        Servo wrist = hardwareMap.servo.get("wrist");
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
         DcMotor arm = hardwareMap.dcMotor.get("arm");
@@ -39,18 +39,18 @@ public class pos extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            fingers.setPosition(figners_pos);
-            elbow.setPosition(ELBOW_INTAKE);
-            shoulder.setPosition(SHOULDER_INTAKE);
-            wrist.setPosition(WRIST_INTAKE);
+//            fingers.setPosition(figners_pos);
+//            elbow.setPosition(ELBOW_INTAKE);
+//            shoulder.setPosition(SHOULDER_INTAKE);
+//            wrist.setPosition(WRIST_INTAKE);
 
             telemetry.addData("slide1",slide1.getCurrentPosition());
             telemetry.addData("slide2",slide2.getCurrentPosition());
             telemetry.addData("arm",arm.getCurrentPosition());
-            telemetry.addData("Fingers pos", figners_pos);
-            telemetry.addData("elbow pos",ELBOW_INTAKE );
-            telemetry.addData("shoulder pos", SHOULDER_INTAKE);
-            telemetry.addData("wrist",WRIST_INTAKE);
+//            telemetry.addData("Fingers pos", figners_pos);
+//            telemetry.addData("elbow pos",ELBOW_INTAKE );
+//            telemetry.addData("shoulder pos", SHOULDER_INTAKE);
+//            telemetry.addData("wrist",WRIST_INTAKE);
             telemetry.update();
         }
     }
