@@ -22,13 +22,13 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(11,-32 );
-    public static final Vector2d InTake = new Vector2d(60, -45);
+    public static final Vector2d InTake = new Vector2d(60, -46);
 
     public static double WRIST_OUTTAKE = 0.4;
     public static double WRIST_INTAKE = 0.7;
 
     public static int ARM_OUTTAKE = 255;
-    public static int ARM_INTAKE = 1602;
+    public static int ARM_INTAKE = 1302;
 
     public static int STAGE_DF = 0;
     public static int STAGE_OUTTAKE = 940;
@@ -121,6 +121,9 @@ public class AutoR extends LinearOpMode {
         wrist.setPosition(WRIST_INTAKE);
         Actions.runBlocking(InTake2.build());
         arm.setTargetPosition(ARM_INTAKE);
+        while(opModeIsActive()&& arm.isBusy()){
+
+        }
         intake1.setPower(-1);
         intake2.setPower(-1);
         startTime = runtime.seconds();
