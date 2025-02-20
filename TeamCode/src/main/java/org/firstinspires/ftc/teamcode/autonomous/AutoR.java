@@ -85,7 +85,11 @@ public class AutoR extends LinearOpMode {
                 .turn(Math.PI / 2)
                 .turn(Math.PI / 2)
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y));
-
+        TrajectoryActionBuilder InTake2 = OutTake1.endTrajectory().fresh()
+                .strafeTo(new Vector2d(InTake.x, InTake.y))
+                .turn(Math.PI / 2)
+                .turn(Math.PI / 2)
+                .waitSeconds(0.3);
         TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
                 .strafeTo(new Vector2d(InTake.x, InTake.y))
                 .turn(Math.PI / 2)
@@ -120,7 +124,7 @@ public class AutoR extends LinearOpMode {
         sleep(1000);
         fingers.setPosition(FINGERS_OPEN);
 
-        Actions.runBlocking( SampToHum.build());
+        Actions.runBlocking( InTake2.build());
         gotostage(slide1,slide2,STAGE_INTAKE);
         fingers.setPosition(FINGERS_CLOSE);
 
