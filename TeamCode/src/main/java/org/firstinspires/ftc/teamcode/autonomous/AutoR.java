@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(28,4 );
+    public static final Vector2d OutTake = new Vector2d(-28,4 );
     public static final Vector2d InTake = new Vector2d(40, -65);
 
     public static double FINGERS_OPEN = 0.4;
@@ -62,12 +62,10 @@ public class AutoR extends LinearOpMode {
 
         Servo fingers = hardwareMap.servo.get("fingers");
         Servo elbow  = hardwareMap.servo.get("elbow");
-        Servo shoulder = hardwareMap.servo.get("shoulder");
         Servo wrist = hardwareMap.servo.get("wrist");
 
         fingers.setPosition(FINGERS_CLOSE);
         elbow.setPosition(ELBOW_INTAKE);
-        shoulder.setPosition(SHOULDER_INTAKE);
         wrist.setPosition(WRIST_INTAKE);
 
         // Build trajectory segments
@@ -122,6 +120,7 @@ public class AutoR extends LinearOpMode {
         gotostage(slide1,slide2,STAGE_OUTTAKE);
         Actions.runBlocking(OutTake1.build());
         gotostage2(slide1,slide2,STAGE_OUTTAKE2);
+        fingers.setPosition(FINGERS_OPEN);
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
