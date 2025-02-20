@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 
 
@@ -29,12 +31,13 @@ public class AutoR extends LinearOpMode {
     public static int STAGE_DF = 0;
     public static int STAGE_OUTTAKE = 940;
     public static int STAGE_OUTTAKE2 = 568;
-
+    private ElapsedTime runtime = new ElapsedTime();
     GoBildaPinpointDriverRR odo;
 
     @Override
     public void runOpMode() {
         // Initialize hardware and starting pose
+
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
         Pose2d initialPose = new Pose2d(14, -61, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
@@ -104,7 +107,12 @@ public class AutoR extends LinearOpMode {
         gotostage2(slide1,slide2,STAGE_OUTTAKE2);
         intake1.setPower(1);
         intake2.setPower(1);
-        sleep(1000);
+        double startTime = runtime.seconds();
+
+        while (opModeIsActive() && (runtime.seconds() - startTime < 1)) {
+            telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
+            telemetry.update();
+        }
         intake1.setPower(0);
         intake2.setPower(0);
 
@@ -113,7 +121,11 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(InTake2.build());
         intake1.setPower(-1);
         intake2.setPower(-1);
-        sleep(1000);
+        startTime = runtime.seconds();
+        while (opModeIsActive() && (runtime.seconds() - startTime < 1)) {
+            telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
+            telemetry.update();
+        }
         intake1.setPower(0);
         intake2.setPower(0);
 
