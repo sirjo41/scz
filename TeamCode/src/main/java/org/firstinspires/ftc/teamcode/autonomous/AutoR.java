@@ -118,9 +118,9 @@ public class AutoR extends LinearOpMode {
 
 
         gotostage(slide1,slide2,STAGE_DF);
-        arm.setTargetPosition(ARM_INTAKE);
         wrist.setPosition(WRIST_INTAKE);
         Actions.runBlocking(InTake2.build());
+        arm.setTargetPosition(ARM_INTAKE);
         intake1.setPower(-1);
         intake2.setPower(-1);
         startTime = runtime.seconds();
