@@ -15,6 +15,10 @@ public class pos extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Servo wrist = hardwareMap.servo.get("wrist");
+        DcMotor arm = hardwareMap.dcMotor.get("arm");
+        DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
+        DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
+
         waitForStart();
 
         if (isStopRequested()) return;
@@ -24,6 +28,9 @@ public class pos extends LinearOpMode {
 
             wrist.setPosition(WRIST_INTAKE);
             telemetry.addData("wrist",WRIST_INTAKE);
+            telemetry.addData("arm",arm.getCurrentPosition());
+            telemetry.addData("slide1",slide1.getCurrentPosition());
+            telemetry.addData("slide2",slide2.getCurrentPosition());
             telemetry.update();
         }
     }
