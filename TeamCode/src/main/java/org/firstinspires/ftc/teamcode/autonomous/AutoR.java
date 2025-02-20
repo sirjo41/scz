@@ -93,7 +93,7 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(61, -55));
 
         // Signal readiness and wait for start
-        telemetry.addData("Status", "READY V2 :) ");
+        telemetry.addData("Status", "READY V3 BABYYYYYYYYY MAMAAAMIAAAA :) ");
         telemetry.update();
 
         waitForStart();
