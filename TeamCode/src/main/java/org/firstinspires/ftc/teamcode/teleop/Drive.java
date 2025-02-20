@@ -31,6 +31,7 @@ public class Drive extends LinearOpMode {
         CRServo hook2 = hardwareMap.crservo.get("hook2");
 
         //motors directions
+        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
         arm.setDirection(DcMotorSimple.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
         slide1.setDirection(DcMotor.Direction.FORWARD);

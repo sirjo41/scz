@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 
@@ -46,6 +47,7 @@ public class AutoR extends LinearOpMode {
         slide1.setDirection(DcMotor.Direction.FORWARD);
         slide2.setDirection(DcMotor.Direction.REVERSE);
 
+
         // Initialize encoders
         slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -62,6 +64,7 @@ public class AutoR extends LinearOpMode {
 
         CRServo intake1 = hardwareMap.crservo.get("intake1");
         CRServo intake2 = hardwareMap.crservo.get("intake2");
+        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
         Servo wrist = hardwareMap.servo.get("wrist");
 
         wrist.setPosition(WRIST_INTAKE);
