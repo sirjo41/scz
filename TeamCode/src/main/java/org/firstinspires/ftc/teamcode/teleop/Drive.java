@@ -52,6 +52,7 @@ public class Drive extends LinearOpMode {
         slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        double wrr = 0.2;
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -119,11 +120,13 @@ public class Drive extends LinearOpMode {
 
             //wrist
             if (gamepad1.cross) {
-                wrist.setPosition(1);
+                wrr += 0.0001;
             }
             if(gamepad1.triangle){
-                wrist.setPosition(0.5);
+                wrr -= 0.0001;
             }
+            wrist.setPosition(wrr);
+
 
 
             //hook
