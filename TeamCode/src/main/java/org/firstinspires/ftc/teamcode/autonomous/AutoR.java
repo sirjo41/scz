@@ -26,7 +26,7 @@ public class AutoR extends LinearOpMode {
     public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
 
-    public static int STAGE_DF = 1914;
+    public static int STAGE_DF = -1914;
     public static int STAGE_OUTTAKE = 1500;
     public static int STAGE_OUTTAKE2 = 2200;
 
