@@ -119,10 +119,10 @@ public class Drive extends LinearOpMode {
             }
 
             //wrist
-            if (gamepad1.cross) {
+            if(wrr < 1 && gamepad1.cross){
                 wrr += 0.0001;
             }
-            if(gamepad1.triangle){
+            if(wrr > 0 && gamepad1.triangle){
                 wrr -= 0.0001;
             }
             wrist.setPosition(wrr);
