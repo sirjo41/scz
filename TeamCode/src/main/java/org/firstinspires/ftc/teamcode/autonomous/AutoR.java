@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(11,-34 );
-    public static final Vector2d InTake = new Vector2d(40, -65);
+    public static final Vector2d InTake = new Vector2d(37, -61);
 
     public static double FINGERS_OPEN = 0.4;
     public static double FINGERS_CLOSE = 0.6;
@@ -54,7 +54,7 @@ public class AutoR extends LinearOpMode {
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
         arm.setDirection(DcMotor.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setTargetPosition(STAGE_DF);
+        arm.setTargetPosition(arm.getCurrentPosition());
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.9);
 
@@ -74,40 +74,21 @@ public class AutoR extends LinearOpMode {
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
-        TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
-                .strafeTo(new Vector2d(26, -45))
-                .strafeTo(new Vector2d(26, -20))
-                .strafeTo(new Vector2d(47, -20))
-                .strafeTo(new Vector2d(47, -52))
-                .strafeTo(new Vector2d(47, -20))
-                .strafeTo(new Vector2d(55, -20))
-                .strafeTo(new Vector2d(55, -52))
-                .strafeTo(new Vector2d(55, -20))
-                .strafeTo(new Vector2d(61, -20))
-                .strafeTo(new Vector2d(61, -59))
-                .turn(Math.PI /2)
-                .turn(Math.PI /2);
-
-        TrajectoryActionBuilder OutTake2 = SampToHum.endTrajectory().fresh()
-                .turn(Math.PI / 2)
-                .turn(Math.PI / 2)
-                .strafeTo(new Vector2d(OutTake.x, OutTake.y));
+//        TrajectoryActionBuilder SampToHum = OutTake1.endTrajectory().fresh()
+//                .strafeTo(new Vector2d(26, -45))
+//                .strafeTo(new Vector2d(26, -20))
+//                .strafeTo(new Vector2d(47, -20))
+//                .strafeTo(new Vector2d(47, -52))
+//                .strafeTo(new Vector2d(47, -20))
+//                .strafeTo(new Vector2d(55, -20))
+//                .strafeTo(new Vector2d(55, -52))
+//                .strafeTo(new Vector2d(55, -20))
+//                .strafeTo(new Vector2d(61, -20))
+//                .strafeTo(new Vector2d(61, -59))
 
         TrajectoryActionBuilder InTake2 = OutTake1.endTrajectory().fresh()
-                .strafeTo(new Vector2d(InTake.x, InTake.y))
-                .turn(Math.PI / 2)
-                .turn(Math.PI / 2);
+                .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270));
 
-        TrajectoryActionBuilder InTake1 = OutTake2.endTrajectory().fresh()
-                .strafeTo(new Vector2d(InTake.x, InTake.y))
-                .turn(Math.PI / 2)
-                .turn(Math.PI / 2)
-                .waitSeconds(0.3);
-
-        TrajectoryActionBuilder OutTake3 = InTake1.endTrajectory().fresh()
-                .turn(Math.PI / 2)
-                .turn(Math.PI / 2)
-                .strafeTo(new Vector2d(OutTake.x, OutTake.y));
 
         // Initialize and configure arm motor
 
@@ -123,6 +104,10 @@ public class AutoR extends LinearOpMode {
         Actions.runBlocking(OutTake1.build());
         gotostage2(slide1,slide2,STAGE_OUTTAKE2);
         fingers.setPosition(FINGERS_OPEN);
+        gotostage(slide1,slide2,STAGE_DF);
+        Actions.runBlocking(InTake2.build());
+        sleep(1000);
+        fingers.setPosition(FINGERS_CLOSE);
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
