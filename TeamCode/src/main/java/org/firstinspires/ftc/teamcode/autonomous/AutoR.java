@@ -75,10 +75,14 @@ public class AutoR extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
 
         TrajectoryActionBuilder InTake2 = OutTake1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270));
+                .turn(Math.PI /2)
+                .strafeToConstantHeading(new Vector2d(InTake.x,InTake.y))
+                .turn(Math.PI/2);
 
         TrajectoryActionBuilder OutTake2 = InTake2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(12, -28),Math.toRadians(90));
+                .turn(Math.PI /2)
+                .strafeToConstantHeading(new Vector2d(12, -28))
+                .turn(Math.PI /2);
 
                 TrajectoryActionBuilder SampToHum = OutTake2.endTrajectory().fresh()
                 .strafeTo(new Vector2d(36, -34))
