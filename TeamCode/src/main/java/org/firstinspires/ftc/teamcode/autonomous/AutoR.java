@@ -27,7 +27,7 @@ public class AutoR extends LinearOpMode {
     public static double WRIST_INTAKE = 1;
 
     public static int STAGE_INTAKE = 5;
-    public static int STAGE_OUTTAKE = 2000;
+    public static int STAGE_OUTTAKE = 1800;
     public static int STAGE_OUTTAKE2 = 2400;
 
     GoBildaPinpointDriverRR odo;
