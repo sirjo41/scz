@@ -26,7 +26,7 @@ public class AutoR extends LinearOpMode {
     public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
 
-    public static int STAGE_INTAKE = 5;
+    public static int STAGE_DF = 0;
     public static int STAGE_OUTTAKE = 1500;
     public static int STAGE_OUTTAKE2 = 2200;
 
@@ -105,7 +105,7 @@ public class AutoR extends LinearOpMode {
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
         arm.setDirection(DcMotor.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setTargetPosition(arm.getCurrentPosition());
+        arm.setTargetPosition(STAGE_DF);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.9);
 
@@ -114,7 +114,7 @@ public class AutoR extends LinearOpMode {
         telemetry.update();
         waitForStart();
         if (isStopRequested()) return;
-
+        arm.setPower(0.9);
         telemetry.addData("Status", "Executing Autonomous Routine");
         telemetry.update();
 
