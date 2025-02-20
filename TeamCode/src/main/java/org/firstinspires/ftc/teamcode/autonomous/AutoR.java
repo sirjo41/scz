@@ -57,10 +57,6 @@ public class AutoR extends LinearOpMode {
         Servo wrist = hardwareMap.servo.get("wrist");
 
 //        // Stop all servos initially
-        fingers.setPosition(FINGERS_CLOSE);
-        elbow.setPosition(ELBOW_INTAKE);
-        shoulder.setPosition(SHOULDER_INTAKE);
-        wrist.setPosition(WRIST_INTAKE);
 
         // Build trajectory segments
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
@@ -114,7 +110,12 @@ public class AutoR extends LinearOpMode {
         telemetry.update();
         waitForStart();
         if (isStopRequested()) return;
-        arm.setPower(0.9);
+        arm.setPower(1);
+        sleep(1000);
+        fingers.setPosition(FINGERS_CLOSE);
+        elbow.setPosition(ELBOW_INTAKE);
+        shoulder.setPosition(SHOULDER_INTAKE);
+        wrist.setPosition(WRIST_INTAKE);
         telemetry.addData("Status", "Executing Autonomous Routine");
         telemetry.update();
 
