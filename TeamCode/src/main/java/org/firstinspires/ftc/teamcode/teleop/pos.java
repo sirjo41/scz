@@ -18,6 +18,9 @@ public class pos extends LinearOpMode {
         DcMotor arm = hardwareMap.dcMotor.get("arm");
         DcMotor slide1 = hardwareMap.dcMotor.get("slide1");
         DcMotor slide2 = hardwareMap.dcMotor.get("slide2");
+
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         waitForStart();
 
         if (isStopRequested()) return;

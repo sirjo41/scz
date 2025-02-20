@@ -40,6 +40,7 @@ public class Drive extends LinearOpMode {
 
 
         //motors modes
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
