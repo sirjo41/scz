@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(2, -40);
+    public static final Vector2d OutTake = new Vector2d(-28,-4 );
     public static final Vector2d InTake = new Vector2d(40, -65);
 
     public static double FINGERS_OPEN = 0.4;
@@ -26,7 +26,7 @@ public class AutoR extends LinearOpMode {
     public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
 
-    public static int STAGE_DF = -1914;
+    public static int STAGE_DF = 0;
     public static int STAGE_OUTTAKE = 1500;
     public static int STAGE_OUTTAKE2 = 2200;
 
@@ -36,7 +36,7 @@ public class AutoR extends LinearOpMode {
     public void runOpMode() {
         // Initialize hardware and starting pose
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(10, -62, Math.toRadians(90.0));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         DcMotor slide1 = hardwareMap.get(DcMotor.class, "slide1");
         DcMotor slide2 = hardwareMap.get(DcMotor.class, "slide2");
@@ -59,12 +59,16 @@ public class AutoR extends LinearOpMode {
         arm.setPower(0.9);
 
 
+
         Servo fingers = hardwareMap.servo.get("fingers");
         Servo elbow  = hardwareMap.servo.get("elbow");
         Servo shoulder = hardwareMap.servo.get("shoulder");
         Servo wrist = hardwareMap.servo.get("wrist");
 
-//        // Stop all servos initially
+        fingers.setPosition(FINGERS_CLOSE);
+        elbow.setPosition(ELBOW_INTAKE);
+        shoulder.setPosition(SHOULDER_INTAKE);
+        wrist.setPosition(WRIST_INTAKE);
 
         // Build trajectory segments
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
@@ -112,16 +116,10 @@ public class AutoR extends LinearOpMode {
         telemetry.update();
         waitForStart();
         if (isStopRequested()) return;
-        fingers.setPosition(FINGERS_CLOSE);
-        elbow.setPosition(ELBOW_INTAKE);
-        shoulder.setPosition(SHOULDER_INTAKE);
-        wrist.setPosition(WRIST_INTAKE);
         telemetry.addData("Status", "Executing Autonomous Routine");
         telemetry.update();
 
-
-
-            if (isStopRequested()) return;
+        Actions.runBlocking(OutTake1.build());
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
