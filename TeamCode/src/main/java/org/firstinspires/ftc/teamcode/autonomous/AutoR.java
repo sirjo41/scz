@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(11,-34 );
+    public static final Vector2d OutTake = new Vector2d(11,-32 );
     public static final Vector2d InTake = new Vector2d(37, -61);
 
     public static double WRIST_INTAKE = 0.4;
