@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "fingers")
 public class pos extends LinearOpMode {
 
-    public static double WRIST_INTAKE = 1;
+    public static double WRIST_INTAKE = 0.4;
 
     @Override
     public void runOpMode() throws InterruptedException {
