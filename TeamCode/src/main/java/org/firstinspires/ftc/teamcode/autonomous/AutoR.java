@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 public class AutoR extends LinearOpMode {
 
     public static final Vector2d OutTake = new Vector2d(11,-32 );
-    public static final Vector2d InTake = new Vector2d(60, -47);
+    public static final Vector2d InTake = new Vector2d(60, -49);
 
     public static double WRIST_OUTTAKE = 0.4;
     public static double WRIST_INTAKE = 0.7;
