@@ -117,6 +117,7 @@ public class AutoR extends LinearOpMode {
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
         Actions.runBlocking( OutTake1.build() );
         gotostage(slide1,slide2,STAGE_OUTTAKE);
+        sleep(500);
         fingers.setPosition(FINGERS_OPEN);
 
         Actions.runBlocking( SampToHum.build());
