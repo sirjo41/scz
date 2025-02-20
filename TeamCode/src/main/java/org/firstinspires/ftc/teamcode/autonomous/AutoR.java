@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 @Autonomous(name = "Specimen Side Auton", group = "Autonomous", preselectTeleOp = "Drive")
 public class AutoR extends LinearOpMode {
 
-    public static final Vector2d OutTake = new Vector2d(-28,4 );
+    public static final Vector2d OutTake = new Vector2d(11,-34 );
     public static final Vector2d InTake = new Vector2d(40, -65);
 
     public static double FINGERS_OPEN = 0.4;
@@ -36,7 +36,7 @@ public class AutoR extends LinearOpMode {
     public void runOpMode() {
         // Initialize hardware and starting pose
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90.0));
+        Pose2d initialPose = new Pose2d(14, -61, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         DcMotor slide1 = hardwareMap.get(DcMotor.class, "slide1");
         DcMotor slide2 = hardwareMap.get(DcMotor.class, "slide2");
