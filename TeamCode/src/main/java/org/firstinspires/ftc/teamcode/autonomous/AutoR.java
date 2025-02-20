@@ -81,7 +81,7 @@ public class AutoR extends LinearOpMode {
 
         TrajectoryActionBuilder OutTake2 = InTake2.endTrajectory().fresh()
                 .turn(Math.PI /2)
-                .strafeToConstantHeading(new Vector2d(12, -28))
+                .strafeToConstantHeading(new Vector2d(12, -32))
                 .turn(Math.PI /2);
 
                 TrajectoryActionBuilder SampToHum = OutTake2.endTrajectory().fresh()
