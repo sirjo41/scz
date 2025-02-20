@@ -120,10 +120,10 @@ public class Drive extends LinearOpMode {
 
             //wrist
             if(gamepad1.dpad_up){
-                wrist.setPosition(0.4);
+                wrist.setPosition(1);
             }
             if(gamepad1.dpad_down){
-                wrist.setPosition(1);
+                wrist.setPosition(0.4);
             }
 
 
