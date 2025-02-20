@@ -62,10 +62,12 @@ public class AutoR extends LinearOpMode {
 
         Servo fingers = hardwareMap.servo.get("fingers");
         Servo elbow  = hardwareMap.servo.get("elbow");
+        Servo shoulder = hardwareMap.servo.get("shoulder");
         Servo wrist = hardwareMap.servo.get("wrist");
 
         fingers.setPosition(FINGERS_CLOSE);
         elbow.setPosition(ELBOW_INTAKE);
+        shoulder.setPosition(SHOULDER_INTAKE);
         wrist.setPosition(WRIST_INTAKE);
 
         // Build trajectory segments
