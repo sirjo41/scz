@@ -27,8 +27,8 @@ public class AutoR extends LinearOpMode {
     public static double WRIST_INTAKE = 1;
 
     public static int STAGE_DF = 0;
-    public static int STAGE_OUTTAKE = 1500;
-    public static int STAGE_OUTTAKE2 = 2200;
+    public static int STAGE_OUTTAKE = 2050;
+    public static int STAGE_OUTTAKE2 = 1350;
 
     GoBildaPinpointDriverRR odo;
 
@@ -119,7 +119,9 @@ public class AutoR extends LinearOpMode {
         telemetry.addData("Status", "Executing Autonomous Routine");
         telemetry.update();
 
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
         Actions.runBlocking(OutTake1.build());
+        gotostage2(slide1,slide2,STAGE_OUTTAKE2);
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
