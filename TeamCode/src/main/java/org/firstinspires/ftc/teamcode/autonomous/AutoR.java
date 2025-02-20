@@ -27,8 +27,8 @@ public class AutoR extends LinearOpMode {
     public static double WRIST_INTAKE = 1;
 
     public static int STAGE_INTAKE = 5;
-    public static int STAGE_OUTTAKE = 1800;
-    public static int STAGE_OUTTAKE2 = 2400;
+    public static int STAGE_OUTTAKE = 1500;
+    public static int STAGE_OUTTAKE2 = 2200;
 
     GoBildaPinpointDriverRR odo;
 
@@ -117,7 +117,7 @@ public class AutoR extends LinearOpMode {
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
         Actions.runBlocking( OutTake1.build() );
         gotostage(slide1,slide2,STAGE_OUTTAKE);
-        sleep(500);
+        sleep(600);
         fingers.setPosition(FINGERS_OPEN);
 
         Actions.runBlocking( SampToHum.build());
