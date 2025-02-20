@@ -28,7 +28,7 @@ public class AutoR extends LinearOpMode {
     public static double WRIST_INTAKE = 0.7;
 
     public static int ARM_OUTTAKE = 255;
-    public static int ARM_INTAKE = 1302;
+    public static int ARM_INTAKE = 1402;
 
     public static int STAGE_DF = 0;
     public static int STAGE_OUTTAKE = 940;
@@ -127,7 +127,7 @@ public class AutoR extends LinearOpMode {
         intake1.setPower(-1);
         intake2.setPower(-1);
         startTime = runtime.seconds();
-        while (opModeIsActive() && (runtime.seconds() - startTime < 1)) {
+        while (opModeIsActive() && (runtime.seconds() - startTime < 1.5)) {
             telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
             telemetry.update();
         }
