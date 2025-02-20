@@ -115,7 +115,7 @@ public class Drive extends LinearOpMode {
             }
             else{
                 intake1.setPower(0);
-                intake1.setPower(0);
+                intake2.setPower(0);
             }
 
             //wrist
