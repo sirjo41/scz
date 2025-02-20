@@ -58,7 +58,7 @@ public class AutoR extends LinearOpMode {
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
         arm.setDirection(DcMotor.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setTargetPosition(arm.getCurrentPosition());
+        arm.setTargetPosition(ARM_DF);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.9);
 
