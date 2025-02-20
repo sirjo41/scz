@@ -27,7 +27,7 @@ public class AutoR extends LinearOpMode {
     public static double WRIST_INTAKE = 1;
 
     public static int STAGE_INTAKE = 5;
-    public static int STAGE_OUTTAKE = 1100;
+    public static int STAGE_OUTTAKE = 1500;
     public static int STAGE_OUTTAKE2 = 2200;
 
     GoBildaPinpointDriverRR odo;
@@ -120,8 +120,7 @@ public class AutoR extends LinearOpMode {
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
         Actions.runBlocking( OutTake1.build() );
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
-        sleep(1000);
+        gotostage2(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
         Actions.runBlocking( InTake2.build());
@@ -130,8 +129,7 @@ public class AutoR extends LinearOpMode {
 
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
         Actions.runBlocking(OutTake2.build());
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
-        sleep(1000);
+        gotostage2(slide1,slide2,STAGE_OUTTAKE);
         fingers.setPosition(FINGERS_OPEN);
 
 //        Actions.runBlocking(InTake1.build());
@@ -176,5 +174,18 @@ public class AutoR extends LinearOpMode {
         slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide1.setPower(1);
         slide2.setPower(1);
+    }
+    private void gotostage2(DcMotor slide1, DcMotor slide2, int targ) {
+        slide1.setTargetPosition(targ);
+        slide2.setTargetPosition(targ);
+        slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide1.setPower(1);
+        slide2.setPower(1);
+        while (opModeIsActive()&& (slide1.isBusy() && slide2.isBusy())){
+
+        }
+        slide1.setPower(0);
+        slide2.setPower(0);
     }
     }
