@@ -110,8 +110,6 @@ public class AutoR extends LinearOpMode {
         telemetry.update();
         waitForStart();
         if (isStopRequested()) return;
-        arm.setPower(1);
-        sleep(900);
         fingers.setPosition(FINGERS_CLOSE);
         elbow.setPosition(ELBOW_INTAKE);
         shoulder.setPosition(SHOULDER_INTAKE);
