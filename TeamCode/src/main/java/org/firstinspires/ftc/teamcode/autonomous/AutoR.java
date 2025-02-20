@@ -78,7 +78,7 @@ public class AutoR extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270));
 
         TrajectoryActionBuilder OutTake2 = InTake2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(OutTake.x, OutTake.y));
+                .strafeToLinearHeading(new Vector2d(OutTake.x, OutTake.y),Math.toRadians(90));
 
                 TrajectoryActionBuilder SampToHum = OutTake2.endTrajectory().fresh()
                 .strafeTo(new Vector2d(36, -34))
@@ -128,6 +128,21 @@ public class AutoR extends LinearOpMode {
         intake2.setPower(1);
         startTime = runtime.seconds();
         while (opModeIsActive() && (runtime.seconds() - startTime < 1.5)) {
+            telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
+            telemetry.update();
+        }
+        intake1.setPower(0);
+        intake2.setPower(0);
+
+        arm.setTargetPosition(ARM_OUTTAKE);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
+        Actions.runBlocking(OutTake1.build());
+        gotostage2(slide1,slide2,STAGE_OUTTAKE2);
+        intake1.setPower(-1);
+        intake2.setPower(-1);
+        startTime = runtime.seconds();
+
+        while (opModeIsActive() && (runtime.seconds() - startTime < 1)) {
             telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
             telemetry.update();
         }
