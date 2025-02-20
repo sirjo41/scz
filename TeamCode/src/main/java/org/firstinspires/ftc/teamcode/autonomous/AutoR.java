@@ -131,37 +131,38 @@ public class AutoR extends LinearOpMode {
         gotostage(slide1,slide2,STAGE_OUTTAKE2);
         Actions.runBlocking(OutTake2.build());
         gotostage(slide1,slide2,STAGE_OUTTAKE);
+        sleep(1000);
         fingers.setPosition(FINGERS_OPEN);
 
-        Actions.runBlocking(InTake1.build());
-        gotostage(slide1,slide2,STAGE_INTAKE);
-        fingers.setPosition(FINGERS_CLOSE);
-
-        gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        Actions.runBlocking(OutTake3.build());
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
-        fingers.setPosition(FINGERS_OPEN);
-
-        Actions.runBlocking(InTake1.build());
-        gotostage(slide1,slide2,STAGE_INTAKE);
-        fingers.setPosition(FINGERS_CLOSE);
-
-        gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        Actions.runBlocking(OutTake3.build());
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
-        fingers.setPosition(FINGERS_OPEN);
-
-        Actions.runBlocking(InTake1.build());
-        gotostage(slide1,slide2,STAGE_INTAKE);
-        fingers.setPosition(FINGERS_CLOSE);
-
-        gotostage(slide1,slide2,STAGE_OUTTAKE2);
-        Actions.runBlocking(OutTake3.build());
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
-        fingers.setPosition(FINGERS_OPEN);
-
-        Actions.runBlocking(InTake1.build());
-        gotostage(slide1,slide2,STAGE_INTAKE);
+//        Actions.runBlocking(InTake1.build());
+//        gotostage(slide1,slide2,STAGE_INTAKE);
+//        fingers.setPosition(FINGERS_CLOSE);
+//
+//        gotostage(slide1,slide2,STAGE_OUTTAKE2);
+//        Actions.runBlocking(OutTake3.build());
+//        gotostage(slide1,slide2,STAGE_OUTTAKE);
+//        fingers.setPosition(FINGERS_OPEN);
+//
+//        Actions.runBlocking(InTake1.build());
+//        gotostage(slide1,slide2,STAGE_INTAKE);
+//        fingers.setPosition(FINGERS_CLOSE);
+//
+//        gotostage(slide1,slide2,STAGE_OUTTAKE2);
+//        Actions.runBlocking(OutTake3.build());
+//        gotostage(slide1,slide2,STAGE_OUTTAKE);
+//        fingers.setPosition(FINGERS_OPEN);
+//
+//        Actions.runBlocking(InTake1.build());
+//        gotostage(slide1,slide2,STAGE_INTAKE);
+//        fingers.setPosition(FINGERS_CLOSE);
+//
+//        gotostage(slide1,slide2,STAGE_OUTTAKE2);
+//        Actions.runBlocking(OutTake3.build());
+//        gotostage(slide1,slide2,STAGE_OUTTAKE);
+//        fingers.setPosition(FINGERS_OPEN);
+//
+//        Actions.runBlocking(InTake1.build());
+//        gotostage(slide1,slide2,STAGE_INTAKE);
 
             if (isStopRequested()) return;
 
