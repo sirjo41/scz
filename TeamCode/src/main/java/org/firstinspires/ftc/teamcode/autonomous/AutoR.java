@@ -26,7 +26,7 @@ public class AutoR extends LinearOpMode {
     public static double SHOULDER_INTAKE = 1;
     public static double WRIST_INTAKE = 1;
 
-    public static int STAGE_DF = 0;
+    public static int STAGE_DF = 1914;
     public static int STAGE_OUTTAKE = 1500;
     public static int STAGE_OUTTAKE2 = 2200;
 
@@ -50,6 +50,14 @@ public class AutoR extends LinearOpMode {
         slide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
+        arm.setDirection(DcMotor.Direction.FORWARD);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setTargetPosition(STAGE_DF);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(0.9);
+
 
         Servo fingers = hardwareMap.servo.get("fingers");
         Servo elbow  = hardwareMap.servo.get("elbow");
@@ -98,12 +106,6 @@ public class AutoR extends LinearOpMode {
                 .strafeTo(new Vector2d(OutTake.x, OutTake.y));
 
         // Initialize and configure arm motor
-        DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
-        arm.setDirection(DcMotor.Direction.FORWARD);
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setTargetPosition(STAGE_DF);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setPower(0.9);
 
         // Signal readiness and wait for start
         telemetry.addData("Status", "READY V2 :) ");
