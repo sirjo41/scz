@@ -96,15 +96,11 @@ public class Drive extends LinearOpMode {
             }
 
             //arm
-            if(gamepad2.right_bumper){
+            if(Math.abs(gamepad1.left_stick_y) >= 0.1){
                 arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                arm.setPower(1);
+                arm.setPower(gamepad1.left_stick_y);
             }
-            else if(gamepad2.left_bumper){
-                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                arm.setPower(-1);
-            }
-            else{
+            else {
                 holdPosition(arm);
             }
 
