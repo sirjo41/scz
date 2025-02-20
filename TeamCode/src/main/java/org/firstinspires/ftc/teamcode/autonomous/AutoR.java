@@ -58,9 +58,9 @@ public class AutoR extends LinearOpMode {
 
 //        // Stop all servos initially
         fingers.setPosition(FINGERS_CLOSE);
-//        elbow.setPosition(ELBOW_INTAKE);
-//        shoulder.setPosition(SHOULDER_INTAKE);
-//        wrist.setPosition(WRIST_INTAKE);
+        elbow.setPosition(ELBOW_INTAKE);
+        shoulder.setPosition(SHOULDER_INTAKE);
+        wrist.setPosition(WRIST_INTAKE);
 
         // Build trajectory segments
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
