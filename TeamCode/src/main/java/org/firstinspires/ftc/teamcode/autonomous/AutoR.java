@@ -78,9 +78,9 @@ public class AutoR extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270));
 
         TrajectoryActionBuilder OutTake2 = InTake2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(7, -27),Math.toRadians(90));
+                .strafeToLinearHeading(new Vector2d(6, -27),Math.toRadians(90));
 
-                TrajectoryActionBuilder SampToHum = OutTake2.endTrajectory().fresh()
+        TrajectoryActionBuilder SampToHum = OutTake2.endTrajectory().fresh()
                 .strafeTo(new Vector2d(36, -34))
                 .strafeTo(new Vector2d(36, -15))
                 .strafeTo(new Vector2d(47, -15))
@@ -149,6 +149,9 @@ public class AutoR extends LinearOpMode {
         }
         intake1.setPower(0);
         intake2.setPower(0);
+
+        gotostage(slide1,slide2,STAGE_DF);
+        Actions.runBlocking(SampToHum.build());
 
 
         sleep(100000);
