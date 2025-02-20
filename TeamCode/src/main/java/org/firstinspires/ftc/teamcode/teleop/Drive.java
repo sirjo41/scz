@@ -121,7 +121,7 @@ public class Drive extends LinearOpMode {
                 wrist.setPosition(1);
             }
             if(gamepad1.triangle){
-                wrist.setPosition(0);
+                wrist.setPosition(0.5);
             }
 
 
