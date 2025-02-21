@@ -92,6 +92,9 @@ public class AutoR extends LinearOpMode {
         TrajectoryActionBuilder InTake3 = SampToHum.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(InTake.x,InTake.y),Math.toRadians(270));
 
+        TrajectoryActionBuilder OutTake3 = InTake3.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(6, -27),Math.toRadians(90));
+
         // Signal readiness and wait for start
         telemetry.addData("Status", "READY V3 BABYYYYYYYYY MAMAAAMIAAAA :) ");
         telemetry.update();
@@ -152,9 +155,39 @@ public class AutoR extends LinearOpMode {
 
         gotostage(slide1,slide2,STAGE_DF);
         Actions.runBlocking(SampToHum.build());
+        gotostage(slide1,slide2,STAGE_DF);
+        wrist.setPosition(WRIST_INTAKE);
+        Actions.runBlocking(InTake3.build());
+        arm.setTargetPosition(ARM_INTAKE);
+        while(opModeIsActive()&& arm.isBusy()){
 
+        }
+        intake1.setPower(1);
+        intake2.setPower(1);
+        startTime = runtime.seconds();
+        while (opModeIsActive() && (runtime.seconds() - startTime < 1.5)) {
+            telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
+            telemetry.update();
+        }
+        intake1.setPower(0);
+        intake2.setPower(0);
 
-        sleep(100000);
+        wrist.setPosition(WRIST_OUTTAKE);
+        arm.setTargetPosition(ARM_OUTTAKE);
+        gotostage(slide1,slide2,STAGE_OUTTAKE);
+        Actions.runBlocking(OutTake3.build());
+        gotostage2(slide1,slide2,STAGE_OUTTAKE2);
+        intake1.setPower(-1);
+        intake2.setPower(-1);
+        startTime = runtime.seconds();
+
+        while (opModeIsActive() && (runtime.seconds() - startTime < 1)) {
+            telemetry.addData("Time Elapsed (sec)", runtime.seconds() - startTime);
+            telemetry.update();
+        }
+        intake1.setPower(0);
+        intake2.setPower(0);
+
 
             telemetry.addData("Status", "Completed");
             telemetry.update();
