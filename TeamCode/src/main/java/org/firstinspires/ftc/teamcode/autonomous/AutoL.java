@@ -23,7 +23,7 @@ public class AutoL extends LinearOpMode {
     public static double WRIST_INTAKE = 0.7;
 
     public static int ARM_OUTTAKESUB = 255;
-    public static int ARM_INTAKE = 1402;
+    public static int ARM_INTAKE = 1776;
 
     public static int STAGE_DF = 0;
     public static int STAGE_OUTTAKESUB = 940;
