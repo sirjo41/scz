@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -16,23 +14,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
-import org.firstinspires.ftc.teamcode.autonomous.actions.Arm;
-import org.firstinspires.ftc.teamcode.autonomous.actions.IntakeServos;
-import org.firstinspires.ftc.teamcode.autonomous.actions.Slides;
 
 @Autonomous(name = "Basket Side Auton",group = "Autonomous",preselectTeleOp ="Drive")
 public class AutoL extends LinearOpMode {
 
-    public static final Vector2d OutTakeSub = new Vector2d(-11,-32 );
+    public static final Vector2d OutTakeSub = new Vector2d(-11,-26);
     public static double WRIST_OUTTAKE = 0.4;
     public static double WRIST_INTAKE = 0.7;
 
-    public static int ARM_OUTTAKE = 255;
+    public static int ARM_OUTTAKESUB = 255;
     public static int ARM_INTAKE = 1402;
 
     public static int STAGE_DF = 0;
-    public static int STAGE_OUTTAKE = 940;
-    public static int STAGE_OUTTAKE2 = 568;
+    public static int STAGE_OUTTAKESUB = 940;
+    public static int STAGE_OUTTAKE2SUB = 568;
     private ElapsedTime runtime = new ElapsedTime();
     GoBildaPinpointDriverRR odo;
     @Override
@@ -56,7 +51,7 @@ public class AutoL extends LinearOpMode {
         DcMotor arm = hardwareMap.get(DcMotor.class, "arm");
         arm.setDirection(DcMotor.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setTargetPosition(ARM_OUTTAKE);
+        arm.setTargetPosition(ARM_OUTTAKESUB);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(0.9);
 
@@ -97,9 +92,9 @@ public class AutoL extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-        gotostage(slide1,slide2,STAGE_OUTTAKE);
+        gotostage(slide1,slide2, STAGE_OUTTAKESUB);
         Actions.runBlocking(OutTake1.build());
-        gotostage2(slide1,slide2,STAGE_OUTTAKE2);
+        gotostage2(slide1,slide2, STAGE_OUTTAKE2SUB);
         intake1.setPower(-1);
         intake2.setPower(-1);
         double startTime = runtime.seconds();
