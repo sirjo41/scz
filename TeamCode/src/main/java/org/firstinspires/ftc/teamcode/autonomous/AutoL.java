@@ -38,7 +38,7 @@ public class AutoL extends LinearOpMode {
     @Override
     public void runOpMode() {
         odo = hardwareMap.get(GoBildaPinpointDriverRR.class, "pinpoint");
-        Pose2d initialPose = new Pose2d(-13, -61, Math.toRadians(90.0));
+        Pose2d initialPose = new Pose2d(-34, -61, Math.toRadians(90.0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
         DcMotor slide1 = hardwareMap.get(DcMotor.class, "slide1");
         DcMotor slide2 = hardwareMap.get(DcMotor.class, "slide2");
@@ -70,6 +70,8 @@ public class AutoL extends LinearOpMode {
 
         TrajectoryActionBuilder OutTake1 = drive.actionBuilder(initialPose)
                 .strafeToConstantHeading(new Vector2d(OutTakeSub.x, OutTakeSub.y));
+
+
 //        TrajectoryActionBuilder InTake1 = drive.actionBuilder(initialPose)
 //                .strafeToConstantHeading(new Vector2d(-48, -42));;
 //
